@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
+import DBMSSQL from "./config/database"
 
 import Router from "./routes";
 
@@ -21,5 +22,17 @@ app.use(
       },
     })
   );
-  
+
   app.use(Router);
+
+  DBMSSQL.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!")
+    })
+    .catch((err) => {
+        console.error("Error during Data Source initialization", err)
+    })
+
+app.listen(PORT, () => {
+  console.log("Server is running on port", PORT)
+})
