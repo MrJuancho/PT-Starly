@@ -1,0 +1,821 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"PingResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatContenidoMaterias": {
+				"properties": {
+					"idContenidoMateria": {
+						"type": "number",
+						"format": "double"
+					},
+					"bloque": {
+						"type": "number",
+						"format": "double"
+					},
+					"descripcion": {
+						"type": "string",
+						"nullable": true
+					},
+					"catActividadPpbs": {
+						"items": {
+							"$ref": "#/components/schemas/CatActividadPpb"
+						},
+						"type": "array"
+					},
+					"idMateria": {
+						"$ref": "#/components/schemas/CatMateria"
+					}
+				},
+				"required": [
+					"idContenidoMateria",
+					"bloque",
+					"descripcion",
+					"catActividadPpbs",
+					"idMateria"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatActividadPpb": {
+				"properties": {
+					"idActividadPpb": {
+						"type": "number",
+						"format": "double"
+					},
+					"indiceAtencion": {
+						"type": "number",
+						"format": "double"
+					},
+					"indiceMemoria": {
+						"type": "number",
+						"format": "double"
+					},
+					"indicePercepcion": {
+						"type": "number",
+						"format": "double"
+					},
+					"indiceDificultad": {
+						"type": "number",
+						"format": "double"
+					},
+					"idContenido": {
+						"$ref": "#/components/schemas/CatContenidoMaterias"
+					},
+					"idActividad": {
+						"$ref": "#/components/schemas/CatActividad"
+					}
+				},
+				"required": [
+					"idActividadPpb",
+					"indiceAtencion",
+					"indiceMemoria",
+					"indicePercepcion",
+					"indiceDificultad",
+					"idContenido",
+					"idActividad"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatActividad": {
+				"properties": {
+					"idActividad": {
+						"type": "number",
+						"format": "double"
+					},
+					"nombreActividad": {
+						"type": "string"
+					},
+					"descripcion": {
+						"type": "string",
+						"nullable": true
+					},
+					"catActividadPpbs": {
+						"items": {
+							"$ref": "#/components/schemas/CatActividadPpb"
+						},
+						"type": "array"
+					},
+					"catDatoCuriosos": {
+						"items": {
+							"$ref": "#/components/schemas/CatDatoCurioso"
+						},
+						"type": "array"
+					},
+					"tblResultadosActividads": {
+						"items": {
+							"$ref": "#/components/schemas/TblResultadosActividad"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idActividad",
+					"nombreActividad",
+					"catActividadPpbs",
+					"catDatoCuriosos",
+					"tblResultadosActividads"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatDatoCurioso": {
+				"properties": {
+					"idDatoCurioso": {
+						"type": "number",
+						"format": "double"
+					},
+					"descripcionDatos": {
+						"type": "string",
+						"nullable": true
+					},
+					"idActividad": {
+						"$ref": "#/components/schemas/CatActividad"
+					}
+				},
+				"required": [
+					"idDatoCurioso",
+					"descripcionDatos",
+					"idActividad"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TblAlumno": {
+				"properties": {
+					"idAlumno": {
+						"type": "number",
+						"format": "double"
+					},
+					"nombre": {
+						"type": "string"
+					},
+					"apellidoMaterno": {
+						"type": "string"
+					},
+					"apellidoPaterno": {
+						"type": "string"
+					},
+					"noLista": {
+						"type": "number",
+						"format": "double"
+					},
+					"fechaNacimiento": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"nombreUsuario": {
+						"type": "string",
+						"nullable": true
+					},
+					"claveAcceso": {
+						"type": "string",
+						"nullable": true
+					},
+					"balanceEstrellas": {
+						"type": "number",
+						"format": "double"
+					},
+					"balanceMonedas": {
+						"type": "number",
+						"format": "double"
+					},
+					"idAv": {
+						"$ref": "#/components/schemas/TblAsistenteVirtual"
+					},
+					"cct": {
+						"$ref": "#/components/schemas/CatEscuela"
+					},
+					"tblDesafioDiarioAlumnos": {
+						"items": {
+							"$ref": "#/components/schemas/TblDesafioDiarioAlumno"
+						},
+						"type": "array"
+					},
+					"tblResultadosActividads": {
+						"items": {
+							"$ref": "#/components/schemas/TblResultadosActividad"
+						},
+						"type": "array"
+					},
+					"tblTareasDiariasAlumnos": {
+						"items": {
+							"$ref": "#/components/schemas/TblTareasDiariasAlumno"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idAlumno",
+					"nombre",
+					"apellidoMaterno",
+					"apellidoPaterno",
+					"noLista",
+					"fechaNacimiento",
+					"nombreUsuario",
+					"claveAcceso",
+					"balanceEstrellas",
+					"balanceMonedas",
+					"idAv",
+					"cct",
+					"tblDesafioDiarioAlumnos",
+					"tblResultadosActividads",
+					"tblTareasDiariasAlumnos"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TblAsistenteVirtual": {
+				"properties": {
+					"idAv": {
+						"type": "number",
+						"format": "double"
+					},
+					"tblAlumnos": {
+						"items": {
+							"$ref": "#/components/schemas/TblAlumno"
+						},
+						"type": "array"
+					},
+					"idCara": {
+						"$ref": "#/components/schemas/TblDesbloqueosPropsAv"
+					},
+					"idColor": {
+						"$ref": "#/components/schemas/TblDesbloqueosPropsAv"
+					},
+					"idPatron": {
+						"$ref": "#/components/schemas/TblDesbloqueosPropsAv"
+					},
+					"idPrenda": {
+						"$ref": "#/components/schemas/TblDesbloqueosPropsAv"
+					},
+					"idSpecial": {
+						"$ref": "#/components/schemas/TblDesbloqueosPropsAv"
+					},
+					"tblDesbloqueosPropsAvs": {
+						"items": {
+							"$ref": "#/components/schemas/TblDesbloqueosPropsAv"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idAv",
+					"tblAlumnos",
+					"idCara",
+					"idColor",
+					"idPatron",
+					"idPrenda",
+					"idSpecial",
+					"tblDesbloqueosPropsAvs"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatPropPersonalizacion": {
+				"properties": {
+					"idPropPersonalizacion": {
+						"type": "number",
+						"format": "double"
+					},
+					"nomProp": {
+						"type": "string"
+					},
+					"descProp": {
+						"type": "string",
+						"nullable": true
+					},
+					"costo": {
+						"type": "number",
+						"format": "double"
+					},
+					"idTipoPersonalizacion": {
+						"$ref": "#/components/schemas/CatTipoPersonalizacion"
+					},
+					"idTipoDebloqueo": {
+						"$ref": "#/components/schemas/CatTipoDesbloqueo"
+					},
+					"tblDesbloqueosPropsAvs": {
+						"items": {
+							"$ref": "#/components/schemas/TblDesbloqueosPropsAv"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idPropPersonalizacion",
+					"nomProp",
+					"costo",
+					"idTipoPersonalizacion",
+					"idTipoDebloqueo",
+					"tblDesbloqueosPropsAvs"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatTipoPersonalizacion": {
+				"properties": {
+					"idTipoPersonalizacion": {
+						"type": "number",
+						"format": "double"
+					},
+					"descTipoPersonalizacion": {
+						"type": "string",
+						"nullable": true
+					},
+					"catPropPersonalizacions": {
+						"items": {
+							"$ref": "#/components/schemas/CatPropPersonalizacion"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idTipoPersonalizacion",
+					"descTipoPersonalizacion",
+					"catPropPersonalizacions"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatTipoDesbloqueo": {
+				"properties": {
+					"idTipoDesbloqueo": {
+						"type": "number",
+						"format": "double"
+					},
+					"descTipoDebloqueo": {
+						"type": "string",
+						"nullable": true
+					},
+					"catPropPersonalizacions": {
+						"items": {
+							"$ref": "#/components/schemas/CatPropPersonalizacion"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idTipoDesbloqueo",
+					"descTipoDebloqueo",
+					"catPropPersonalizacions"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TblDesbloqueosPropsAv": {
+				"properties": {
+					"idDesbloqueosAv": {
+						"type": "number",
+						"format": "double"
+					},
+					"fechaDesbloqueo": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"desbloqueado": {
+						"type": "boolean",
+						"nullable": true
+					},
+					"tblAsistenteVirtuals": {
+						"items": {
+							"$ref": "#/components/schemas/TblAsistenteVirtual"
+						},
+						"type": "array"
+					},
+					"tblAsistenteVirtuals2": {
+						"items": {
+							"$ref": "#/components/schemas/TblAsistenteVirtual"
+						},
+						"type": "array"
+					},
+					"tblAsistenteVirtuals3": {
+						"items": {
+							"$ref": "#/components/schemas/TblAsistenteVirtual"
+						},
+						"type": "array"
+					},
+					"tblAsistenteVirtuals4": {
+						"items": {
+							"$ref": "#/components/schemas/TblAsistenteVirtual"
+						},
+						"type": "array"
+					},
+					"tblAsistenteVirtuals5": {
+						"items": {
+							"$ref": "#/components/schemas/TblAsistenteVirtual"
+						},
+						"type": "array"
+					},
+					"idPropsPersonalizacion": {
+						"$ref": "#/components/schemas/CatPropPersonalizacion"
+					},
+					"idAv": {
+						"$ref": "#/components/schemas/TblAsistenteVirtual"
+					}
+				},
+				"required": [
+					"idDesbloqueosAv",
+					"fechaDesbloqueo",
+					"desbloqueado",
+					"tblAsistenteVirtuals",
+					"tblAsistenteVirtuals2",
+					"tblAsistenteVirtuals3",
+					"tblAsistenteVirtuals4",
+					"tblAsistenteVirtuals5",
+					"idPropsPersonalizacion",
+					"idAv"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatEscuela": {
+				"properties": {
+					"cct": {
+						"type": "string"
+					},
+					"nombre": {
+						"type": "string",
+						"nullable": true
+					},
+					"tblAlumnos": {
+						"items": {
+							"$ref": "#/components/schemas/TblAlumno"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"cct",
+					"nombre",
+					"tblAlumnos"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TblDesafioDiarioAlumno": {
+				"properties": {
+					"idDesafioAlumno": {
+						"type": "number",
+						"format": "double"
+					},
+					"completado": {
+						"type": "boolean",
+						"nullable": true
+					},
+					"idDesafioDiario": {
+						"$ref": "#/components/schemas/CatDesafioDiario"
+					},
+					"idAlumno": {
+						"$ref": "#/components/schemas/TblAlumno"
+					},
+					"tblRegistroDiarioActividades": {
+						"items": {
+							"$ref": "#/components/schemas/TblRegistroDiarioActividades"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idDesafioAlumno",
+					"idDesafioDiario",
+					"idAlumno",
+					"tblRegistroDiarioActividades"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatDesafioDiario": {
+				"properties": {
+					"idDesafio": {
+						"type": "number",
+						"format": "double"
+					},
+					"descripcionDesafio": {
+						"type": "string",
+						"nullable": true
+					},
+					"monedas": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"estrellas": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"tblDesafioDiarioAlumnos": {
+						"items": {
+							"$ref": "#/components/schemas/TblDesafioDiarioAlumno"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idDesafio",
+					"descripcionDesafio",
+					"monedas",
+					"estrellas",
+					"tblDesafioDiarioAlumnos"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TblRegistroDiarioActividades": {
+				"properties": {
+					"idRegistroActividades": {
+						"type": "number",
+						"format": "double"
+					},
+					"tareasCompletadas": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"fecha": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"idActividadesDiariasAlumno": {
+						"$ref": "#/components/schemas/TblTareasDiariasAlumno"
+					},
+					"idDesafioDiario": {
+						"$ref": "#/components/schemas/TblDesafioDiarioAlumno"
+					}
+				},
+				"required": [
+					"idRegistroActividades",
+					"tareasCompletadas",
+					"fecha",
+					"idActividadesDiariasAlumno",
+					"idDesafioDiario"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TblTareasDiariasAlumno": {
+				"properties": {
+					"idTareasAlumno": {
+						"type": "number",
+						"format": "double"
+					},
+					"tblRegistroDiarioActividades": {
+						"items": {
+							"$ref": "#/components/schemas/TblRegistroDiarioActividades"
+						},
+						"type": "array"
+					},
+					"idAlumno": {
+						"$ref": "#/components/schemas/TblAlumno"
+					},
+					"idTarea": {
+						"$ref": "#/components/schemas/CatTareaDiaria"
+					},
+					"idTarea2": {
+						"$ref": "#/components/schemas/CatTareaDiaria"
+					},
+					"idTarea3": {
+						"$ref": "#/components/schemas/CatTareaDiaria"
+					}
+				},
+				"required": [
+					"idTareasAlumno",
+					"tblRegistroDiarioActividades",
+					"idAlumno",
+					"idTarea",
+					"idTarea2",
+					"idTarea3"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatTareaDiaria": {
+				"properties": {
+					"idTareaDiaria": {
+						"type": "number",
+						"format": "double"
+					},
+					"descripcionTarea": {
+						"type": "string",
+						"nullable": true
+					},
+					"monedas": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"estrellas": {
+						"type": "number",
+						"format": "double",
+						"nullable": true
+					},
+					"tblTareasDiariasAlumnos": {
+						"items": {
+							"$ref": "#/components/schemas/TblTareasDiariasAlumno"
+						},
+						"type": "array"
+					},
+					"tblTareasDiariasAlumnos2": {
+						"items": {
+							"$ref": "#/components/schemas/TblTareasDiariasAlumno"
+						},
+						"type": "array"
+					},
+					"tblTareasDiariasAlumnos3": {
+						"items": {
+							"$ref": "#/components/schemas/TblTareasDiariasAlumno"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idTareaDiaria",
+					"descripcionTarea",
+					"monedas",
+					"estrellas",
+					"tblTareasDiariasAlumnos",
+					"tblTareasDiariasAlumnos2",
+					"tblTareasDiariasAlumnos3"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"TblResultadosActividad": {
+				"properties": {
+					"idActividadPpbAlumno": {
+						"type": "number",
+						"format": "double"
+					},
+					"tiempoResolucion": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"intentos": {
+						"type": "number",
+						"format": "double"
+					},
+					"asistencias": {
+						"type": "number",
+						"format": "double"
+					},
+					"idActividad": {
+						"$ref": "#/components/schemas/CatActividad"
+					},
+					"idAlumno": {
+						"$ref": "#/components/schemas/TblAlumno"
+					}
+				},
+				"required": [
+					"idActividadPpbAlumno",
+					"tiempoResolucion",
+					"intentos",
+					"asistencias",
+					"idActividad",
+					"idAlumno"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"CatMateria": {
+				"properties": {
+					"idMateria": {
+						"type": "number",
+						"format": "double"
+					},
+					"descripcionMateria": {
+						"type": "string"
+					},
+					"catContenidoMaterias": {
+						"items": {
+							"$ref": "#/components/schemas/CatContenidoMaterias"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"idMateria",
+					"descripcionMateria"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "api-rest",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/ping": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PingResponse"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/materias": {
+			"get": {
+				"operationId": "GetMaterias",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/CatMateria"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"CatMateria"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/materias/{name}": {
+			"get": {
+				"operationId": "GetMateria",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/CatMateria"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"CatMateria"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
