@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:asistente_virtual/src/models/user.dart';
-import 'package:asistente_virtual/src/provider/users_provider.dart';
+import 'package:asistente_virtual/src/pages/provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
-import 'package:asistente_virtual/src/models/response_api.dart';
 import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginController {
   //se agrega un ? indicando que puede ser nula la variable
@@ -13,31 +12,13 @@ class LoginController {
   TextEditingController usernameCtrller = new TextEditingController();
   TextEditingController passCtrller = new TextEditingController();
 
-  UsersProvider usersProvider = new UsersProvider();
+  TblAlumnoProvider usersProvider = new TblAlumnoProvider();
   UtilsSharedPref _sharedpref = new UtilsSharedPref();
 
   //constructort de clase - puede requerir await si se necesita esperar algo
   Future init(BuildContext context) async {
     this.context = context;
     await usersProvider.init(context);
-    //se lee si hay llave user, en await
-    //si no hay nada se manda nulo
-    User user = User.fromJson(await _sharedpref.read('user') ?? {});
-    print(user);
-
-    //Se agrega ? porque user puede ser nulo porque no hay información por parte del sahredpreference
-    //el ? evita un null.sessiontoken != null
-    /* if (user.sessionToken != null) {
-      //verificar si tiene más de un rol el usuario para enviarle a la pantalla roles
-      if (user.medidas.length > 0) {
-        Navigator.pushNamedAndRemoveUntil(
-            context, user.medidas[0].route, (route) => false);
-      } else {
-        //pushNamedAndRemoveUntil -> quita historial de todas las pantallas y es la principal
-        //se redirecciona a la ruta que tenga almacenada en la db si solo es una
-        //Navigator.pushNamedAndRemoveUntil(context, 'calculate', (route) => false);
-      }
-    } */
   }
 
   void login() async {
@@ -55,6 +36,16 @@ class LoginController {
       if (pw == claveAcceso && usuario == username) {
         UtilsSnackbar.show(context!, "Bienvenido $username");
       } else {
+        //Inicio de sesion fallido
+        Fluttertoast.showToast(
+            msg:
+                "Si olvidaste tu contraseña contacta a tu administrador",
+            backgroundColor: 
+              Colors.red,
+            textColor: 
+              Colors.white,
+            gravity: ToastGravity.TOP,
+        );
         UtilsSnackbar.show(context!, "Usuario y/o contraseña incorrecta");
       }
     } else {

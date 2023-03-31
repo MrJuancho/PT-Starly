@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
-import 'package:asistente_virtual/src/models/response_api.dart';
 import 'package:flutter/material.dart';
-import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:http/http.dart' as http;
 
-class UsersProvider {
+class PingProvider {
   //URL de la api
   final String _url = Enviroment.api;
 
@@ -16,10 +14,10 @@ class UsersProvider {
   }
 
   //respuesta de las solicitudes
-  Future<Map<String, dynamic>> login(String user) async {
+  Future<Map<String,dynamic>> ping() async {
   try {
     // URL para el get
-    Uri url = Uri.https(_url, '/alumno/$user');
+    Uri url = Uri.https(_url, '/ping');
 
     // Petición GET de login
     final res = await http.get(url);
@@ -31,7 +29,7 @@ class UsersProvider {
     print(data);
 
     // Convertir la respuesta JSON en un Map<String, dynamic>
-    return data as Map<String, dynamic>;
+    return data as Map<String,dynamic>;
   } catch (e) {
     print('Error: $e');
     return null!;

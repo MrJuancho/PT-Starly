@@ -1,4 +1,4 @@
-import 'package:asistente_virtual/src/login/login_controller.dart';
+import 'package:asistente_virtual/src/pages/controllers/login_controller.dart';
 import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
         //para indicar que el manejador del texto será el emailController
         controller: _loginController.usernameCtrller,
         //cambiar el tipo de teclado a correo
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.name,
         decoration: InputDecoration(
             hintText: 'Nombre de Usuario',
             //quitamos línea inferior
