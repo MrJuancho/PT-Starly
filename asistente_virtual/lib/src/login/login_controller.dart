@@ -23,6 +23,7 @@ class LoginController {
     //se lee si hay llave user, en await
     //si no hay nada se manda nulo
     User user = User.fromJson(await _sharedpref.read('user') ?? {});
+    print(user);
 
     //Se agrega ? porque user puede ser nulo porque no hay información por parte del sahredpreference
     //el ? evita un null.sessiontoken != null
