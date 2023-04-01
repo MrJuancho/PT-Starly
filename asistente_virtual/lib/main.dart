@@ -1,8 +1,8 @@
 import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:asistente_virtual/src/pages/screens/Login_screen.dart';
-//import 'package:asistente_virtual/src/pages/screens/PaginaInicio_screen.dart';
-import 'package:asistente_virtual/src/pages/screens/PruebasAPI_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Login_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/PaginaInicio_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/PruebasAPI_screen.dart';
 
 
 void main() {
@@ -29,8 +29,11 @@ class _MyAppState extends State<MyApp>{
       //rutas de la aplicacion
       routes: {
         //pagina de login
-        'pruebasapi':(BuildContext context) => const MyTextFieldAndButton(),
+        
         'login':(BuildContext context) => LoginPage(),
+        'home':(BuildContext context) => HomePage(),
+
+        'pruebasapi':(BuildContext context) => const MyTextFieldAndButton(),
       },
 
       theme: ThemeData(

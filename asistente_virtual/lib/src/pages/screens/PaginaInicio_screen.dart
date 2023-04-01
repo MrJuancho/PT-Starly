@@ -1,71 +1,46 @@
+import 'package:asistente_virtual/src/pages/Controllers/Home_controller.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:asistente_virtual/src/pages/provider/ping_provider.dart';
-import 'package:asistente_virtual/src/api/enviroment.dart';
 import 'package:asistente_virtual/src/utils/utils_colors.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
 
-class MyTextFieldAndButton extends StatefulWidget {
-  const MyTextFieldAndButton({Key? key}) : super(key: key);
-
+class HomePage extends StatefulWidget {
   @override
-  _MyTextFieldAndButtonState createState() => _MyTextFieldAndButtonState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
-  TextEditingController _textEditingController = TextEditingController();
-  PingProvider personalizacion = new PingProvider();
+class _HomePageState extends State<HomePage> {
+  //Controler
+  HomeController _homeController = new HomeController();
 
   @override
-  void dispose() {
-    _textEditingController.dispose();
-    super.dispose();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    //método para iniciar controlador
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      _homeController.init(context, refresh);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Prueba de APIS'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _textosybotones()
-          ],
-        ),
+      body: Column(
+        children: [
+          _menuSuperior()
+        ],
       ),
     );
   }
 
-  Widget _textosybotones() {
-    return Column(
-      children: [
-        /* TextField(
-          controller: _textEditingController,
-          decoration: InputDecoration(
-            hintText: 'String',
-          ),
-        ),
-        const SizedBox(height: 16),
-        ElevatedButton(
-          onPressed: () {
-            final enteredText = _textEditingController.text;
-            print('Entered text: $enteredText');
-            var data = personalizacion.oneActividadPPB(int.parse(enteredText));
-            print(data);
-          },
-          child: const Text('Probar'),
-        ), */
+  Widget _menuSuperior() {
+    return MenuSuperior();
+  }
 
-        ElevatedButton(
-          onPressed: () {
-            var data = personalizacion.ping();
-            print(data);
-          },
-          child: const Text('Probar'),
-        ),
-      ],
-    );
+  void refresh() {
+    setState(() {});
   }
 }
