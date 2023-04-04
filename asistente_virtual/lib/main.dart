@@ -32,7 +32,9 @@ class _MyAppState extends State<MyApp>{
         
         'login':(BuildContext context) => LoginPage(),
         'home':(BuildContext context) => HomePage(),
-
+        //'actividades':(BuildContext context) => Actividades(),
+        //'registroDiario':(BuildContext context) => RegistroDiario(),
+        //'personalizacion':(BuildContext context) => Personalizacion(),
         'pruebasapi':(BuildContext context) => const MyTextFieldAndButton(),
       },
 
@@ -46,7 +48,7 @@ class _MyAppState extends State<MyApp>{
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        colorScheme: ColorScheme.dark(primary: UtilsColors.primaryColor),
+        colorScheme: ColorScheme.dark(primary: UtilsColors.primaryBackgroundColor),
       ),
     );
   }

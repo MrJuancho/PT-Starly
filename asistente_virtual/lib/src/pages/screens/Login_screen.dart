@@ -27,42 +27,45 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-      width: double.infinity,
-      child: Stack(
-        children: [
-          //permite ubicar elemento donde se desee
-          //negativo para que desaparezca
-          Positioned(
-              top: -90,
-              //left: -100,
-              //Método para recuperar imagen circular
-              child: _circleLogin()),
-          Positioned(
-            child: _txtLogin(),
-            top: 60,
-            left: 25,
-          ),
-          //Para hacer scroll en la pantalla
-          Center(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //Método para recuperar email
-                    _txtFUsername(),
-                    //Método para recuperar pw
-                    _txtFPW(),
-                    //Método para recuperar botón login
-                    _btnLogin(),
-                  ],
+        width: double.infinity,
+        child: Stack(
+          children: [
+            //permite ubicar elemento donde se desee
+            //negativo para que desaparezca
+            Positioned(
+                top: -90,
+                //left: -100,
+                //Método para recuperar imagen circular
+                child: _circleLogin()
+            ),
+            Positioned(
+              child: _txtLogin(),
+              top: 60,
+              left: 25,
+            ),
+            //Para hacer scroll en la pantalla
+            Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //Método para recuperar email
+                      _txtFUsername(),
+                      //Método para recuperar pw
+                      _txtFPW(),
+                      //Método para recuperar botón login
+                      _btnLogin(),
+                    ],
+                  ),
                 ),
               ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+      resizeToAvoidBottomInset: false,
+    );
   }
 
   

@@ -41,7 +41,12 @@ class LoginController {
         //salvar la sesion del usuario y quien es el que esta logueado
         _sharedpref.save('Alumno', json.encode(data));
         Navigator.pushNamedAndRemoveUntil(context!, 'home', (route) => false);
-        UtilsSnackbar.show(context!, "Bienvenido $username");
+        Fluttertoast.showToast(
+          msg: "Bienvenido $usuario",
+          backgroundColor: Colors.deepPurple,
+          textColor: Colors.white,
+          gravity: ToastGravity.TOP,
+        );
       } else {
         //Inicio de sesion fallido
         Fluttertoast.showToast(

@@ -4,7 +4,7 @@ import 'package:asistente_virtual/src/api/enviroment.dart';
 import 'package:asistente_virtual/src/utils/utils_colors.dart';
 
 //Paquete de la api a probar
-import 'package:asistente_virtual/src/pages/provider/ping_provider.dart';
+import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 
 class MyTextFieldAndButton extends StatefulWidget {
   const MyTextFieldAndButton() : super();
@@ -15,11 +15,17 @@ class MyTextFieldAndButton extends StatefulWidget {
 
 class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
   TextEditingController _textEditingController = TextEditingController();
-  PingProvider personalizacion = new PingProvider();
+  TextEditingController _textEditingController1 = TextEditingController();
+  TextEditingController _textEditingController2 = TextEditingController();
+  TextEditingController _textEditingController3 = TextEditingController();
+  TblAlumnoProvider personalizacion = TblAlumnoProvider();
 
   @override
   void dispose() {
     _textEditingController.dispose();
+    _textEditingController1.dispose();
+    _textEditingController2.dispose();
+    _textEditingController3.dispose();
     super.dispose();
   }
 
@@ -32,9 +38,7 @@ class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          children: [
-            _textosybotones()
-          ],
+          children: [_textosybotones()],
         ),
       ),
     );
@@ -61,10 +65,47 @@ class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
           child: const Text('Probar'),
         ), */
 
-        ElevatedButton(
+        /* ElevatedButton(
           onPressed: () {
             var data = personalizacion.ping();
             print(data);
+          },
+          child: const Text('Probar'),
+        ), */
+        TextField(
+          controller: _textEditingController1,
+          decoration: InputDecoration(
+            hintText: 'user',
+          ),
+        ),
+        TextField(
+          controller: _textEditingController2,
+          decoration: InputDecoration(
+            hintText: 'monedas',
+          ),
+        ),
+        TextField(
+          controller: _textEditingController3,
+          decoration: InputDecoration(
+            hintText: 'estrellas',
+          ),
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: () {
+            var enteredText1 = _textEditingController1.text;
+            var enteredText2 = _textEditingController2.text;
+            var enteredText3 = _textEditingController3.text;
+            if (enteredText2.isEmpty) {
+              print("moneda null");
+              enteredText2 = "0";
+            } else if (enteredText3.isEmpty) {
+              print("estrellas null");
+              enteredText3 = "0";
+            }
+            print('Entered text: $enteredText1 $enteredText2 $enteredText3');
+            personalizacion.putMonedasEstrellas(
+                enteredText1, int.parse(enteredText2), int.parse(enteredText3));
           },
           child: const Text('Probar'),
         ),
