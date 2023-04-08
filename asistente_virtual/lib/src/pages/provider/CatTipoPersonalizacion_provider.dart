@@ -14,48 +14,49 @@ class CatTipoPersonalizacionProvider {
   }
 
   //respuesta de la solicitud materia especifica
-  Future<Map<String, dynamic>> oneTipoPersonalizacion(String name) async {
-  try {
-    // URL para el get
-    Uri url = Uri.https(_url, '/tipospersonalizacion/$name');
+  Future<String> oneTipoPersonalizacion(String name) async {
+    try {
+      // URL para el get
+      Uri url = Uri.https(_url, '/tipospersonalizacion/$name');
 
-    // Petición GET de login
-    final res = await http.get(url);
+      // Petición GET de login
+      final res = await http.get(url);
 
-    // Obtener la respuesta como JSON
-    final data = json.decode(res.body);
+      // Obtener la respuesta como JSON
+      final data = json.decode(res.body);
 
-    // Imprimir la respuesta en la consola
-    print(data);
+      final personalizacion = data['descTipoPersonalizacion'];
+      // Imprimir la respuesta en la consola
+      print(personalizacion);
 
-    // Convertir la respuesta JSON en un Map<String, dynamic>
-    return data as Map<String, dynamic>;
-  } catch (e) {
-    print('Error: $e');
-    return null!;
+      // Convertir la respuesta JSON en un string de lo que utilizaremos
+      return personalizacion;
+    } catch (e) {
+      print('Error: $e');
+      return null!;
     }
   }
 
   //respuesta de la solicitud todas las materias
   Future<List<dynamic>> allTiposPersonalizacion() async {
-  try {
-    // URL para el get
-    Uri url = Uri.https(_url, '/tipospersonalizacion');
+    try {
+      // URL para el get
+      Uri url = Uri.https(_url, '/tipospersonalizacion');
 
-    // Petición GET de login
-    final res = await http.get(url);
+      // Petición GET de login
+      final res = await http.get(url);
 
-    // Obtener la respuesta como JSON
-    final data = json.decode(res.body);
+      // Obtener la respuesta como JSON
+      final data = json.decode(res.body);
 
-    // Imprimir la respuesta en la consola
-    print(data);
+      // Imprimir la respuesta en la consola
+      print(data);
 
-    // Convertir la respuesta JSON en un Map<String, dynamic>
-    return data as List<dynamic>;
-  } catch (e) {
-    print('Error: $e');
-    return null!;
+      // Convertir la respuesta JSON en un Map<String, dynamic>
+      return data as List<dynamic>;
+    } catch (e) {
+      print('Error: $e');
+      return null!;
     }
   }
 }

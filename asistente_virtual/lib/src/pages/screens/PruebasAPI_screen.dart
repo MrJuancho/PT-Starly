@@ -6,6 +6,8 @@ import 'package:asistente_virtual/src/utils/utils_colors.dart';
 //Paquete de la api a probar
 import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 
+import '../Provider/CatPropPersonalizacion_provider.dart';
+
 class MyTextFieldAndButton extends StatefulWidget {
   const MyTextFieldAndButton() : super();
 
@@ -19,6 +21,8 @@ class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
   TextEditingController _textEditingController2 = TextEditingController();
   TextEditingController _textEditingController3 = TextEditingController();
   TblAlumnoProvider personalizacion = TblAlumnoProvider();
+  final CatPropPersonalizacionProvider _catPropPersonalizacionProvider =
+      CatPropPersonalizacionProvider();
 
   @override
   void dispose() {
@@ -48,22 +52,24 @@ class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
     return Column(
       children: [
         //campo de texto para meter a la api
-        /* TextField(
+        TextField(
           controller: _textEditingController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'String',
           ),
         ),
         const SizedBox(height: 16),
         ElevatedButton(
-          onPressed: () {
-            final enteredText = _textEditingController.text;
-            print('Entered text: $enteredText');
-            var data = personalizacion.oneActividadPPB(int.parse(enteredText));
-            print(data);
+          onPressed: () async {
+            final texto = _textEditingController.text;
+            final jsondata =
+                await _catPropPersonalizacionProvider.oneProp(int.parse(texto));
+            //final frase = jsonDecode(jsondata);
+            final frasedato = jsondata['descProp'];
+            showModal(context, frasedato);
           },
-          child: const Text('Probar'),
-        ), */
+          child: const Text("Submit"),
+        ),
 
         /* ElevatedButton(
           onPressed: () {
@@ -72,7 +78,7 @@ class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
           },
           child: const Text('Probar'),
         ), */
-        TextField(
+        /* TextField(
           controller: _textEditingController1,
           decoration: InputDecoration(
             hintText: 'user',
@@ -108,8 +114,24 @@ class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
                 enteredText1, int.parse(enteredText2), int.parse(enteredText3));
           },
           child: const Text('Probar'),
-        ),
+        ), */
       ],
+    );
+  }
+
+  void showModal(BuildContext context, String frase) {
+    showDialog(
+      context: context,
+      builder: (BuildContext) => AlertDialog(
+        content: Text("Sabias que?\n$frase"),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Bye'))
+        ],
+      ),
     );
   }
 }

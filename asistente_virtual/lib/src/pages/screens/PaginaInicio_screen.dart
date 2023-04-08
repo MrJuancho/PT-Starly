@@ -1,4 +1,5 @@
 import 'package:asistente_virtual/src/pages/Controllers/Home_controller.dart';
+import 'package:asistente_virtual/src/pages/Provider/CatPropPersonalizacion_provider.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonesFlotantes_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:asistente_virtual/src/utils/utils_colors.dart';
@@ -14,6 +15,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Controler
   final HomeController _homeController = HomeController();
+  final CatPropPersonalizacionProvider _catPropPersonalizacionProvider =
+      CatPropPersonalizacionProvider();
+  bool _isPress = false;
 
   @override
   void initState() {
@@ -29,18 +33,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: MenuSuperior(),
-      body: Column(
-        children: [
-          IconButton(
-              onPressed: () async {
-                final  frase = await _homeController.fraseRandom();
-                showModal(context, frase);
-              },
-              icon: const Icon(Icons.accessibility_new_rounded))
-        ],
-      ),
+      body: _asistente(context),
       bottomNavigationBar: MenuInferior(),
       floatingActionButton: BotonesFlotantes(),
     );
@@ -50,17 +46,79 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  void showModal(BuildContext context, String frase) {
-    showDialog(
-      context: context,
-      builder: (BuildContext) => AlertDialog(
-        content: Text("Sabias que?\n$frase"),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Bye'))
+  Widget _asistente(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
+    Size s = MediaQuery.of(context).size;
+    double wpart = w / 1.5;
+    double hpart = h / 1.5;
+
+    return GestureDetector(
+      onTap: () async {
+        setState(() {
+          _isPress = true;
+        });
+        await Future.delayed(const Duration(seconds: 6));
+        setState(() {
+          _isPress = false;
+        });
+      },
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: w - wpart, top: hpart / 13),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 600),
+              width: _isPress ? wpart : 0,
+              height: _isPress ? hpart / 2 : 0,
+              child: Stack(
+                children: [
+                  Image.asset(
+                    'lib/src/assets/images/Nube.png',
+                    fit: BoxFit.cover,
+                  ),
+                  Opacity(
+                    opacity: _isPress ? 1 : 0,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: FutureBuilder<String>(
+                        future: _homeController.fraseRandom(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              "\n¿Sabias que?\n${snapshot.data}",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                              textAlign: TextAlign.justify,
+                            );
+                          } else {
+                            return Text('Cargando frase...');
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              (w - wpart) / 2,
+              (h - hpart) / 2,
+              0,
+              0,
+            ),
+            child: Image.asset(
+              'lib/src/assets/images/download.jpg',
+              width: wpart,
+              height: hpart,
+            ),
+          ),
         ],
       ),
     );

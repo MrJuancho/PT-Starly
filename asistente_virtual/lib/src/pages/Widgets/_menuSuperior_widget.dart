@@ -65,11 +65,36 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
         IconButton(
             tooltip: 'Cerrar Sesión',
             onPressed: () {
-              _sharedPref.logout(context);
+              showModal(context);
             },
             icon: const Icon(Icons.exit_to_app_rounded)),
       ],
       backgroundColor: UtilsColors.primaryColor,
+    );
+  }
+
+  void showModal(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Cerrar Sesión'),
+        content: const Text("Esta seguro de que desea cerrar sesión?"),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancelar')),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _sharedPref.logout(context);
+            },
+            child: const Text('Cerrar Sesión'),
+          ),
+        ],
+      ),
     );
   }
 

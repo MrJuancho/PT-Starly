@@ -20,11 +20,12 @@ class UtilsSharedPref {
   Future<dynamic> readtodato(String key, String dato) async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString(key) == null) {
+      // ignore: null_check_always_fails
       return null!;
     } else {
-      final decodificacionJSON_API = json.decode(prefs.getString(key)!);
-      final conversion_JSON = json.decode(decodificacionJSON_API) as Map<String, dynamic>;
-      final informacion = conversion_JSON[dato];
+      final decodificacionJSONAPI = json.decode(prefs.getString(key)!);
+      final conversionJSON = json.decode(decodificacionJSONAPI) as Map<String, dynamic>;
+      final informacion = conversionJSON[dato];
       return informacion;
     }
   }
@@ -45,6 +46,7 @@ class UtilsSharedPref {
     //borramos el key user para cerrar sesión
     await remove('Alumno');
     //eliminar historial de pantallas
+    // ignore: use_build_context_synchronously
     Navigator.pushNamedAndRemoveUntil(context, 'login', (route) => false);
   }
 }

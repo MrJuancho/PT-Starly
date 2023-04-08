@@ -31,6 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,6 +40,7 @@ dependencies:
   shared_preferences: ^2.0.20
   http: ^0.13.5
   fluttertoast: ^8.2.1
+  
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,13 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets: 
+  - lib/src/assets/images/
+  fonts:
+    - family: Comfortaa
+      fonts:
+        - asset: lib/src/assets/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf
+  
 
   # To add assets to your application, add an assets section, like this:
   # assets:

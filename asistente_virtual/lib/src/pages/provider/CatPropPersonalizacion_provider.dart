@@ -14,10 +14,10 @@ class CatPropPersonalizacionProvider {
   }
 
   //respuesta de las solicitudes
-  Future<Map<String, dynamic>> oneProp(String user) async {
+  Future<Map<String, dynamic>> oneProp(int idProps) async {
   try {
     // URL para el get
-    Uri url = Uri.https(_url, '/props/$user');
+    Uri url = Uri.https(_url, '/props/$idProps');
 
     // Petición GET de login
     final res = await http.get(url);

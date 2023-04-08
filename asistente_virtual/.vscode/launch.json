@@ -5,21 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "asistente_virtual",
+            "name": "Dispositivo1",
+            "type": "dart",
             "request": "launch",
-            "type": "dart"
+            "deviceId": "emulator-5554"
         },
         {
-            "name": "asistente_virtual (profile mode)",
-            "request": "launch",
+            "name": "Dispositivo2",
             "type": "dart",
-            "flutterMode": "profile"
+            "request": "launch",
+            "deviceId": "emulator-5556"
         },
-        {
-            "name": "asistente_virtual (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
+        
+        
     ]
 }
