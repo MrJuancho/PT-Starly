@@ -1,3 +1,6 @@
+import 'package:asistente_virtual/src/pages/Screens/Actividades_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Personalizacion_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/TareasDiarias_screen.dart';
 import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:asistente_virtual/src/pages/Screens/Login_screen.dart';
@@ -13,8 +16,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp>{
-
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -23,24 +25,24 @@ class _MyAppState extends State<MyApp>{
       title: 'Asistente Virtual',
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
-      //Ruta inicial de la aplicación 
-      initialRoute: 'home',
+      //Ruta inicial de la aplicación
+      initialRoute: 'login',
       //rutas de la aplicacion
       routes: {
-        //pagina de login
-        
-        'login':(BuildContext context) => LoginPage(),
-        'home':(BuildContext context) => HomePage(),
-        //'actividades':(BuildContext context) => Actividades(),
+        'login': (BuildContext context) => LoginPage(),
+        'home': (BuildContext context) => HomePage(),
+        'personalizacion': (BuildContext context) => PersonalizacionPage(),
+        'actividades':(BuildContext context) => ActividadesPage(),
+        'tareasdiarias':(BuildContext context) => TareasDiariasPage(),
         //'registroDiario':(BuildContext context) => RegistroDiario(),
-        //'personalizacion':(BuildContext context) => Personalizacion(),
-        'pruebasapi':(BuildContext context) => const MyTextFieldAndButton(),
+        
+        'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),
       },
 
       theme: ThemeData(
-        colorScheme: ColorScheme.dark(primary: UtilsColors.primaryBackgroundColor),
+        colorScheme:
+            ColorScheme.dark(primary: UtilsColors.primaryBackgroundColor),
       ),
     );
   }
 }
-

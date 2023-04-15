@@ -1,8 +1,6 @@
 import 'package:asistente_virtual/src/pages/Controllers/Home_controller.dart';
-import 'package:asistente_virtual/src/pages/Provider/CatPropPersonalizacion_provider.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonesFlotantes_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
@@ -15,8 +13,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Controler
   final HomeController _homeController = HomeController();
-  final CatPropPersonalizacionProvider _catPropPersonalizacionProvider =
-      CatPropPersonalizacionProvider();
   bool _isPress = false;
 
   @override
@@ -32,11 +28,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: MenuSuperior(),
-      body: _asistente(context),
+      body: _asistente(),
       bottomNavigationBar: MenuInferior(),
       floatingActionButton: BotonesFlotantes(),
     );
@@ -46,10 +40,9 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  Widget _asistente(BuildContext context) {
+  Widget _asistente() {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    Size s = MediaQuery.of(context).size;
     double wpart = w / 1.5;
     double hpart = h / 1.5;
 
@@ -80,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                   Opacity(
                     opacity: _isPress ? 1 : 0,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       child: FutureBuilder<String>(
                         future: _homeController.fraseRandom(),
                         builder: (BuildContext context,

@@ -17,8 +17,6 @@ class HomeController {
   final CatDatoCuriosoProvider _catDatoCuriosoProvider =
       CatDatoCuriosoProvider();
 
-  
-
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
@@ -32,10 +30,4 @@ class HomeController {
     final fraseString = frase.toString();
     return fraseString;
   }
-
-  /* Future<Map<String, dynamic>> props(String nombre) async {
-    final personalizacion =
-        await _catPropPersonalizacionProvider.oneProp(nombre);
-    return personalizacion;
-  } */
 }

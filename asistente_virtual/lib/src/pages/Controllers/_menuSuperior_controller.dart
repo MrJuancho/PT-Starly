@@ -28,6 +28,6 @@ class MenuSuperiorController {
 
   void tareasDiarias(BuildContext context) async {
     //pasar a otra pantalla sin eliminar historial de pantallas
-    Navigator.pushNamed(context, 'login');
+    Navigator.pushNamed(context, 'tareasdiarias');
   }
 }

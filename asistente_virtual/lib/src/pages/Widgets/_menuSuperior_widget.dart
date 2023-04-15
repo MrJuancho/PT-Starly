@@ -14,6 +14,8 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarHeight: 60,
+      
       centerTitle: false,
       titleSpacing: 0,
       //backgroundColor: UtilsColors.primaryColor,
@@ -21,7 +23,10 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
         transform: Matrix4.translationValues(0, 0, 0),
         child: TextButton.icon(
           onPressed: () {
-            _menuSuperiorController.tareasDiarias(context);
+            if(ModalRoute.of(context)?.settings.name !='tareasdiarias'){
+              _menuSuperiorController.tareasDiarias(context);
+            }
+            
           },
           icon: const Icon(Icons.checklist_rounded),
           //SizedBox(width: 10),
