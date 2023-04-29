@@ -26,16 +26,16 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'login',
+      initialRoute: 'tareasdiarias',
       //rutas de la aplicacion
       routes: {
         'login': (BuildContext context) => LoginPage(),
         'home': (BuildContext context) => HomePage(),
         'personalizacion': (BuildContext context) => PersonalizacionPage(),
-        'actividades':(BuildContext context) => ActividadesPage(),
-        'tareasdiarias':(BuildContext context) => TareasDiariasPage(),
+        'actividades': (BuildContext context) => ActividadesPage(),
+        'tareasdiarias': (BuildContext context) => TareasDiariasPage(),
         //'registroDiario':(BuildContext context) => RegistroDiario(),
-        
+
         'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),
       },
 

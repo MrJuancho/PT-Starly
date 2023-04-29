@@ -30,7 +30,9 @@ class BotonesFlotantes extends StatelessWidget implements PreferredSizeWidget {
               backgroundColor: UtilsColors.primaryBackgroundColor,
               foregroundColor: UtilsColors.primaryColorDark,
               onPressed: () {
-                _botonesFlotantesController.actividades(context);
+                if(ModalRoute.of(context)?.settings.name !='actividades'){
+                  _botonesFlotantesController.actividades(context);
+                }
               },
               heroTag: null,
               child: const Icon(Icons.star))

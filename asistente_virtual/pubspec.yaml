@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.5 <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -69,6 +69,9 @@ flutter:
     - family: Comfortaa
       fonts:
         - asset: lib/src/assets/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf
+    - family: Monserrat
+      fonts:
+        - asset: lib/src/assets/fonts/Monserrat/Montserrat-VariableFont_wght.ttf
   
 
   # To add assets to your application, add an assets section, like this:

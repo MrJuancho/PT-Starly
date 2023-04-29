@@ -26,7 +26,10 @@ class MenuInferior extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
               onPressed: () {
-                _menuInferiorController.actividades(context);
+                if(ModalRoute.of(context)?.settings.name !='actividades'){
+                  _menuInferiorController.actividades(context);
+                }
+                
               },
             ),
             //Spacer(),
@@ -40,7 +43,10 @@ class MenuInferior extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
               onPressed: () {
-                _menuInferiorController.registroDiario(context);
+                if(ModalRoute.of(context)?.settings.name !='registroDiario'){
+                  _menuInferiorController.registroDiario(context);
+                }
+                
               },
             ),
           ],
