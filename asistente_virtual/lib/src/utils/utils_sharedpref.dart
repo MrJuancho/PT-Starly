@@ -23,7 +23,8 @@ class UtilsSharedPref {
       // ignore: null_check_always_fails
       return null!;
     } else {
-      final decodificacionJSONAPI = json.decode(prefs.getString(key)!);
+      final jsonString = prefs.getString(key);
+      final decodificacionJSONAPI = json.decode(jsonString!);
       final conversionJSON = json.decode(decodificacionJSONAPI) as Map<String, dynamic>;
       final informacion = conversionJSON[dato];
       return informacion;
@@ -34,6 +35,29 @@ class UtilsSharedPref {
   Future<bool> contains(String key) async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(key);
+  }
+
+  Future<bool> existField(String key, String campo) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString(key) == null) {
+      return false;
+    } else {
+      final decodificacionJSONAPI = json.decode(prefs.getString(key)!);
+      final conversionJSON = json.decode(decodificacionJSONAPI) as Map<String, dynamic>;
+      return conversionJSON.containsKey(campo);
+    }
+  }
+
+  Future<void> printAllSharedPreferences(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonData = prefs.getString(key);
+
+    if (jsonData != null) {
+      final data = json.decode(jsonData);
+      print(data);
+    } else {
+      print('La clave $key no existe en SharedPreferences.');
+    }
   }
 
   //método para eliminar datos de shared preferences

@@ -8,7 +8,8 @@ import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 class TareasDiariasController {
   BuildContext? context;
   CatTareaDiariaProvider tareadiariaProvider = CatTareaDiariaProvider();
-  CatDesafioDiarioProvider _catDesafioDiarioProvider = CatDesafioDiarioProvider();
+  CatDesafioDiarioProvider _catDesafioDiarioProvider =
+      CatDesafioDiarioProvider();
   final UtilsSharedPref _sharedPref = UtilsSharedPref();
 
   //constructort de clase - puede requerir await si se necesita esperar algo
@@ -20,22 +21,29 @@ class TareasDiariasController {
   void desafioRandom() async {
     final numero = Random().nextInt(2) + 1;
     final desafio = await _catDesafioDiarioProvider.oneDesafioDiario(numero);
-    _sharedPref.save('DesafioDiario', desafio);
+    print(desafio);
+    _sharedPref.save('DesafioDiario', json.encode(desafio));
   }
 
-  Future<String> estrellasDD(int idTareaDiaria) async {
-    final estrellas = await _catDesafioDiarioProvider.oneDesafioDiario(idTareaDiaria);
-    final estrellasString = estrellas["estrellas"].toString();
-    return estrellasString;
+  Future<String> estrellasDD() async {
+    final estrellas =
+        await _sharedPref.readtodato('DesafioDiario', 'estrellas');
+    return estrellas.toString();
   }
 
-  Future<String> monedasDD(int idTareaDiaria) async {
-    final monedas = await _catDesafioDiarioProvider.oneDesafioDiario(idTareaDiaria);
-    final monedasString = monedas["monedas"].toString();
-    return monedasString;
+  Future<String> monedasDD() async {
+    final monedas =
+        await _sharedPref.readtodato('DesafioDiario', 'monedas');
+    return monedas.toString();
   }
 
-  Future<String> tarea(int idTareaDiaria) async{
+  Future<String> tareaDD() async {
+    final tareaDD =
+        await _sharedPref.readtodato('DesafioDiario', 'descripcionDesafio');
+    return tareaDD;
+  }
+
+  Future<String> tarea(int idTareaDiaria) async {
     final tarea = await tareadiariaProvider.oneTareaDiaria(idTareaDiaria);
     final tareaString = tarea["descripcionTarea"].toString();
     return tareaString;

@@ -25,8 +25,12 @@ class CatDesafioDiarioProvider {
     // Obtener la respuesta como JSON
     final data = json.decode(res.body);
 
+    DateTime fecha = DateTime.now();
+    data['Expiracion'] = DateTime(fecha.year,fecha.month,fecha.day,23,59,59).toString();
     // Imprimir la respuesta en la consola
+    print('1');
     print(data);
+    print('2');
 
     // Convertir la respuesta JSON en un Map<String, dynamic>
     return data as Map<String, dynamic>;

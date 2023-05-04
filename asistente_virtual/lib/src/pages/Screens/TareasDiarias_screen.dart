@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:asistente_virtual/src/pages/Controllers/TareasDiarias_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -14,7 +11,8 @@ class TareasDiariasPage extends StatefulWidget {
 
 class _TareasDiariasPageState extends State<TareasDiariasPage> {
   //Controllers
-  TareasDiariasController _tareasDiariasController = TareasDiariasController();
+  final TareasDiariasController _tareasDiariasController = TareasDiariasController();
+
   // Lista de variables booleanas para controlar la selección de botones
   final List<bool> _selections = <bool>[true, false];
   bool vertical = false;
@@ -25,7 +23,8 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
     super.initState();
 
     //método para iniciar controlador
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {});
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    });
   }
 
   @override
@@ -380,7 +379,23 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [const Text("Hola"), const Icon(Icons.abc)],
+                      children: [
+                        FutureBuilder(
+                          future: _tareasDiariasController.tareaDD(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              return Row(
+                                children: [
+                                  Text(snapshot.data),
+                                ],
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          },
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: hcentecima,
@@ -398,6 +413,45 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
                                 300], // Cambia el color de fondo dependiendo de la condición
                       ),
                     ),
+                    Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              FutureBuilder(
+                future: _tareasDiariasController.estrellasDD(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return Row(
+                      children: [
+                        const Icon(Icons.star_rounded),
+                        const SizedBox(width: 1),
+                        Text(snapshot.data),
+                        const SizedBox(width: 10),
+                      ],
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
+              FutureBuilder(
+                future: _tareasDiariasController.monedasDD(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return Row(
+                      children: [
+                        const Icon(Icons.attach_money_rounded),
+                        const SizedBox(width: 1),
+                        Text(snapshot.data),
+                        const SizedBox(width: 10),
+                      ],
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
+            ],
+          ),
                   ],
                 ),
 
