@@ -66,7 +66,7 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
           margin: EdgeInsets.only(top: hcentecima),
           child: Center(
             child: Image.asset(
-              'lib/src/assets/images/AV.png',
+              'assets/images/AV.png',
               width: wimage,
             ),
           ),

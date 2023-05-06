@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 children: [
                   Image.asset(
-                    'lib/src/assets/images/Nube.png',
+                    'assets/images/Nube.png',
                     fit: BoxFit.cover,
                   ),
                   Opacity(
@@ -107,7 +107,7 @@ class _HomePageState extends State<HomePage> {
               0,
             ),
             child: Image.asset(
-              'lib/src/assets/images/download.jpg',
+              'assets/images/download.jpg',
               width: wpart,
               height: hpart,
             ),

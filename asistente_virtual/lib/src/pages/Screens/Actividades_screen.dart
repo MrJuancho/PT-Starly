@@ -70,7 +70,7 @@ class _ActividadesPageState extends State<ActividadesPage> {
                           color: Colors.grey[300],
                           child: Center(
                             child: Image.asset(
-                                'lib/src/assets/images/download.jpg',
+                                'assets/images/download.jpg',
                                 width: w / 2.1,
                                 fit: BoxFit.fill),
                           ),
