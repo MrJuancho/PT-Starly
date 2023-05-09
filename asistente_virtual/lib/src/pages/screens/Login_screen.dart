@@ -1,7 +1,7 @@
 import 'package:asistente_virtual/src/pages/controllers/login_controller.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import '../flutter_flow/Theme_Personal.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,61 +26,65 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        child: Stack(
-          children: [
-            //permite ubicar elemento donde se desee
-            //negativo para que desaparezca
-            Positioned(
-                top: -90,
-                //left: -100,
-                //Método para recuperar imagen circular
-                child: _circleLogin()
+      body: Stack(
+        children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 1.0,
+          height: MediaQuery.of(context).size.height * 1,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                PersonalTheme.of(context).primary,
+                PersonalTheme.of(context).tertiary
+              ],
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
             ),
-            Positioned(
-              child: _txtLogin(),
-              top: 60,
-              left: 25,
-            ),
-            //Para hacer scroll en la pantalla
-            Center(
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //Método para recuperar email
-                      _txtFUsername(),
-                      //Método para recuperar pw
-                      _txtFPW(),
-                      //Método para recuperar botón login
-                      _btnLogin(),
-                    ],
-                  ),
-                ),
-              ),
-          ],
+          ),
         ),
-      ),
+        Center(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: PersonalTheme.of(context).primaryText,
+            ),
+            height: MediaQuery.of(context).size.height * 0.6,
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //Método para recuperar email
+                Text(
+                  'Inicio de Sesión',
+                  style: PersonalTheme.of(context).displaySmall.override(
+                        color: PersonalTheme.of(context).primary,
+                        fontFamily: 'Poppins',
+                      ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                _txtFUsername(),
+
+                const SizedBox(
+                  height: 30,
+                ),
+
+                //Método para recuperar pw
+                _txtFPW(),
+
+                const SizedBox(
+                  height: 30,
+                ),
+                //Método para recuperar botón login
+                _btnLogin(),
+              ],
+            ),
+          ),
+        ),
+      ]),
       resizeToAvoidBottomInset: false,
-    );
-  }
-
-  
-
-  //Widget texto login
-  Widget _txtLogin() {
-    //se retorna un texto
-    return Text(
-      'Login',
-      //agregar estilos al texto
-      style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 22,
-          fontFamily: 'NimbusSans'),
     );
   }
 
@@ -95,11 +99,14 @@ class _LoginPageState extends State<LoginPage> {
       child: ElevatedButton(
         //método login desde controlador
         onPressed: _loginController.login,
-        child: Text('Ingresar'),
+        child: Text(
+          'Ingresar',
+          style: TextStyle(color: PersonalTheme.of(context).primaryText),
+        ),
         //estilos al botón
         style: ElevatedButton.styleFrom(
             //cambiar color al botón
-            primary: UtilsColors.primaryColor,
+            primary: PersonalTheme.of(context).alternate,
             //modificar la forma del botón
             shape: RoundedRectangleBorder(
                 //número de pixeles
@@ -118,11 +125,12 @@ class _LoginPageState extends State<LoginPage> {
       //agregar decoraciones al container como color, forma, etc
       decoration: BoxDecoration(
         //color del box
-        color: UtilsColors.primaryOpacityColor,
+        color: PersonalTheme.of(context).fadedalternate,
         //radio del box
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(
+        style: TextStyle(color: PersonalTheme.of(context).primary),
         //para indicar que el manejador del texto será el emailController
         controller: _loginController.usernameCtrller,
         //cambiar el tipo de teclado a correo
@@ -133,10 +141,10 @@ class _LoginPageState extends State<LoginPage> {
             border: InputBorder.none,
             //agregamos espacio para que no esté pegado al borde
             contentPadding: EdgeInsets.all(15),
-            hintStyle: TextStyle(color: UtilsColors.primaryColorDark),
+            hintStyle: TextStyle(color: PersonalTheme.of(context).primary),
             prefixIcon: Icon(
               Icons.person,
-              color: UtilsColors.primaryColor,
+              color: PersonalTheme.of(context).primaryBackground,
             )),
       ),
     );
@@ -150,11 +158,12 @@ class _LoginPageState extends State<LoginPage> {
       //agregar decoraciones al container como color, forma, etc
       decoration: BoxDecoration(
         //color del box
-        color: UtilsColors.primaryOpacityColor,
+        color: PersonalTheme.of(context).fadedalternate,
         //radio del box
         borderRadius: BorderRadius.circular(30),
       ),
       child: TextField(
+        style: TextStyle(color: PersonalTheme.of(context).primary),
         //para indicar que el manejador del texto será el pwController
         controller: _loginController.passCtrller,
         obscureText: true,
@@ -162,12 +171,13 @@ class _LoginPageState extends State<LoginPage> {
             hintText: 'Contraseña',
             //quitamos línea inferior
             border: InputBorder.none,
+
             //agregamos espacio para que no esté pegado al borde
             contentPadding: EdgeInsets.all(15),
-            hintStyle: TextStyle(color: UtilsColors.primaryColorDark),
+            hintStyle: TextStyle(color: PersonalTheme.of(context).primary),
             prefixIcon: Icon(
               Icons.lock,
-              color: UtilsColors.primaryColor,
+              color: PersonalTheme.of(context).primaryBackground,
             )),
       ),
     );
@@ -181,8 +191,7 @@ class _LoginPageState extends State<LoginPage> {
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
           //borderRadius: BorderRadius.circular(0),
-          color: UtilsColors.primaryColor),
+          color: PersonalTheme.of(context).primary),
     );
   }
-
 }

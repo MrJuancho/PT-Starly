@@ -36,6 +36,31 @@ class CatDatoCuriosoProvider {
     }
   }
 
+  Future<List<Map<String, dynamic>>> datoCuriosobyContenido(int idDatoCurioso) async {
+    try {
+      // URL para el get
+      Uri url = Uri.https(_url, '/datoCuriosoContenido/$idDatoCurioso');
+
+      // Petición GET de login
+      final res = await http.get(url);
+
+      // Obtener la respuesta como JSON
+      final data = json.decode(res.body);
+
+      // Convertir la respuesta JSON en una lista de Map<String, dynamic>
+      List<Map<String, dynamic>> datosCuriosos = List<Map<String, dynamic>>.from(data);
+
+      // Imprimir la respuesta en la consola
+      print(datosCuriosos);
+
+      return datosCuriosos;
+    } catch (e) {
+      print('Error: $e');
+      return null!;
+    }
+  }
+
+
   Future<List<dynamic>> allDatosCuriosos() async {
     try {
       // URL para el get

@@ -1,7 +1,7 @@
 import 'package:asistente_virtual/src/pages/Controllers/_menuSuperior_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
+import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
+import 'package:flutter/material.dart';
 
 class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
   final double height;
@@ -15,7 +15,7 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 60,
-      
+
       centerTitle: false,
       titleSpacing: 0,
       //backgroundColor: UtilsColors.primaryColor,
@@ -23,14 +23,17 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
         transform: Matrix4.translationValues(0, 0, 0),
         child: TextButton.icon(
           onPressed: () {
-            if(ModalRoute.of(context)?.settings.name !='tareasdiarias'){
+            if (ModalRoute.of(context)?.settings.name != 'tareasdiarias') {
               _menuSuperiorController.tareasDiarias(context);
             }
-            
           },
-          icon: const Icon(Icons.checklist_rounded),
+          icon: Icon(Icons.checklist_rounded,
+              color: PersonalTheme.of(context).primaryText),
           //SizedBox(width: 10),
-          label: const Text('Tareas Diarias'),
+          label: Text(
+            'Tareas Diarias',
+            style: TextStyle(color: PersonalTheme.of(context).primaryText),
+          ),
         ),
       ),
       actions: [
@@ -74,7 +77,7 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
             },
             icon: const Icon(Icons.exit_to_app_rounded)),
       ],
-      backgroundColor: UtilsColors.primaryColor,
+      backgroundColor: PersonalTheme.of(context).primary,
     );
   }
 
@@ -83,20 +86,48 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
-        title: const Text('Cerrar Sesión'),
-        content: const Text("Esta seguro de que desea cerrar sesión?"),
+        backgroundColor: PersonalTheme.of(context).primaryText,
+        title: Text(
+          'Cerrar Sesión',
+          style: PersonalTheme.of(context).titleLarge.override(
+                color: PersonalTheme.of(context).primary,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+              ),
+        ),
+        content: Text(
+          "¿Esta seguro de que desea cerrar sesión?",
+          style: PersonalTheme.of(context).titleMedium.override(
+                color: PersonalTheme.of(context).primary,
+                fontFamily: 'Poppins',
+              ),
+          textAlign: TextAlign.justify,
+        ),
         actions: [
           TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancelar')),
+              child: Text(
+                'Cancelar',
+                style: PersonalTheme.of(context).titleSmall.override(
+                      color: PersonalTheme.of(context).primary,
+                      fontFamily: 'Poppins',
+                    ),
+              )),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
               _sharedPref.logout(context);
             },
-            child: const Text('Cerrar Sesión'),
+            child: Text(
+              'Cerrar Sesión',
+              style: PersonalTheme.of(context).titleSmall.override(
+                    color: PersonalTheme.of(context).primary,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
           ),
         ],
       ),

@@ -4,6 +4,8 @@ import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../flutter_flow/Theme_Personal.dart';
+
 class TareasDiariasPage extends StatefulWidget {
   @override
   _TareasDiariasPageState createState() => _TareasDiariasPageState();
@@ -11,7 +13,8 @@ class TareasDiariasPage extends StatefulWidget {
 
 class _TareasDiariasPageState extends State<TareasDiariasPage> {
   //Controllers
-  final TareasDiariasController _tareasDiariasController = TareasDiariasController();
+  final TareasDiariasController _tareasDiariasController =
+      TareasDiariasController();
 
   // Lista de variables booleanas para controlar la selección de botones
   final List<bool> _selections = <bool>[true, false];
@@ -23,8 +26,7 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
     super.initState();
 
     //método para iniciar controlador
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-    });
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {});
   }
 
   @override
@@ -48,419 +50,436 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
     bool hecho = true;
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
-      child: Column(
-        //Primer tarea
-        children: [
-          SizedBox(
-            height: 2 * hcentecima,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.abc),
-              SizedBox(
-                width: wcentecima,
-              ),
-              FutureBuilder(
-                future: _tareasDiariasController.tarea(1),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        Text(snapshot.data),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 1.0,
+        height: MediaQuery.of(context).size.height * 1,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              PersonalTheme.of(context).primary,
+              PersonalTheme.of(context).tertiary
             ],
+            stops: [0.0, 1.0],
+            begin: AlignmentDirectional(0.0, -1.0),
+            end: AlignmentDirectional(0, 1.0),
           ),
-          SizedBox(
-            height: hcentecima,
-          ),
-          Container(
-            margin:
-                EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
-            height: 20.0,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10.0),
-              color: hecho
-                  ? Colors.green
-                  : Colors.grey[
-                      300], // Cambia el color de fondo dependiendo de la condición
+        ),
+        child: Column(
+          //Primer tarea
+          children: [
+            SizedBox(
+              height: 2 * hcentecima,
             ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              FutureBuilder(
-                future: _tareasDiariasController.estrellas(1),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.star_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-              FutureBuilder(
-                future: _tareasDiariasController.monedas(1),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.attach_money_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            ],
-          ),
-
-          //Segunda tarea
-          SizedBox(
-            height: 5 * hcentecima,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.abc),
-              SizedBox(
-                width: wcentecima,
-              ),
-              FutureBuilder(
-                future: _tareasDiariasController.tarea(2),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        Text(snapshot.data),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            ],
-          ),
-          SizedBox(
-            height: hcentecima,
-          ),
-          Container(
-            margin:
-                EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
-            height: 20.0,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10.0),
-              color: hecho
-                  ? Colors.green
-                  : Colors.grey[
-                      300], // Cambia el color de fondo dependiendo de la condición
-            ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              FutureBuilder(
-                future: _tareasDiariasController.estrellas(2),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.star_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-              FutureBuilder(
-                future: _tareasDiariasController.monedas(2),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.attach_money_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            ],
-          ),
-
-          //Tercer tarea
-          SizedBox(
-            height: 5 * hcentecima,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.abc),
-              SizedBox(
-                width: wcentecima,
-              ),
-              FutureBuilder(
-                future: _tareasDiariasController.tarea(3),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        Text(snapshot.data),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            ],
-          ),
-          SizedBox(
-            height: hcentecima,
-          ),
-          Container(
-            margin:
-                EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
-            height: 20.0,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10.0),
-              color: hecho
-                  ? Colors.green
-                  : Colors.grey[
-                      300], // Cambia el color de fondo dependiendo de la condición
-            ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              FutureBuilder(
-                future: _tareasDiariasController.estrellas(3),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.star_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-              FutureBuilder(
-                future: _tareasDiariasController.monedas(3),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.attach_money_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            ],
-          ),
-
-          //Tareas completadas
-          SizedBox(
-            height: hcentecima * 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [const Text("Tareas completadas")],
-          ),
-          SizedBox(
-            height: hcentecima,
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            height: 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.black),
-              color: Colors.grey[300],
-            ),
-            child: Stack(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.green,
-                  ),
+                const Icon(Icons.abc),
+                SizedBox(
+                  width: wcentecima,
                 ),
-                FractionallySizedBox(
-                  widthFactor: fraccion / 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue,
-                    ),
-                  ),
+                FutureBuilder(
+                  future: _tareasDiariasController.tarea(1),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          Text(snapshot.data),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: hcentecima,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("$fraccion/3")],
-          ),
+            SizedBox(
+              height: hcentecima,
+            ),
+            Container(
+              margin:
+                  EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
+              height: 20.0,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(10.0),
+                color: hecho
+                    ? Colors.green
+                    : Colors.grey[
+                        300], // Cambia el color de fondo dependiendo de la condición
+              ),
+            ),
 
-          //Desafios
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                FutureBuilder(
+                  future: _tareasDiariasController.estrellas(1),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          const Icon(Icons.star_rounded),
+                          const SizedBox(width: 1),
+                          Text(snapshot.data),
+                          const SizedBox(width: 10),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _tareasDiariasController.monedas(1),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          const Icon(Icons.attach_money_rounded),
+                          const SizedBox(width: 1),
+                          Text(snapshot.data),
+                          const SizedBox(width: 10),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ],
+            ),
 
-          SizedBox(
-            height: hcentecima * 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "Desafio",
-                style: TextStyle(fontSize: 16),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 2 * hcentecima,
-          ),
-          fraccion != 3
-              ? const Text(
-                  "Bloqueado",
-                  style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
-                )
-              : Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FutureBuilder(
-                          future: _tareasDiariasController.tareaDD(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData) {
-                              return Row(
-                                children: [
-                                  Text(snapshot.data),
-                                ],
-                              );
-                            } else {
-                              return const CircularProgressIndicator();
-                            }
-                          },
-                        ),
-                      ],
+            //Segunda tarea
+            SizedBox(
+              height: 5 * hcentecima,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.abc),
+                SizedBox(
+                  width: wcentecima,
+                ),
+                FutureBuilder(
+                  future: _tareasDiariasController.tarea(2),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          Text(snapshot.data),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: hcentecima,
+            ),
+            Container(
+              margin:
+                  EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
+              height: 20.0,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(10.0),
+                color: hecho
+                    ? Colors.green
+                    : Colors.grey[
+                        300], // Cambia el color de fondo dependiendo de la condición
+              ),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                FutureBuilder(
+                  future: _tareasDiariasController.estrellas(2),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          const Icon(Icons.star_rounded),
+                          const SizedBox(width: 1),
+                          Text(snapshot.data),
+                          const SizedBox(width: 10),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _tareasDiariasController.monedas(2),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          const Icon(Icons.attach_money_rounded),
+                          const SizedBox(width: 1),
+                          Text(snapshot.data),
+                          const SizedBox(width: 10),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ],
+            ),
+
+            //Tercer tarea
+            SizedBox(
+              height: 5 * hcentecima,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.abc),
+                SizedBox(
+                  width: wcentecima,
+                ),
+                FutureBuilder(
+                  future: _tareasDiariasController.tarea(3),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          Text(snapshot.data),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: hcentecima,
+            ),
+            Container(
+              margin:
+                  EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
+              height: 20.0,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(10.0),
+                color: hecho
+                    ? Colors.green
+                    : Colors.grey[
+                        300], // Cambia el color de fondo dependiendo de la condición
+              ),
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                FutureBuilder(
+                  future: _tareasDiariasController.estrellas(3),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          const Icon(Icons.star_rounded),
+                          const SizedBox(width: 1),
+                          Text(snapshot.data),
+                          const SizedBox(width: 10),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _tareasDiariasController.monedas(3),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                      return Row(
+                        children: [
+                          const Icon(Icons.attach_money_rounded),
+                          const SizedBox(width: 1),
+                          Text(snapshot.data),
+                          const SizedBox(width: 10),
+                        ],
+                      );
+                    } else {
+                      return const CircularProgressIndicator();
+                    }
+                  },
+                ),
+              ],
+            ),
+
+            //Tareas completadas
+            SizedBox(
+              height: hcentecima * 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [const Text("Tareas completadas")],
+            ),
+            SizedBox(
+              height: hcentecima,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              height: 20,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: Colors.black),
+                color: Colors.grey[300],
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.green,
                     ),
-                    SizedBox(
-                      height: hcentecima,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: 3 * wcentecima, right: 3 * wcentecima),
-                      height: 20.0,
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: fraccion / 3,
+                    child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: hecho
-                            ? Colors.green
-                            : Colors.grey[
-                                300], // Cambia el color de fondo dependiendo de la condición
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.blue,
                       ),
                     ),
-                    Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              FutureBuilder(
-                future: _tareasDiariasController.estrellasDD(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.star_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
+                  ),
+                ],
               ),
-              FutureBuilder(
-                future: _tareasDiariasController.monedasDD(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Row(
-                      children: [
-                        const Icon(Icons.attach_money_rounded),
-                        const SizedBox(width: 1),
-                        Text(snapshot.data),
-                        const SizedBox(width: 10),
-                      ],
-                    );
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
-              ),
-            ],
-          ),
-                  ],
-                ),
+            ),
+            SizedBox(
+              height: hcentecima,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [Text("$fraccion/3")],
+            ),
 
-          //Recompensas
+            //Desafios
 
-          SizedBox(
-            height: hcentecima,
-          ),
-        ],
+            SizedBox(
+              height: hcentecima * 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Desafio",
+                  style: TextStyle(fontSize: 16),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 2 * hcentecima,
+            ),
+            fraccion != 3
+                ? const Text(
+                    "Bloqueado",
+                    style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
+                  )
+                : Column(
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FutureBuilder(
+                            future: _tareasDiariasController.tareaDD(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return Row(
+                                  children: [
+                                    Text(snapshot.data),
+                                  ],
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: hcentecima,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            left: 3 * wcentecima, right: 3 * wcentecima),
+                        height: 20.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: hecho
+                              ? Colors.green
+                              : Colors.grey[
+                                  300], // Cambia el color de fondo dependiendo de la condición
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          FutureBuilder(
+                            future: _tareasDiariasController.estrellasDD(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return Row(
+                                  children: [
+                                    const Icon(Icons.star_rounded),
+                                    const SizedBox(width: 1),
+                                    Text(snapshot.data),
+                                    const SizedBox(width: 10),
+                                  ],
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                          FutureBuilder(
+                            future: _tareasDiariasController.monedasDD(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return Row(
+                                  children: [
+                                    const Icon(Icons.attach_money_rounded),
+                                    const SizedBox(width: 1),
+                                    Text(snapshot.data),
+                                    const SizedBox(width: 10),
+                                  ],
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+            //Recompensas
+
+            SizedBox(
+              height: hcentecima,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/a
 import 'package:asistente_virtual/src/pages/Screens/Actividades_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Personalizacion_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/TareasDiarias_screen.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
+import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:asistente_virtual/src/utils/utils_inicialize.dart';
 import 'package:flutter/material.dart';
 import 'package:asistente_virtual/src/pages/Screens/Login_screen.dart';
@@ -21,6 +21,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final ThemeMode _themeMode = PersonalTheme.themeMode;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -44,10 +45,8 @@ class _MyAppState extends State<MyApp> {
         'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),
       },
 
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.dark(primary: UtilsColors.primaryBackgroundColor),
-      ),
+      theme: ThemeData(brightness: Brightness.dark),
+      themeMode: _themeMode,
     );
   }
 }

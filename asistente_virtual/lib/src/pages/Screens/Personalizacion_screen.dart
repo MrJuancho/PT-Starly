@@ -1,5 +1,6 @@
 import 'package:asistente_virtual/src/pages/Controllers/Personalizacion_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
+import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -42,14 +43,17 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
     return AppBar(
       toolbarHeight: 60,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new_rounded),
+        icon: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: PersonalTheme.of(context).primaryText,
+        ),
         onPressed: () {
           _personalizacionController.pantallaanterior(context);
         },
       ),
       title: const Text("Personalización"),
       centerTitle: true,
-      backgroundColor: UtilsColors.primaryColor,
+      backgroundColor: PersonalTheme.of(context).primary,
     );
   }
 
@@ -60,65 +64,86 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
     double himage = (h / 2);
     double wcentecima = w / 100;
     double hcentecima = h / 100;
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: hcentecima),
-          child: Center(
-            child: Image.asset(
-              'assets/images/AV.png',
-              width: wimage,
+    return Container(
+      width: MediaQuery.of(context).size.width * 1.0,
+      height: MediaQuery.of(context).size.height * 1,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            PersonalTheme.of(context).primary,
+            PersonalTheme.of(context).tertiary
+          ],
+          stops: [0.0, 1.0],
+          begin: AlignmentDirectional(0.0, -1.0),
+          end: AlignmentDirectional(0, 1.0),
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: hcentecima),
+              child: Center(
+                child: Image.asset(
+                  'assets/images/home/AV.png',
+                  width: wimage,
+                ),
+              ),
             ),
-          ),
+            Container(
+              margin: EdgeInsets.only(top: hcentecima),
+              child: ToggleButtons(
+                children: [
+                  Icon(
+                    Icons.attach_money_rounded,
+                    color: PersonalTheme.of(context).primaryText,
+                  ),
+                  Icon(
+                    Icons.star_rounded,
+                    color: PersonalTheme.of(context).primaryText,
+                  ),
+                ],
+                isSelected: _selections,
+                onPressed: (index) {
+                  setState(() {
+                    for (int i = 0; i < _selections.length; i++) {
+                      _selections[i] = i == index;
+                    }
+                  });
+                },
+                color: PersonalTheme.of(context).alternate,
+                fillColor: PersonalTheme.of(context).alternate,
+                selectedBorderColor: PersonalTheme.of(context).alternate,
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.only(top: hcentecima, bottom: hcentecima),
+                child: ConstrainedBox(
+                    constraints: BoxConstraints(),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: List.generate(20, (index) {
+                        return Container(
+                          margin: const EdgeInsets.all(8),
+                          color: Colors.grey[300],
+                          child: Center(
+                            child: Text(
+                              'Item $index',
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                          ),
+                        );
+                      }),
+                    )),
+              ),
+          ],
         ),
-        Container(
-          margin: EdgeInsets.only(top: hcentecima),
-          child: ToggleButtons(
-            children: [
-              const Icon(Icons.attach_money_rounded),
-              const Icon(Icons.star_rounded),
-            ],
-            isSelected: _selections,
-            onPressed: (index) {
-              setState(() {
-                for (int i = 0; i < _selections.length; i++) {
-                  _selections[i] = i == index;
-                }
-              });
-            },
-            color: UtilsColors.primaryBackgroundColor,
-            fillColor: UtilsColors.primaryOpacityColor,
-            selectedBorderColor: UtilsColors.primaryColor,
-          ),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: hcentecima,bottom: hcentecima),
-            child: ConstrainedBox(
-              
-                constraints: BoxConstraints(),
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: List.generate(20, (index) {
-                    return Container(
-                      margin: const EdgeInsets.all(8),
-                      color: Colors.grey[300],
-                      child: Center(
-                        child: Text(
-                          'Item $index',
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ),
-                    );
-                  }),
-                )),
-          ),
-        ),
-      ],
+      ),
     );
   }
+
   void refresh() {
     setState(() {});
   }

@@ -1,4 +1,5 @@
 import 'package:asistente_virtual/src/pages/Controllers/_menuInferior_controller.dart';
+import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:flutter/material.dart';
 import '../../utils/utils_colors.dart';
 
@@ -11,7 +12,7 @@ class MenuInferior extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: UtilsColors.primaryColor,
+      color: PersonalTheme.of(context).tertiary,
       child: Container(
         height: 50,
         child: Row(
@@ -20,9 +21,9 @@ class MenuInferior extends StatelessWidget implements PreferredSizeWidget {
             TextButton(
               child: Row(
                 children: [
-                  const Icon(Icons.videogame_asset_rounded),
+                  Icon(Icons.videogame_asset_rounded,color: PersonalTheme.of(context).primaryText,),
                   const SizedBox(width: 10),
-                  const Text('Actividades'),
+                  Text('Actividades',style: TextStyle( color: PersonalTheme.of(context).primaryText)),
                 ],
               ),
               onPressed: () {
@@ -37,16 +38,15 @@ class MenuInferior extends StatelessWidget implements PreferredSizeWidget {
             TextButton(
               child: Row(
                 children: [
-                  const Icon(Icons.calendar_today_rounded),
+                  Icon(Icons.calendar_today_rounded,color: PersonalTheme.of(context).primaryText,),
                   const SizedBox(width: 10),
-                  const Text('Registro Diario'),
+                  Text('Registro Diario',style: TextStyle( color: PersonalTheme.of(context).primaryText)),
                 ],
               ),
               onPressed: () {
                 if(ModalRoute.of(context)?.settings.name !='registroDiario'){
                   _menuInferiorController.registroDiario(context);
                 }
-                
               },
             ),
           ],

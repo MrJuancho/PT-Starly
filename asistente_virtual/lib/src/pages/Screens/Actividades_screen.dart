@@ -1,8 +1,9 @@
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+
+import '../flutter_flow/Theme_Personal.dart';
 
 class ActividadesPage extends StatefulWidget {
   @override
@@ -53,6 +54,20 @@ class _ActividadesPageState extends State<ActividadesPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
+            child: Container(
+          width: MediaQuery.of(context).size.width * 1.0,
+          height: MediaQuery.of(context).size.height * 1,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                PersonalTheme.of(context).primary,
+                PersonalTheme.of(context).tertiary
+              ],
+              stops: [0.0, 1.0],
+              begin: AlignmentDirectional(0.0, -1.0),
+              end: AlignmentDirectional(0, 1.0),
+            ),
+          ),
           child: SingleChildScrollView(
             padding: EdgeInsets.only(top: hcentecima, bottom: hcentecima),
             child: ConstrainedBox(
@@ -70,7 +85,7 @@ class _ActividadesPageState extends State<ActividadesPage> {
                           color: Colors.grey[300],
                           child: Center(
                             child: Image.asset(
-                                'assets/images/download.jpg',
+                                'assets/images/home/download.jpg',
                                 width: w / 2.1,
                                 fit: BoxFit.fill),
                           ),
@@ -87,7 +102,7 @@ class _ActividadesPageState extends State<ActividadesPage> {
                   }),
                 )),
           ),
-        ),
+        )),
       ],
     );
   }

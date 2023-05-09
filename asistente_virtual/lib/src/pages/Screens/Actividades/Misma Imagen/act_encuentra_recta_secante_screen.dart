@@ -1,9 +1,13 @@
-import 'package:asistente_virtual/src/pages/Controllers/Actividades/SameImage_controller.dart';
-import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
+import 'package:asistente_virtual/src/pages/Controllers/Estadistics_controller.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import '../../../../utils/utils_preferences.dart';
-import '../../../Widgets/_menuInferior_widget.dart';
 import '../../../flutter_flow/Theme_Personal.dart';
 
 class ActEncuentraRectaSecantePage extends StatefulWidget {
@@ -22,9 +26,12 @@ class ActEncuentraRectaSecantePage extends StatefulWidget {
 
 class _ActEncuentraRectaSecanteWidgetState
     extends State<ActEncuentraRectaSecantePage> {
-
-  final SameImageController _sameImageController = SameImageController();
+  final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
+  bool _activityFinished = false;
+  int intentos = 0;
+  int ayudas = 0;
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
 
@@ -35,68 +42,49 @@ class _ActEncuentraRectaSecanteWidgetState
 
   @override
   void dispose() {
-    _sameImageController.dispose();
-
+    _estadisticsController.dispose();
     _unfocusNode.dispose();
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return _startPressed ? _actividad(context) : _popup(context);
+  void incrementarIntentos() {
+    setState(() {
+      intentos++;
+    });
   }
 
-  Widget _popup(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      color: PersonalTheme.of(context).primary,
+  void incrementarAyudas() {
+    setState(() {
+      ayudas++;
+    });
+  }
 
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Instrucciones', style: PersonalTheme.of(context).displaySmall),
-          SizedBox(height: 30),
-          Center(
-              child: Padding(
-            padding: const EdgeInsets.only(left: 25, right: 25),
-            child: Text(
-                'Se muestran una variedad de rectas paralelas, perpendiculares y secantes; Deberas encontrar la que es igual.',
-                textAlign: TextAlign.justify,
-                style: PersonalTheme.of(context).headlineMedium),
-          )),
-          SizedBox(height: 40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  //agregar a que pestaña se regresa (probablemente a la de actividades)
+  void presionado() {
+    setState(() {
+      _startPressed = true;
+      _estadisticsController.startTimer();
+    });
+  }
 
-                },
-                child: Text('Regresar'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.grey[400],
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  //Navigator.of(context).pop();
-                  setState(() {
-                    _startPressed = true;
-                  });
+  void resultados() {
+    setState(() {
+      _startPressed = false;
+      _activityFinished = true;
+    });
+  }
 
-                },
-                child: Text('Iniciar'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+  @override
+  Widget build(BuildContext context) {
+    return _startPressed
+        ? _actividad(context)
+        : _activityFinished
+            ? ResultadosWidget.show(context, intentos, ayudas,
+                _estadisticsController.formatMilliseconds(),_estadisticsController)
+            : InstruccionesWidget.show(
+                context,
+                _estadisticsController,
+                presionado,
+                'Se muestran una variedad de rectas paralelas, perpendiculares y secantes; Deberas encontrar la que es igual.');
   }
 
   Widget _actividad(BuildContext context) {
@@ -117,7 +105,7 @@ class _ActEncuentraRectaSecanteWidgetState
                 ),
           ),
           actions: [],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 2.0,
         ),
         body: SafeArea(
@@ -162,8 +150,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: ClipRRect(
@@ -186,8 +173,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -207,8 +193,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -228,8 +213,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -249,8 +233,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -270,8 +253,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -291,8 +273,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -312,8 +293,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -333,8 +313,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -354,8 +333,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -375,8 +353,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -396,8 +373,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -417,8 +393,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -438,8 +413,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -459,8 +433,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -480,8 +453,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -501,8 +473,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -522,8 +493,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -543,8 +513,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -564,8 +533,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -585,8 +553,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -606,8 +573,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -627,8 +593,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -648,8 +613,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    /*FFAppState().contadorIntentos =
-                                        FFAppState().contadorIntentos + 1;*/
+                                    incrementarIntentos();
                                   });
                                 },
                                 child: Image.asset(
@@ -669,7 +633,9 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    _sameImageController.stopTimer();
+                                    _estadisticsController.stopTimer();
+                                    incrementarIntentos();
+                                    resultados();
                                   });
                                 },
                                 child: Image.asset(
@@ -686,157 +652,14 @@ class _ActEncuentraRectaSecanteWidgetState
                     ),
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    height: MediaQuery.of(context).size.height * 0.12,
-                    decoration: BoxDecoration(
-                      color: PersonalTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(20.0),
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Color(0x00E21C3D),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Estadisticas',
-                              style: PersonalTheme.of(context).titleLarge,
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Text(
-                                  'Intentos:',
-                                  style: PersonalTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  /*valueOrDefault<String>(
-                                    FFAppState().contadorIntentos.toString(),
-                                    '0',
-                                  ),*/
-                                  "Hola",
-                                  style: PersonalTheme.of(context).bodyMedium,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Text(
-                                  'Asistencias',
-                                  style: PersonalTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Text(
-                                  /*valueOrDefault<String>(
-                                    FFAppState().contadorIntentos.toString(),
-                                    '0',
-                                  ),*/
-                                  "Hola",
-                                  style: PersonalTheme.of(context).bodyMedium,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Text(
-                                  'Tiempo:',
-                                  style: PersonalTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 0.0, 0.0, 0.0),
-                                  child: const Text(
-                                      'señora de los gatos') /*FlutterFlowTimer(
-                                  initialTime: _actEncuentraRectaSecanteController.timerMilliseconds,
-                                  getDisplayTime: (value) =>
-                                      StopWatchTimer.getDisplayTime(
-                                        value,
-                                        hours: false,
-                                      ),
-                                  timer: _actEncuentraRectaSecanteController.timerController,
-                                  updateStateInterval:
-                                  Duration(milliseconds: 1000),
-                                  onChanged:
-                                      (value, displayTime, shouldUpdate) {
-                                        */ /*_actEncuentraRectaSecanteController.timerMilliseconds = value;
-                                    _actEncuentraRectaSecanteController.timerValue = displayTime;*/ /*
-                                    if (shouldUpdate) setState(() {});
-                                  },
-                                  textAlign: TextAlign.start,
-                                  style: PersonalTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                    fontFamily: 'Poppins',
-                                    color: PersonalTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),*/
-                                  ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                EstadisticasWidget.build(
+                    context, intentos, ayudas, _estadisticsController),
               ],
             ),
           ),
         ),
+        floatingActionButton: AyudasWidget.build(
+            context, _estadisticsController, 11, incrementarAyudas),
         //bottomNavigationBar: MenuInferior(),
       ),
     );

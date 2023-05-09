@@ -41,6 +41,7 @@ abstract class PersonalTheme {
   late Color secondary;
   late Color tertiary;
   late Color alternate;
+  late Color fadedalternate;
   late Color primaryText;
   late Color secondaryText;
   late Color primaryBackground;
@@ -131,6 +132,7 @@ class LightModeTheme extends PersonalTheme {
   late Color secondary = const Color(0xFF39D2C0);
   late Color tertiary = const Color(0xFF675BD7);
   late Color alternate = const Color(0xFFF49FBC);
+  late Color fadedalternate = const Color(0xFFF7BBCF);
   late Color primaryText = const Color(0xFF101213);
   late Color secondaryText = const Color(0xFF57636C);
   late Color primaryBackground = const Color(0xFFF1F4F8);
@@ -144,7 +146,7 @@ class LightModeTheme extends PersonalTheme {
   late Color error = const Color(0xFFE21C3D);
   late Color info = const Color(0xFF1C4494);
 
-  late Color lineColor = Color(0xFFE0E3E7);
+  late Color lineColor = const Color(0xFFE0E3E7);
 }
 
 abstract class Typography {
@@ -304,6 +306,7 @@ class DarkModeTheme extends PersonalTheme {
   late Color secondary = const Color(0xFF39D2C0);
   late Color tertiary = const Color(0xFF675BD7);
   late Color alternate = const Color(0xFFF49FBC);
+  late Color fadedalternate = const Color(0xFFF7BBCF);
   late Color primaryText = const Color(0xFFFFFFFF);
   late Color secondaryText = const Color(0xFF95A1AC);
   late Color primaryBackground = const Color(0xFF101213);
@@ -317,7 +320,7 @@ class DarkModeTheme extends PersonalTheme {
   late Color error = const Color(0xFFE21C3D);
   late Color info = const Color(0xFF1C4494);
 
-  late Color lineColor = Color(0xFF22282F);
+  late Color lineColor = const Color(0xFF22282F);
 }
 
 extension TextStyleHelper on TextStyle {

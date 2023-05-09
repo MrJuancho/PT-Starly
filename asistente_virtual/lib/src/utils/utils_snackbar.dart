@@ -1,3 +1,4 @@
+import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:flutter/material.dart';
 
 class UtilsSnackbar {
@@ -16,11 +17,11 @@ class UtilsSnackbar {
           Text(
         text,
         textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white, fontSize: 14),
+        style: PersonalTheme.of(context).headlineMedium,
       ),
       //fondo del snackbar negro y duración 3s
-      backgroundColor: Colors.black,
-      duration: const Duration(seconds: 3),
+      backgroundColor: PersonalTheme.of(context).secondary,
+      duration: const Duration(seconds: 4),
     ));
   }
 }
