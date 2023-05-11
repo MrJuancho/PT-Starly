@@ -29,6 +29,7 @@ class _ActEncuentraRectaSecanteWidgetState
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
+  bool _onefound = false;
   int intentos = 0;
   int ayudas = 0;
 
@@ -78,8 +79,12 @@ class _ActEncuentraRectaSecanteWidgetState
     return _startPressed
         ? _actividad(context)
         : _activityFinished
-            ? ResultadosWidget.show(context, intentos, ayudas,
-                _estadisticsController.formatMilliseconds(),_estadisticsController)
+            ? ResultadosWidget.show(
+                context,
+                intentos,
+                ayudas,
+                _estadisticsController.formatMilliseconds(),
+                _estadisticsController)
             : InstruccionesWidget.show(
                 context,
                 _estadisticsController,
@@ -493,7 +498,20 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    incrementarIntentos();
+                                    //AQUI
+                                    if (_onefound) {
+                                      incrementarIntentos();
+                                      _estadisticsController.stopTimer();
+                                      resultados();
+                                      _estadisticsController.registroResultados(
+                                          2,
+                                          intentos,
+                                          ayudas,
+                                          _estadisticsController
+                                              .formatMilliseconds());
+                                    } else {
+                                      _onefound = true;
+                                    }
                                   });
                                 },
                                 child: Image.asset(
@@ -613,7 +631,20 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    incrementarIntentos();
+                                    //AQUI
+                                    if (_onefound) {
+                                      incrementarIntentos();
+                                      _estadisticsController.stopTimer();
+                                      resultados();
+                                      _estadisticsController.registroResultados(
+                                          2,
+                                          intentos,
+                                          ayudas,
+                                          _estadisticsController
+                                              .formatMilliseconds());
+                                    } else {
+                                      _onefound = true;
+                                    }
                                   });
                                 },
                                 child: Image.asset(
@@ -633,9 +664,7 @@ class _ActEncuentraRectaSecanteWidgetState
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   setState(() {
-                                    _estadisticsController.stopTimer();
                                     incrementarIntentos();
-                                    resultados();
                                   });
                                 },
                                 child: Image.asset(

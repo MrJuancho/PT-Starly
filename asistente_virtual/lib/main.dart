@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         'personalizacion': (BuildContext context) => PersonalizacionPage(),
         'actividades': (BuildContext context) => ActividadesPage(),
         'tareasdiarias': (BuildContext context) => TareasDiariasPage(),
-        'act_encuentra_recta_secante' : (BuildContext context) => ActEncuentraRectaSecantePage(),
+        'act_encuentra_recta_secante' : (BuildContext context) => const ActEncuentraRectaSecantePage(),
         //'registroDiario':(BuildContext context) => RegistroDiario(),
 
         'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),

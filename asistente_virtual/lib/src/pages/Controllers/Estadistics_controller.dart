@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:asistente_virtual/src/pages/Provider/CatDatoCurioso_provider.dart';
-import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
+import 'package:asistente_virtual/src/pages/Provider/TblResultadosActividad_provider.dart';
+import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
@@ -10,6 +10,9 @@ class EstadisticsController {
   StopWatchTimer timerController = StopWatchTimer(mode: StopWatchMode.countUp);
   final CatDatoCuriosoProvider _catDatoCuriosoProvider =
       CatDatoCuriosoProvider();
+  final UtilsSharedPref _sharedPref = UtilsSharedPref();
+  final TblResultadosActividadProvider _resultadosActividadProvider =
+      TblResultadosActividadProvider();
   int elapsedMilliseconds = 0;
   //constructort de clase - puede requerir await si se necesita esperar algo
   Future init(BuildContext context) async {
@@ -49,5 +52,26 @@ class EstadisticsController {
 
   void regreso(BuildContext context) {
     Navigator.pushNamedAndRemoveUntil(context, 'actividades', (route) => false);
+  }
+
+  void registroResultados(
+      int idActividad, int intentos, int ayudas, String tiempo) async {
+    final idAlumno = await _sharedPref.readtodato('Alumno', 'idAlumno');
+    //print(tiempo);
+    List<String> parts = tiempo.split(':');
+    int minutes = int.parse(parts[0]);
+    double seconds = double.parse(parts[1]);
+
+    int milliseconds = (seconds * 1000).round();
+
+    DateTime dateTime = DateTime(0, 1, 1, 0, minutes, 0, milliseconds);
+
+    String formattedTime =
+        '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}.${dateTime.millisecond.toString().padLeft(3, '0')}';
+
+    //print(formattedTime); // Imprime: 00:12:30.500
+
+    _resultadosActividadProvider.postResultadoActividad(
+        idActividad, idAlumno, formattedTime, intentos, ayudas);
   }
 }
