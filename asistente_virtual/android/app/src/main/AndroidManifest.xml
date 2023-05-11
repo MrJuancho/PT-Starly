@@ -1,6 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.asistente_virtual">
-   <application
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
         android:label="asistente_virtual"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

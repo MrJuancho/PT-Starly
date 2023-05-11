@@ -1,3 +1,5 @@
+// ignore_for_file: null_check_always_fails
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:asistente_virtual/src/api/enviroment.dart';
@@ -8,11 +10,7 @@ class CatTipoPersonalizacionProvider {
   final String _url = Enviroment.api;
 
   BuildContext? context;
-
-  Future? init(BuildContext context) {
-    this.context = context;
-  }
-
+  
   //respuesta de la solicitud materia especifica
   Future<String> oneTipoPersonalizacion(String name) async {
     try {

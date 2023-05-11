@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:flutter/material.dart';
 
 class ActividadesController {
@@ -7,7 +5,6 @@ class ActividadesController {
   Function? refresh;
 
   //Controllers
-  UtilsSharedPref _sharedPref = UtilsSharedPref();
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;

@@ -9,10 +9,6 @@ class TblAlumnoPPBProvider {
 
   BuildContext? context;
 
-  Future? init(BuildContext context) {
-    this.context = context;
-  }
-
   //No esta terminada
   /* void putPPBAlumno(String username, int atencion, int memoria,int percepcion) async {
     try {

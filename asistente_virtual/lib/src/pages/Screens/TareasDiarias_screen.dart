@@ -17,7 +17,6 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
       TareasDiariasController();
 
   // Lista de variables booleanas para controlar la selección de botones
-  final List<bool> _selections = <bool>[true, false];
   bool vertical = false;
 
   @override
@@ -43,8 +42,6 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
     int fraccion = 3;
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double wimage = (w / 2);
-    double himage = (h / 2);
     double wcentecima = w / 100;
     double hcentecima = h / 100;
     bool hecho = true;

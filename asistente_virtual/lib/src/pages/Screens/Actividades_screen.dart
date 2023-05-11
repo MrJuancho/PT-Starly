@@ -14,7 +14,6 @@ class _ActividadesPageState extends State<ActividadesPage> {
   //Controllers
 
   // Lista de variables booleanas para controlar la selección de botones
-  final List<bool> _selections = <bool>[true, false];
   bool vertical = false;
 
   @override
@@ -46,9 +45,6 @@ class _ActividadesPageState extends State<ActividadesPage> {
   Widget _body() {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-    double wimage = (w / 2);
-    double himage = (h / 2);
-    double wcentecima = w / 100;
     double hcentecima = h / 100;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -64,14 +60,14 @@ class _ActividadesPageState extends State<ActividadesPage> {
                 PersonalTheme.of(context).tertiary
               ],
               stops: [0.0, 1.0],
-              begin: AlignmentDirectional(0.0, -1.0),
-              end: AlignmentDirectional(0, 1.0),
+              begin: const AlignmentDirectional(0.0, -1.0),
+              end: const AlignmentDirectional(0, 1.0),
             ),
           ),
           child: SingleChildScrollView(
             padding: EdgeInsets.only(top: hcentecima, bottom: hcentecima),
             child: ConstrainedBox(
-                constraints: BoxConstraints(),
+                constraints: const BoxConstraints(),
                 child: GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,

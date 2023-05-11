@@ -1,7 +1,6 @@
 import 'package:asistente_virtual/src/pages/Controllers/Personalizacion_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
 import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -61,8 +60,6 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     double wimage = (w / 2);
-    double himage = (h / 2);
-    double wcentecima = w / 100;
     double hcentecima = h / 100;
     return Container(
       width: MediaQuery.of(context).size.width * 1.0,

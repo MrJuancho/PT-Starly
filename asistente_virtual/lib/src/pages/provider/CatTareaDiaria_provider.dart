@@ -1,3 +1,5 @@
+// ignore_for_file: null_check_always_fails
+
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,7 @@ class CatTareaDiariaProvider {
 
   BuildContext? context;
 
-  Future? init(BuildContext context) {
+  Future? init(BuildContext context) async{
     this.context = context;
   }
 

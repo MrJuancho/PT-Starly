@@ -1,7 +1,6 @@
 import 'package:asistente_virtual/src/pages/Controllers/_menuInferior_controller.dart';
 import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:flutter/material.dart';
-import '../../utils/utils_colors.dart';
 
 class MenuInferior extends StatelessWidget implements PreferredSizeWidget {
   final double height;

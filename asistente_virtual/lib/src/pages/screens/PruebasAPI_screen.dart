@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:asistente_virtual/src/api/enviroment.dart';
-import 'package:asistente_virtual/src/utils/utils_colors.dart';
 
 //Paquete de la api a probar
 import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';

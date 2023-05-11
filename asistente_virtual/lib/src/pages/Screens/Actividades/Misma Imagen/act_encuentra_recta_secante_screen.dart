@@ -3,10 +3,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
-import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
 import '../../../../utils/utils_preferences.dart';
 import '../../../flutter_flow/Theme_Personal.dart';
 

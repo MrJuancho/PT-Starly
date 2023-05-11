@@ -1,3 +1,6 @@
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_cuidado_medio_ambiente_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_expresiones_algebraicas_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_partido_politico_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_recta_secante_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Personalizacion_screen.dart';
@@ -31,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'act_encuentra_recta_secante',
+      initialRoute: 'act_encuentra_cuidado_medio_ambiente',
       //rutas de la aplicacion
       routes: {
         'login': (BuildContext context) => LoginPage(),
@@ -40,6 +43,9 @@ class _MyAppState extends State<MyApp> {
         'actividades': (BuildContext context) => ActividadesPage(),
         'tareasdiarias': (BuildContext context) => TareasDiariasPage(),
         'act_encuentra_recta_secante' : (BuildContext context) => const ActEncuentraRectaSecantePage(),
+        'act_encuentra_partidos_politicos':(BuildContext context) => const ActEncuentraPartidosPoliticosPage(),
+        'act_encuentra_expresiones_algebraicas':(BuildContext context) => const ActEncuentraExpresionesAlgebraicasPage(),
+        'act_encuentra_cuidado_medio_ambiente':(BuildContext context) => const ActEncuentraCuidadoMedioAmbientePage(),
         //'registroDiario':(BuildContext context) => RegistroDiario(),
 
         'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),

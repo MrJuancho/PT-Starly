@@ -1,3 +1,5 @@
+// ignore_for_file: null_check_always_fails
+
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +10,6 @@ class CatDatoCuriosoProvider {
   final String _url = Enviroment.api;
 
   BuildContext? context;
-
-  Future? init(BuildContext context) {
-    this.context = context;
-  }
 
   //respuesta de las solicitudes
   Future<String> oneDatoCurioso(int idDatoCurioso) async {
