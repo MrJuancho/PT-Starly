@@ -51,6 +51,7 @@ dependencies:
   url_launcher_android: ^6.0.27
   url_launcher_ios: ^6.1.4
   url_launcher_platform_interface: ^2.1.2
+  marquee_widget: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -74,11 +75,21 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    #IMAGENES CORE
   - assets/images/home/
+    #ACTIVIDADES ENCUENTRA LA MISMA IMAGEN
   - assets/images/Actividades/Misma_Imagen/Act_Encuentra_Recta_Secante/
   - assets/images/Actividades/Misma_Imagen/Act_Encuentra_Partidos_Politicos/
   - assets/images/Actividades/Misma_Imagen/Act_Encuentra_Expresiones_Algebraicas/
   - assets/images/Actividades/Misma_Imagen/Act_Encuentra_Cuidado_Medio_Ambiente/
+  - assets/images/Actividades/Misma_Imagen/Act_Encuentra_Reciclaje/
+  - assets/images/Actividades/Misma_Imagen/Act_Encuentra_Simbolos_Ciudad/
+  - assets/images/Actividades/Misma_Imagen/Act_Encuentra_Caminos/
+    
+    #ACTIVIDADES INTRUSO
+  - assets/images/Actividades/Intruso/Act_Intruso_Angulos/
+  - assets/images/Actividades/Intruso/Act_Intruso_Medidas_Basicas/
+  - assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

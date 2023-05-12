@@ -3,6 +3,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
+import 'package:marquee_widget/marquee_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/utils_preferences.dart';
 import '../../../flutter_flow/Theme_Personal.dart';
@@ -97,18 +98,26 @@ class _ActEncuentraPartidosPoliticosState
         backgroundColor: PersonalTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: PersonalTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Partidos politicos',
-            style: PersonalTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Poppins',
-                  color: Colors.white,
-                  fontSize: 22.0,
-                ),
-          ),
-          actions: [],
+          elevation: 2,
           centerTitle: true,
-          elevation: 2.0,
+          title: Marquee(
+            forwardAnimation: Curves.easeIn,
+            autoRepeat: true,
+            direction: Axis.horizontal,
+            textDirection: TextDirection.ltr,
+            animationDuration: Duration(seconds: 2),
+            backDuration: Duration(milliseconds: 1000),
+            pauseDuration: Duration(milliseconds: 1000),
+            directionMarguee: DirectionMarguee.TwoDirection,
+            child: Text(
+              'Encontrar los símbolos de reciclaje',
+              style: PersonalTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                    fontSize: 22.0,
+                  ),
+            ),
+          ),
         ),
         body: SafeArea(
           child: Visibility(
