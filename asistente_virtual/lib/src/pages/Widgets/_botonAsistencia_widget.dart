@@ -6,17 +6,13 @@ import '../../utils/utils_snackbar.dart';
 
 class AyudasWidget {
   static FloatingActionButton build(
-      BuildContext context,
-      EstadisticsController _estadisticsController,
-      int idcontenido,
-      Function incrementarAyudas) {
+      BuildContext context, EstadisticsController _estadisticsController, int idcontenido, Function incrementarAyudas) {
     //final EstadisticsController _estadisticsController = EstadisticsController();
     return FloatingActionButton(
       backgroundColor: PersonalTheme.of(context).alternate,
       foregroundColor: PersonalTheme.of(context).primary,
       onPressed: () async {
-        UtilsSnackbar.show(
-            context, await _estadisticsController.asistencia(idcontenido));
+        UtilsSnackbar.show(context, await _estadisticsController.asistencia(idcontenido));
         incrementarAyudas();
       },
       child: const Icon(Icons.assistant_rounded),

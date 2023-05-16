@@ -1,3 +1,4 @@
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_aislantes_conductores_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_angulos_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_paralelogramos_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_caminos.dart';
@@ -18,10 +19,10 @@ import 'package:asistente_virtual/src/pages/Screens/Login_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/PaginaInicio_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/PruebasAPI_screen.dart';
 
-void main() {
+void main() async{
   runApp(MyApp());
   UtilsInicialize _utilsInicialize = UtilsInicialize();
-  _utilsInicialize.initDD('DesafioDiario', 'Expiracion');
+  await _utilsInicialize.initDD('DesafioDiario', 'Expiracion');
 }
 
 class MyApp extends StatefulWidget {
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'act_sopa_sentimientos_emociones',
+      initialRoute: 'act_intruso_aislantesconductores',
       //rutas de la aplicacion
       routes: {
 
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
         //ACTIVIDADES INTRUSO
         'act_intruso_angulos':(BuildContext context) => const ActIntrusoAngulosPage(),
         'act_intruso_paralelogramos':(BuildContext context) => const ActIntrusoParalelogramosPage(),
+        'act_intruso_aislantesconductores':(BuildContext context) => const ActIntrusoAislantesConductoresPage(),
 
         
         //SOPAS DE LETRAS

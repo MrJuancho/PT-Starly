@@ -18,12 +18,10 @@ class ActIntrusoParalelogramosPage extends StatefulWidget {
   final String counter;
 
   @override
-  _ActIntrusoParalelogramosState createState() =>
-      _ActIntrusoParalelogramosState();
+  _ActIntrusoParalelogramosState createState() => _ActIntrusoParalelogramosState();
 }
 
-class _ActIntrusoParalelogramosState
-    extends State<ActIntrusoParalelogramosPage> {
+class _ActIntrusoParalelogramosState extends State<ActIntrusoParalelogramosPage> {
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -78,15 +76,8 @@ class _ActIntrusoParalelogramosState
         ? _actividad(context)
         : _activityFinished
             ? ResultadosWidget.show(
-                context,
-                intentos,
-                ayudas,
-                _estadisticsController.formatMilliseconds(),
-                _estadisticsController)
-            : InstruccionesWidget.show(
-                context,
-                _estadisticsController,
-                presionado,
+                context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
+            : InstruccionesWidget.show(context, _estadisticsController, presionado,
                 'Identificar de las 4 figuras que se mostraran quien no es un paralelogramo');
   }
 
@@ -135,10 +126,7 @@ class _ActIntrusoParalelogramosState
                     height: MediaQuery.of(context).size.height * 0.7,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          PersonalTheme.of(context).primary,
-                          PersonalTheme.of(context).tertiary
-                        ],
+                        colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
                         stops: [0.0, 1.0],
                         begin: AlignmentDirectional(0.0, -1.0),
                         end: AlignmentDirectional(0, 1.0),
@@ -190,11 +178,7 @@ class _ActIntrusoParalelogramosState
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      12,
-                                      intentos,
-                                      ayudas,
-                                      _estadisticsController
-                                          .formatMilliseconds());
+                                      12, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                 } else {
                                   correctas += 1;
                                 }
@@ -243,11 +227,7 @@ class _ActIntrusoParalelogramosState
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      12,
-                                      intentos,
-                                      ayudas,
-                                      _estadisticsController
-                                          .formatMilliseconds());
+                                      12, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                 } else {
                                   correctas += 1;
                                 }
@@ -356,11 +336,7 @@ class _ActIntrusoParalelogramosState
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      12,
-                                      intentos,
-                                      ayudas,
-                                      _estadisticsController
-                                          .formatMilliseconds());
+                                      12, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                 } else {
                                   correctas += 1;
                                 }
@@ -381,14 +357,12 @@ class _ActIntrusoParalelogramosState
                     ),
                   ),
                 ),
-                EstadisticasWidget.build(
-                    context, intentos, ayudas, _estadisticsController),
+                EstadisticasWidget.build(context, intentos, ayudas, _estadisticsController),
               ],
             ),
           ),
         ),
-        floatingActionButton: AyudasWidget.build(
-            context, _estadisticsController, 14, incrementarAyudas),
+        floatingActionButton: AyudasWidget.build(context, _estadisticsController, 14, incrementarAyudas),
         //bottomNavigationBar: MenuInferior(),
       ),
     );
