@@ -10,8 +10,8 @@ import 'package:marquee_widget/marquee_widget.dart';
 import '../../../../utils/utils_preferences.dart';
 import '../../../flutter_flow/Theme_Personal.dart';
 
-class ActIntrusoAislantesConductoresPage extends StatefulWidget {
-  const ActIntrusoAislantesConductoresPage({
+class ActIntrusoBiodiverdidadPage extends StatefulWidget {
+  const ActIntrusoBiodiverdidadPage({
     Key? key,
     String? counter,
   })  : this.counter = counter ?? '0',
@@ -20,10 +20,10 @@ class ActIntrusoAislantesConductoresPage extends StatefulWidget {
   final String counter;
 
   @override
-  _ActIntrusoAislantesConductoresState createState() => _ActIntrusoAislantesConductoresState();
+  _ActIntrusoBiodiverdidadState createState() => _ActIntrusoBiodiverdidadState();
 }
 
-class _ActIntrusoAislantesConductoresState extends State<ActIntrusoAislantesConductoresPage> {
+class _ActIntrusoBiodiverdidadState extends State<ActIntrusoBiodiverdidadPage> {
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -122,7 +122,664 @@ class _ActIntrusoAislantesConductoresState extends State<ActIntrusoAislantesCond
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                
+                Expanded(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 1.0,
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                        stops: [0.0, 1.0],
+                        begin: AlignmentDirectional(0.0, -1.0),
+                        end: AlignmentDirectional(0, 1.0),
+                      ),
+                    ),
+                    child: Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: GridView(
+                        padding: EdgeInsets.zero,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 3.0,
+                          mainAxisSpacing: 40.0,
+                          childAspectRatio: 1.0,
+                        ),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio1.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag1',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag1',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio1.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio2.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag2',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag2',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio2.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              //AQUI
+                                incrementarIntentos();
+                                if (correctas == 3) {
+                                  _estadisticsController.stopTimer();
+                                  resultados();
+                                  _estadisticsController.registroResultados(
+                                      16,
+                                      intentos,
+                                      ayudas,
+                                      _estadisticsController
+                                          .formatMilliseconds());
+                                } else {
+                                  correctas += 1;
+                                }
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio3.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag3',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag3',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio3.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio4.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag4',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag4',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio4.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio5.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag5',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag5',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio5.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              //AQUI
+                                incrementarIntentos();
+                                if (correctas == 3) {
+                                  _estadisticsController.stopTimer();
+                                  resultados();
+                                  _estadisticsController.registroResultados(
+                                      16,
+                                      intentos,
+                                      ayudas,
+                                      _estadisticsController
+                                          .formatMilliseconds());
+                                } else {
+                                  correctas += 1;
+                                }
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio6.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag6',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag6',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio6.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio7.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag7',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag7',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio7.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio8.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag8',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag8',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio8.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio9.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag9',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag9',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio9.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio10.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag10',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag10',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio10.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio11.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag11',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag11',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio11.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              //AQUI
+                                incrementarIntentos();
+                                if (correctas == 3) {
+                                  _estadisticsController.stopTimer();
+                                  resultados();
+                                  _estadisticsController.registroResultados(
+                                      16,
+                                      intentos,
+                                      ayudas,
+                                      _estadisticsController
+                                          .formatMilliseconds());
+                                } else {
+                                  correctas += 1;
+                                }
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio12.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag12',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag12',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio12.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              //AQUI
+                                incrementarIntentos();
+                                if (correctas == 3) {
+                                  _estadisticsController.stopTimer();
+                                  resultados();
+                                  _estadisticsController.registroResultados(
+                                      16,
+                                      intentos,
+                                      ayudas,
+                                      _estadisticsController
+                                          .formatMilliseconds());
+                                } else {
+                                  correctas += 1;
+                                }
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio13.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag13',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag13',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio13.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio14.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag14',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag14',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio14.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio15.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag15',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag15',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio15.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              incrementarIntentos();
+                            },
+                            onLongPress: () async {
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: ExpandedImageView(
+                                    image: Image.asset(
+                                      'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio16.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                    allowRotation: false,
+                                    tag: 'imageTag16',
+                                    useHeroAnimation: true,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: 'imageTag16',
+                              transitionOnUserGestures: true,
+                              child: Image.asset(
+                                'assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/bio16.png',
+                                width: 100.0,
+                                height: 100.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 EstadisticasWidget.build(context, intentos, ayudas, _estadisticsController),
               ],
             ),
