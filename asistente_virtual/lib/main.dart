@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'act_memorama_rectas',
+      initialRoute: 'act_sopa_sentimientos_emociones',
       //rutas de la aplicacion
       routes: {
         //CORE APP
