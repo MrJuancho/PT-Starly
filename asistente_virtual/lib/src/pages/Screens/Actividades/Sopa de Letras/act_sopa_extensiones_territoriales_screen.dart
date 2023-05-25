@@ -10,12 +10,12 @@ import 'package:asistente_virtual/src/utils/utils_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 
-class ActSopaSentimientosEmocionesPage extends StatefulWidget {
+class ActSopaExtensionesTerritorialesPage extends StatefulWidget {
   @override
-  _ActSopaSentimientosEmocionesState createState() => _ActSopaSentimientosEmocionesState();
+  _ActSopaExtensionesTerritorialesState createState() => _ActSopaExtensionesTerritorialesState();
 }
 
-class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocionesPage> {
+class _ActSopaExtensionesTerritorialesState extends State<ActSopaExtensionesTerritorialesPage> {
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -26,37 +26,40 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   List<String> words = [
-    'AFECTO',
-    'ALEGRIA',
-    'AMOR',
-    'COMPASION',
-    'ESPERANZA',
-    'GENEROSIDAD',
-    'GOZO',
-    'HUMILDAD',
-    // Agrega aquí más palabras
+    'CANCUN',
+    'CARMEN',
+    'CITLALTEPETL',
+    'EVERMAN',
+    'GUADALUPE',
+    'MAGDALENA',
+    'MUJERES',
+    'NEVADO',
+    'PARICUTIN',
+    'POPOCATEPETL',
   ];
 
   List<String> selectedWords = [];
 
   List<List<String>> letterGrid = [
-    ['U', 'P', 'N', 'Z', 'Y', 'P', 'I', 'R', 'L', 'C', 'Q', 'F', 'H', 'Ñ'],
-    ['G', 'R', 'D', 'A', 'D', 'I', 'S', 'O', 'R', 'E', 'N', 'E', 'G', 'Q'],
-    ['W', 'D', 'B', 'I', 'F', 'C', 'O', 'M', 'P', 'A', 'S', 'I', 'O', 'N'],
-    ['R', 'B', 'A', 'I', 'R', 'G', 'E', 'L', 'A', 'Z', 'G', 'M', 'I', 'C'],
-    ['L', 'X', 'Y', 'D', 'N', 'F', 'T', 'C', 'D', 'N', 'Ñ', 'A', 'K', 'A'],
-    ['F', 'H', 'I', 'F', 'L', 'R', 'U', 'Ñ', 'Ñ', 'A', 'U', 'F', 'D', 'G'],
-    ['V', 'T', 'J', 'L', 'W', 'I', 'C', 'A', 'T', 'R', 'R', 'E', 'V', 'I'],
-    ['S', 'O', 'Q', 'G', 'Y', 'S', 'M', 'N', 'Q', 'E', 'H', 'C', 'I', 'W'],
-    ['A', 'A', 'V', 'N', 'F', 'N', 'Ñ', 'U', 'K', 'P', 'Ñ', 'T', 'I', 'F'],
-    ['Q', 'D', 'R', 'J', 'V', 'A', 'O', 'R', 'H', 'S', 'P', 'O', 'T', 'O'],
-    ['T', 'R', 'O', 'M', 'A', 'Q', 'Z', 'B', 'Y', 'E', 'Q', 'T', 'V', 'A'],
-    ['Ñ', 'F', 'Y', 'F', 'H', 'G', 'O', 'R', 'C', 'W', 'O', 'Y', 'G', 'N'],
-    ['A', 'P', 'Y', 'W', 'J', 'E', 'G', 'J', 'G', 'P', 'P', 'E', 'N', 'N'],
-    ['G', 'P', 'A', 'R', 'M', 'O', 'I', 'J', 'S', 'C', 'W', 'Z', 'L', 'F'],
-    ['P', 'K', 'I', 'O', 'C', 'C', 'V', 'B', 'T', 'D', 'Y', 'B', 'Q', 'Q'],
+    ['B', 'R', 'I', 'N', 'D', 'S', 'E', 'H', 'Ñ', 'D', 'U', 'Ñ', 'O', 'W', 'Ñ'],
+    ['F', 'O', 'A', 'N', 'H', 'B', 'M', 'F', 'H', 'N', 'H', 'B', 'B', 'I', 'P'],
+    ['H', 'I', 'L', 'E', 'U', 'N', 'B', 'U', 'O', 'W', 'N', 'X', 'L', 'C', 'N'],
+    ['K', 'Q', 'B', 'X', 'N', 'C', 'I', 'D', 'J', 'E', 'D', 'A', 'A', 'C', 'C'],
+    ['M', 'P', 'R', 'X', 'X', 'L', 'N', 'T', 'V', 'E', 'V', 'N', 'K', 'M', 'I'],
+    ['L', 'P', 'O', 'H', 'S', 'L', 'P', 'A', 'U', 'C', 'R', 'T', 'N', 'Y', 'T'],
+    ['M', 'J', 'R', 'P', 'G', 'D', 'D', 'A', 'C', 'C', 'A', 'E', 'A', 'V', 'L'],
+    ['A', 'N', 'J', 'S', 'O', 'O', 'X', 'F', 'G', 'K', 'I', 'Z', 'S', 'W', 'A'],
+    ['G', 'D', 'E', 'Y', 'Ñ', 'C', 'A', 'U', 'U', 'P', 'L', 'R', 'Z', 'T', 'L'],
+    ['D', 'Q', 'P', 'M', 'T', 'B', 'A', 'P', 'E', 'L', 'W', 'B', 'A', 'P', 'T'],
+    ['A', 'H', 'O', 'A', 'R', 'D', 'E', 'T', 'V', 'Ñ', 'B', 'I', 'C', 'P', 'E'],
+    ['L', 'L', 'O', 'J', 'A', 'A', 'G', 'B', 'E', 'Q', 'E', 'Z', 'P', 'Y', 'P'],
+    ['E', 'S', 'H', 'L', 'A', 'C', 'C', 'Ñ', 'R', 'P', 'M', 'X', 'U', 'M', 'E'],
+    ['N', 'C', 'U', 'O', 'T', 'N', 'S', 'T', 'M', 'Z', 'E', 'Q', 'W', 'O', 'T'],
+    ['A', 'P', 'R', 'G', 'N', 'Z', 'C', 'X', 'A', 'O', 'E', 'T', 'O', 'I', 'L'],
+    ['E', 'K', 'S', 'O', 'K', 'R', 'L', 'V', 'N', 'W', 'E', 'Ñ', 'L', 'O', 'P'],
+    ['G', 'Z', 'F', 'C', 'A', 'L', 'B', 'Y', 'J', 'R', 'L', 'U', 'N', 'F', 'M'],
   ];
-  
+
   String currentWord = '';
   bool isDragging = false;
   Offset startPoint = Offset.zero;
@@ -139,7 +142,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Sopa de letras con diferentes emociones y sentimientos');
+                context, _estadisticsController, presionado, 'Sopa de letras con nombres de volcanes.');
   }
 
   Scaffold _actividad(BuildContext context) {
@@ -161,7 +164,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           pauseDuration: const Duration(milliseconds: 1000),
           directionMarguee: DirectionMarguee.TwoDirection,
           child: Text(
-            'Sentimientos y Emociones',
+            'Tipos de extensiones terrenales',
             style: PersonalTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -275,7 +278,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
                                 _estadisticsController.stopTimer();
                                 resultados();
                                 _estadisticsController.registroResultados(
-                                    50, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    56, intentos, ayudas, _estadisticsController.formatMilliseconds());
                               } else {
                                 print('Current word: $currentWord');
                                 currentWord = '';
@@ -361,7 +364,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           ),
         ),
       ),
-      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 40, incrementarAyudas),
+      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 33, incrementarAyudas),
       //bottomNavigationBar: MenuInferior(),
     );
   }

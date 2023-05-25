@@ -10,12 +10,12 @@ import 'package:asistente_virtual/src/utils/utils_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 
-class ActSopaSentimientosEmocionesPage extends StatefulWidget {
+class ActSopaAdjetivosVerbosPage extends StatefulWidget {
   @override
-  _ActSopaSentimientosEmocionesState createState() => _ActSopaSentimientosEmocionesState();
+  _ActSopaAdjetivosVerbosState createState() => _ActSopaAdjetivosVerbosState();
 }
 
-class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocionesPage> {
+class _ActSopaAdjetivosVerbosState extends State<ActSopaAdjetivosVerbosPage> {
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -26,35 +26,36 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   List<String> words = [
-    'AFECTO',
-    'ALEGRIA',
-    'AMOR',
-    'COMPASION',
-    'ESPERANZA',
-    'GENEROSIDAD',
-    'GOZO',
-    'HUMILDAD',
+    'ALREDEDOR',
+    'CORRER',
+    'DEPRISA',
+    'EXPLICO',
+    'FUERON',
+    'INCREIBLE',
+    'PODRIDO',
+    'TERRIBLE',
     // Agrega aquí más palabras
   ];
 
   List<String> selectedWords = [];
 
   List<List<String>> letterGrid = [
-    ['U', 'P', 'N', 'Z', 'Y', 'P', 'I', 'R', 'L', 'C', 'Q', 'F', 'H', 'Ñ'],
-    ['G', 'R', 'D', 'A', 'D', 'I', 'S', 'O', 'R', 'E', 'N', 'E', 'G', 'Q'],
-    ['W', 'D', 'B', 'I', 'F', 'C', 'O', 'M', 'P', 'A', 'S', 'I', 'O', 'N'],
-    ['R', 'B', 'A', 'I', 'R', 'G', 'E', 'L', 'A', 'Z', 'G', 'M', 'I', 'C'],
-    ['L', 'X', 'Y', 'D', 'N', 'F', 'T', 'C', 'D', 'N', 'Ñ', 'A', 'K', 'A'],
-    ['F', 'H', 'I', 'F', 'L', 'R', 'U', 'Ñ', 'Ñ', 'A', 'U', 'F', 'D', 'G'],
-    ['V', 'T', 'J', 'L', 'W', 'I', 'C', 'A', 'T', 'R', 'R', 'E', 'V', 'I'],
-    ['S', 'O', 'Q', 'G', 'Y', 'S', 'M', 'N', 'Q', 'E', 'H', 'C', 'I', 'W'],
-    ['A', 'A', 'V', 'N', 'F', 'N', 'Ñ', 'U', 'K', 'P', 'Ñ', 'T', 'I', 'F'],
-    ['Q', 'D', 'R', 'J', 'V', 'A', 'O', 'R', 'H', 'S', 'P', 'O', 'T', 'O'],
-    ['T', 'R', 'O', 'M', 'A', 'Q', 'Z', 'B', 'Y', 'E', 'Q', 'T', 'V', 'A'],
-    ['Ñ', 'F', 'Y', 'F', 'H', 'G', 'O', 'R', 'C', 'W', 'O', 'Y', 'G', 'N'],
-    ['A', 'P', 'Y', 'W', 'J', 'E', 'G', 'J', 'G', 'P', 'P', 'E', 'N', 'N'],
-    ['G', 'P', 'A', 'R', 'M', 'O', 'I', 'J', 'S', 'C', 'W', 'Z', 'L', 'F'],
-    ['P', 'K', 'I', 'O', 'C', 'C', 'V', 'B', 'T', 'D', 'Y', 'B', 'Q', 'Q'],
+    ['Ñ', 'O', 'O', 'A', 'H', 'A', 'A', 'T', 'B', 'I', 'Y', 'F', 'I', 'Z'],
+    ['Z', 'Y', 'E', 'Z', 'O', 'R', 'E', 'R', 'R', 'O', 'C', 'U', 'H', 'Ñ'],
+    ['U', 'Q', 'H', 'A', 'O', 'D', 'R', 'L', 'C', 'F', 'G', 'E', 'Y', 'L'],
+    ['H', 'M', 'E', 'U', 'L', 'X', 'I', 'D', 'W', 'E', 'W', 'R', 'N', 'F'],
+    ['X', 'Y', 'Q', 'U', 'T', 'R', 'S', 'R', 'T', 'L', 'Y', 'O', 'C', 'J'],
+    ['E', 'O', 'G', 'A', 'M', 'I', 'E', 'R', 'D', 'W', 'S', 'N', 'T', 'E'],
+    ['O', 'E', 'F', 'A', 'H', 'Ñ', 'K', 'D', 'R', 'O', 'W', 'J', 'L', 'E'],
+    ['K', 'L', 'D', 'S', 'Q', 'F', 'R', 'X', 'E', 'S', 'P', 'B', 'B', 'X'],
+    ['D', 'B', 'D', 'I', 'P', 'M', 'Q', 'T', 'L', 'D', 'I', 'H', 'Z', 'P'],
+    ['Z', 'I', 'K', 'R', 'E', 'N', 'N', 'G', 'Y', 'E', 'O', 'P', 'I', 'L'],
+    ['S', 'R', 'Y', 'P', 'W', 'V', 'Q', 'I', 'R', 'B', 'T', 'R', 'Z', 'I'],
+    ['W', 'R', 'M', 'E', 'H', 'I', 'W', 'C', 'T', 'O', 'V', 'W', 'K', 'C'],
+    ['Y', 'E', 'I', 'D', 'R', 'C', 'N', 'N', 'Y', 'T', 'W', 'A', 'V', 'O'],
+    ['R', 'T', 'O', 'Q', 'X', 'I', 'X', 'S', 'T', 'F', 'V', 'A', 'E', 'A'],
+    ['Z', 'X', 'D', 'E', 'T', 'F', 'B', 'S', 'L', 'S', 'I', 'L', 'M', 'U'],
+
   ];
   
   String currentWord = '';
@@ -139,7 +140,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Sopa de letras con diferentes emociones y sentimientos');
+                context, _estadisticsController, presionado, 'Sopa de letras con adverbios, adjetivos y verbos.');
   }
 
   Scaffold _actividad(BuildContext context) {
@@ -161,7 +162,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           pauseDuration: const Duration(milliseconds: 1000),
           directionMarguee: DirectionMarguee.TwoDirection,
           child: Text(
-            'Sentimientos y Emociones',
+            'Adverbios, Verbos y Adjetivos.',
             style: PersonalTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -275,7 +276,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
                                 _estadisticsController.stopTimer();
                                 resultados();
                                 _estadisticsController.registroResultados(
-                                    50, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    51, intentos, ayudas, _estadisticsController.formatMilliseconds());
                               } else {
                                 print('Current word: $currentWord');
                                 currentWord = '';
@@ -361,7 +362,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           ),
         ),
       ),
-      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 40, incrementarAyudas),
+      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 10, incrementarAyudas),
       //bottomNavigationBar: MenuInferior(),
     );
   }

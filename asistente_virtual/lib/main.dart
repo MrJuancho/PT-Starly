@@ -10,8 +10,12 @@ import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intr
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_areas_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_especies_peligro_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_guerra_reforma_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_paises_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_personajes_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_peso_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_planetas_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_rectas_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_revolucion_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_caminos.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_cuidado_medio_ambiente_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_expresiones_algebraicas_screen.dart';
@@ -19,7 +23,17 @@ import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/a
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_reciclaje_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_recta_secante_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_simbolos_ciudad.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_adverbios_verbos_adjetivos_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_anticonceptivos_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_apellidos_celebres_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_esdrujulas_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_extensiones_territoriales_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_metodo_cientifico_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_movimiento_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_probabilidad_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_revolucion_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_sentimientos_emociones_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_triangulos_cuadrilateros.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Personalizacion_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/TareasDiarias_screen.dart';
@@ -53,7 +67,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'act_sopa_sentimientos_emociones',
+      initialRoute: 'act_memorama_peso',
       //rutas de la aplicacion
       routes: {
         //CORE APP
@@ -67,7 +81,8 @@ class _MyAppState extends State<MyApp> {
         //ACTIVIDADES ENCUENTRA MISMA IMAGEN
         'act_encuentra_recta_secante': (BuildContext context) => const ActEncuentraRectaSecantePage(),
         'act_encuentra_partidos_politicos': (BuildContext context) => const ActEncuentraPartidosPoliticosPage(),
-        'act_encuentra_expresiones_algebraicas': (BuildContext context) => const ActEncuentraExpresionesAlgebraicasPage(),
+        'act_encuentra_expresiones_algebraicas': (BuildContext context) =>
+            const ActEncuentraExpresionesAlgebraicasPage(),
         'act_encuentra_cuidado_medio_ambiente': (BuildContext context) => const ActEncuentraCuidadoMedioAmbientePage(),
         'act_encuentra_reciclaje': (BuildContext context) => const ActEncuentraReciclajePage(),
         'act_encuentra_simbolos_ciudad': (BuildContext context) => const ActEncuentraSimbolosCiudadPage(),
@@ -90,9 +105,23 @@ class _MyAppState extends State<MyApp> {
         'act_memorama_areas': (BuildContext context) => const ActMemoramaAreasPage(),
         'act_memorama_guerra_reforma': (BuildContext context) => const ActMemoramaGuerraReformaPage(),
         'act_memorama_rectas': (BuildContext context) => const ActMemoramaRectasPage(),
+        'act_memorama_paises': (BuildContext context) => const ActMemoramaPaisesPage(),
+        'act_memorama_personajes': (BuildContext context) => const ActMemoramaPersonajesPage(),
+        'act_memorama_revolucion': (BuildContext context) => const ActMemoramaRevolucionPage(),
+        'act_memorama_peso': (BuildContext context) => const ActMemoramaPesoPage(),
 
         //SOPAS DE LETRAS
         'act_sopa_sentimientos_emociones': (BuildContext context) => ActSopaSentimientosEmocionesPage(),
+        'act_sopa_adverbios_verbos': (BuildContext context) => ActSopaAdjetivosVerbosPage(),
+        'act_sopa_triangulos_cuadrilateros': (BuildContext context) => ActSopaTriangulosCuadrilaterosPage(),
+        'act_sopa_probabilidad': (BuildContext context) => ActSopaProbabilidadPage(),
+        'act_sopa_movimiento': (BuildContext context) => ActSopaMovimientoPage(),
+        'act_sopa_revolucion': (BuildContext context) => ActSopaRevolucionPage(),
+        'act_sopa_extensiones': (BuildContext context) => ActSopaExtensionesTerritorialesPage(),
+        'act_sopa_metodo_cientifico': (BuildContext context) => ActSopaMetodoCientificoPage(),
+        'act_sopa_esdrujulas': (BuildContext context) => ActSopaEsdrujulasPage(),
+        'act_sopa_apellidos_reforma': (BuildContext context) => ActSopaApellidosCelebresPage(),
+        'act_sopa_anticonceptivos': (BuildContext context) => ActSopaAnticonceptivosPage(),
 
         //PANTALLA PRUEBAS DE API
         'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),

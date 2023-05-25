@@ -105,7 +105,11 @@ flutter:
   - assets/images/Actividades/Memorama/Act_Memorama_Guerra_Reforma/
   - assets/images/Actividades/Memorama/Act_Memorama_Areas/
   - assets/images/Actividades/Memorama/Act_Memorama_Rectas/
-  #- assets/images/Actividades/Intruso/Act_Intruso_Biodiversidad/
+  - assets/images/Actividades/Memorama/Act_Memorama_Paises/
+  - assets/images/Actividades/Memorama/Act_Memorama_Personajes/
+  - assets/images/Actividades/Memorama/Act_Memorama_Revolucion/
+  - assets/images/Actividades/Memorama/Act_Memorama_Peso/
+  
 
   # To add assets to your application, add an assets section, like this:
   # assets:

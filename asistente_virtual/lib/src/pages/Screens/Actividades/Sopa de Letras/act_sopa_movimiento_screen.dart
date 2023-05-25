@@ -10,12 +10,12 @@ import 'package:asistente_virtual/src/utils/utils_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 
-class ActSopaSentimientosEmocionesPage extends StatefulWidget {
+class ActSopaMovimientoPage extends StatefulWidget {
   @override
-  _ActSopaSentimientosEmocionesState createState() => _ActSopaSentimientosEmocionesState();
+  _ActSopaMovimientoState createState() => _ActSopaMovimientoState();
 }
 
-class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocionesPage> {
+class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -26,37 +26,41 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   List<String> words = [
-    'AFECTO',
-    'ALEGRIA',
-    'AMOR',
-    'COMPASION',
-    'ESPERANZA',
-    'GENEROSIDAD',
-    'GOZO',
-    'HUMILDAD',
+    'DIRECCION',
+    'DISTANCIA',
+    'ENERGIA',
+    'FUERZA',
+    'INERCIA',
+    'PENDULO',
+    'RAPIDEZ',
+    'RECTILINEO',
+    'TRAYECTORIA',
+    'VELOCIDAD',
     // Agrega aquí más palabras
   ];
 
   List<String> selectedWords = [];
 
   List<List<String>> letterGrid = [
-    ['U', 'P', 'N', 'Z', 'Y', 'P', 'I', 'R', 'L', 'C', 'Q', 'F', 'H', 'Ñ'],
-    ['G', 'R', 'D', 'A', 'D', 'I', 'S', 'O', 'R', 'E', 'N', 'E', 'G', 'Q'],
-    ['W', 'D', 'B', 'I', 'F', 'C', 'O', 'M', 'P', 'A', 'S', 'I', 'O', 'N'],
-    ['R', 'B', 'A', 'I', 'R', 'G', 'E', 'L', 'A', 'Z', 'G', 'M', 'I', 'C'],
-    ['L', 'X', 'Y', 'D', 'N', 'F', 'T', 'C', 'D', 'N', 'Ñ', 'A', 'K', 'A'],
-    ['F', 'H', 'I', 'F', 'L', 'R', 'U', 'Ñ', 'Ñ', 'A', 'U', 'F', 'D', 'G'],
-    ['V', 'T', 'J', 'L', 'W', 'I', 'C', 'A', 'T', 'R', 'R', 'E', 'V', 'I'],
-    ['S', 'O', 'Q', 'G', 'Y', 'S', 'M', 'N', 'Q', 'E', 'H', 'C', 'I', 'W'],
-    ['A', 'A', 'V', 'N', 'F', 'N', 'Ñ', 'U', 'K', 'P', 'Ñ', 'T', 'I', 'F'],
-    ['Q', 'D', 'R', 'J', 'V', 'A', 'O', 'R', 'H', 'S', 'P', 'O', 'T', 'O'],
-    ['T', 'R', 'O', 'M', 'A', 'Q', 'Z', 'B', 'Y', 'E', 'Q', 'T', 'V', 'A'],
-    ['Ñ', 'F', 'Y', 'F', 'H', 'G', 'O', 'R', 'C', 'W', 'O', 'Y', 'G', 'N'],
-    ['A', 'P', 'Y', 'W', 'J', 'E', 'G', 'J', 'G', 'P', 'P', 'E', 'N', 'N'],
-    ['G', 'P', 'A', 'R', 'M', 'O', 'I', 'J', 'S', 'C', 'W', 'Z', 'L', 'F'],
-    ['P', 'K', 'I', 'O', 'C', 'C', 'V', 'B', 'T', 'D', 'Y', 'B', 'Q', 'Q'],
+    ['N', 'O', 'I', 'C', 'C', 'E', 'R', 'I', 'D', 'R', 'N', 'P', 'E', 'O', 'J'],
+    ['G', 'T', 'N', 'T', 'N', 'X', 'O', 'L', 'R', 'F', 'Q', 'E', 'W', 'E', 'T'],
+    ['I', 'E', 'R', 'F', 'K', 'I', 'N', 'H', 'C', 'I', 'V', 'B', 'H', 'N', 'T'],
+    ['T', 'N', 'D', 'A', 'U', 'N', 'Q', 'T', 'E', 'N', 'E', 'R', 'G', 'I', 'A'],
+    ['F', 'A', 'E', 'U', 'Y', 'U', 'T', 'R', 'D', 'Z', 'N', 'N', 'S', 'L', 'J'],
+    ['O', 'I', 'H', 'R', 'B', 'E', 'E', 'V', 'R', 'N', 'V', 'J', 'B', 'I', 'H'],
+    ['L', 'C', 'C', 'Y', 'C', 'A', 'C', 'A', 'W', 'W', 'L', 'O', 'K', 'T', 'I'],
+    ['S', 'N', 'J', 'A', 'B', 'I', 'P', 'T', 'H', 'F', 'R', 'A', 'N', 'C', 'P'],
+    ['A', 'A', 'U', 'L', 'N', 'I', 'A', 'X', 'O', 'J', 'Z', 'X', 'V', 'E', 'V'],
+    ['L', 'T', 'T', 'P', 'D', 'S', 'T', 'M', 'B', 'R', 'Y', 'C', 'E', 'R', 'V'],
+    ['X', 'S', 'R', 'E', 'H', 'K', 'O', 'J', 'E', 'F', 'I', 'H', 'L', 'D', 'T'],
+    ['Z', 'I', 'Z', 'X', 'E', 'U', 'P', 'U', 'E', 'U', 'D', 'A', 'O', 'S', 'Z'],
+    ['T', 'D', 'R', 'T', 'D', 'G', 'F', 'R', 'N', 'R', 'N', 'U', 'C', 'L', 'S'],
+    ['Ñ', 'V', 'J', 'T', 'L', 'Z', 'C', 'L', 'U', 'L', 'N', 'V', 'I', 'S', 'U'],
+    ['U', 'P', 'E', 'M', 'H', 'Q', 'T', 'E', 'U', 'T', 'L', 'N', 'D', 'H', 'G'],
+    ['K', 'S', 'P', 'V', 'Ñ', 'O', 'L', 'U', 'D', 'N', 'E', 'P', 'A', 'J', 'Y'],
+    ['K', 'Q', 'A', 'C', 'F', 'C', 'X', 'Z', 'C', 'Z', 'W', 'T', 'D', 'H', 'V'],
   ];
-  
+
   String currentWord = '';
   bool isDragging = false;
   Offset startPoint = Offset.zero;
@@ -138,8 +142,8 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
         : _activityFinished
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
-            : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Sopa de letras con diferentes emociones y sentimientos');
+            : InstruccionesWidget.show(context, _estadisticsController, presionado,
+                'Encontrar palabras como Trayectoria, Direccion, Rapidez.');
   }
 
   Scaffold _actividad(BuildContext context) {
@@ -161,7 +165,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           pauseDuration: const Duration(milliseconds: 1000),
           directionMarguee: DirectionMarguee.TwoDirection,
           child: Text(
-            'Sentimientos y Emociones',
+            'Términos relacionados al movimiento',
             style: PersonalTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -275,7 +279,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
                                 _estadisticsController.stopTimer();
                                 resultados();
                                 _estadisticsController.registroResultados(
-                                    50, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    54, intentos, ayudas, _estadisticsController.formatMilliseconds());
                               } else {
                                 print('Current word: $currentWord');
                                 currentWord = '';
@@ -361,7 +365,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           ),
         ),
       ),
-      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 40, incrementarAyudas),
+      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 23, incrementarAyudas),
       //bottomNavigationBar: MenuInferior(),
     );
   }

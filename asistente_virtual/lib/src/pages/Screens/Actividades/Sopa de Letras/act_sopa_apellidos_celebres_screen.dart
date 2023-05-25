@@ -10,12 +10,12 @@ import 'package:asistente_virtual/src/utils/utils_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 
-class ActSopaSentimientosEmocionesPage extends StatefulWidget {
+class ActSopaApellidosCelebresPage extends StatefulWidget {
   @override
-  _ActSopaSentimientosEmocionesState createState() => _ActSopaSentimientosEmocionesState();
+  _ActSopaApellidosCelebresState createState() => _ActSopaApellidosCelebresState();
 }
 
-class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocionesPage> {
+class _ActSopaApellidosCelebresState extends State<ActSopaApellidosCelebresPage> {
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -26,37 +26,42 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   List<String> words = [
-    'AFECTO',
-    'ALEGRIA',
-    'AMOR',
-    'COMPASION',
-    'ESPERANZA',
-    'GENEROSIDAD',
-    'GOZO',
-    'HUMILDAD',
-    // Agrega aquí más palabras
+    'COMONFORT',
+    'DEGOLLADO',
+    'GONZALEZ',
+    'JUAREZ',
+    'LOPEZ',
+    'MEJIA',
+    'MIRAMON',
+    'ORTEGA',
+    'ZARAGOZA',
+    'ZULOAGA',
   ];
 
   List<String> selectedWords = [];
 
   List<List<String>> letterGrid = [
-    ['U', 'P', 'N', 'Z', 'Y', 'P', 'I', 'R', 'L', 'C', 'Q', 'F', 'H', 'Ñ'],
-    ['G', 'R', 'D', 'A', 'D', 'I', 'S', 'O', 'R', 'E', 'N', 'E', 'G', 'Q'],
-    ['W', 'D', 'B', 'I', 'F', 'C', 'O', 'M', 'P', 'A', 'S', 'I', 'O', 'N'],
-    ['R', 'B', 'A', 'I', 'R', 'G', 'E', 'L', 'A', 'Z', 'G', 'M', 'I', 'C'],
-    ['L', 'X', 'Y', 'D', 'N', 'F', 'T', 'C', 'D', 'N', 'Ñ', 'A', 'K', 'A'],
-    ['F', 'H', 'I', 'F', 'L', 'R', 'U', 'Ñ', 'Ñ', 'A', 'U', 'F', 'D', 'G'],
-    ['V', 'T', 'J', 'L', 'W', 'I', 'C', 'A', 'T', 'R', 'R', 'E', 'V', 'I'],
-    ['S', 'O', 'Q', 'G', 'Y', 'S', 'M', 'N', 'Q', 'E', 'H', 'C', 'I', 'W'],
-    ['A', 'A', 'V', 'N', 'F', 'N', 'Ñ', 'U', 'K', 'P', 'Ñ', 'T', 'I', 'F'],
-    ['Q', 'D', 'R', 'J', 'V', 'A', 'O', 'R', 'H', 'S', 'P', 'O', 'T', 'O'],
-    ['T', 'R', 'O', 'M', 'A', 'Q', 'Z', 'B', 'Y', 'E', 'Q', 'T', 'V', 'A'],
-    ['Ñ', 'F', 'Y', 'F', 'H', 'G', 'O', 'R', 'C', 'W', 'O', 'Y', 'G', 'N'],
-    ['A', 'P', 'Y', 'W', 'J', 'E', 'G', 'J', 'G', 'P', 'P', 'E', 'N', 'N'],
-    ['G', 'P', 'A', 'R', 'M', 'O', 'I', 'J', 'S', 'C', 'W', 'Z', 'L', 'F'],
-    ['P', 'K', 'I', 'O', 'C', 'C', 'V', 'B', 'T', 'D', 'Y', 'B', 'Q', 'Q'],
+    ['J', 'A', 'E', 'L', 'Ñ', 'A', 'X', 'Ñ', 'J', 'X', 'O', 'R', 'U', 'F', 'W', 'Y'],
+    ['F', 'T', 'A', 'C', 'S', 'E', 'J', 'Z', 'G', 'U', 'N', 'T', 'C', 'A', 'Ñ', 'K'],
+    ['U', 'P', 'G', 'I', 'R', 'Z', 'N', 'Y', 'A', 'Z', 'O', 'G', 'A', 'R', 'A', 'Z'],
+    ['M', 'R', 'R', 'M', 'Y', 'F', 'H', 'E', 'A', 'Y', 'W', 'V', 'I', 'I', 'D', 'Y'],
+    ['R', 'S', 'T', 'E', 'A', 'G', 'U', 'W', 'A', 'U', 'E', 'L', 'L', 'V', 'B', 'P'],
+    ['J', 'E', 'W', 'J', 'F', 'E', 'F', 'N', 'O', 'I', 'O', 'Q', 'O', 'S', 'M', 'D'],
+    ['U', 'R', 'W', 'I', 'I', 'Z', 'N', 'P', 'W', 'C', 'D', 'W', 'N', 'T', 'T', 'Q'],
+    ['I', 'Z', 'J', 'A', 'W', 'O', 'U', 'L', 'F', 'O', 'A', 'W', 'O', 'A', 'F', 'V'],
+    ['K', 'Q', 'B', 'M', 'M', 'K', 'O', 'S', 'Y', 'M', 'L', 'B', 'R', 'R', 'H', 'X'],
+    ['B', 'C', 'H', 'A', 'Q', 'P', 'U', 'F', 'C', 'O', 'L', 'U', 'Z', 'A', 'Ñ', 'M'],
+    ['W', 'Q', 'R', 'O', 'E', 'U', 'A', 'K', 'S', 'N', 'O', 'Y', 'Z', 'G', 'E', 'W'],
+    ['Ñ', 'I', 'U', 'Z', 'H', 'X', 'D', 'A', 'X', 'F', 'G', 'Ñ', 'U', 'E', 'T', 'Z'],
+    ['M', 'S', 'S', 'P', 'V', 'K', 'B', 'U', 'I', 'O', 'E', 'N', 'L', 'T', 'E', 'Z'],
+    ['E', 'V', 'K', 'P', 'P', 'K', 'H', 'Y', 'N', 'R', 'D', 'N', 'O', 'R', 'M', 'E'],
+    ['Y', 'L', 'N', 'O', 'O', 'C', 'K', 'Z', 'I', 'T', 'U', 'Q', 'A', 'O', 'U', 'C'],
+    ['X', 'P', 'E', 'P', 'H', 'K', 'A', 'N', 'K', 'T', 'B', 'U', 'G', 'Ñ', 'Q', 'A'],
+    ['P', 'M', 'I', 'X', 'F', 'L', 'U', 'B', 'M', 'X', 'J', 'H', 'A', 'Y', 'E', 'Z'],
+    ['Y', 'O', 'W', 'R', 'E', 'Z', 'C', 'L', 'N', 'Z', 'G', 'P', 'B', 'A', 'F', 'N'],
+    ['N', 'J', 'L', 'Z', 'Ñ', 'E', 'M', 'G', 'L', 'Ñ', 'R', 'Ñ', 'D', 'E', 'Y', 'G'],
   ];
-  
+
   String currentWord = '';
   bool isDragging = false;
   Offset startPoint = Offset.zero;
@@ -138,8 +143,8 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
         : _activityFinished
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
-            : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Sopa de letras con diferentes emociones y sentimientos');
+            : InstruccionesWidget.show(context, _estadisticsController, presionado,
+                'Seleccionar apellidos de personajes celebres que participaron en la guerra de reforma.');
   }
 
   Scaffold _actividad(BuildContext context) {
@@ -161,7 +166,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           pauseDuration: const Duration(milliseconds: 1000),
           directionMarguee: DirectionMarguee.TwoDirection,
           child: Text(
-            'Sentimientos y Emociones',
+            'Apellidos de personajes celebres',
             style: PersonalTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -275,7 +280,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
                                 _estadisticsController.stopTimer();
                                 resultados();
                                 _estadisticsController.registroResultados(
-                                    50, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    59, intentos, ayudas, _estadisticsController.formatMilliseconds());
                               } else {
                                 print('Current word: $currentWord');
                                 currentWord = '';
@@ -361,7 +366,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
           ),
         ),
       ),
-      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 40, incrementarAyudas),
+      floatingActionButton: AyudasWidget.build(context, _estadisticsController, 28, incrementarAyudas),
       //bottomNavigationBar: MenuInferior(),
     );
   }
