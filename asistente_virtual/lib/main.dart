@@ -23,6 +23,12 @@ import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/a
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_reciclaje_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_recta_secante_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_simbolos_ciudad.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_avanzado_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_experto_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_extra_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_facil_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_medio_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_principiante_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_adverbios_verbos_adjetivos_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_anticonceptivos_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_apellidos_celebres_screen.dart';
@@ -67,7 +73,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'act_memorama_peso',
+      initialRoute: 'act_series_extra',
       //rutas de la aplicacion
       routes: {
         //CORE APP
@@ -122,6 +128,14 @@ class _MyAppState extends State<MyApp> {
         'act_sopa_esdrujulas': (BuildContext context) => ActSopaEsdrujulasPage(),
         'act_sopa_apellidos_reforma': (BuildContext context) => ActSopaApellidosCelebresPage(),
         'act_sopa_anticonceptivos': (BuildContext context) => ActSopaAnticonceptivosPage(),
+
+        //SERIES LOGICAS
+        'act_series_principiante': (BuildContext context) => const ActSeriesPrincipiantePage(),
+        'act_series_facil': (BuildContext context) => const ActSeriesFacilPage(),
+        'act_series_medio': (BuildContext context) => const ActSeriesMedioPage(),
+        'act_series_avanzado': (BuildContext context) => const ActSeriesAvanzadoPage(),
+        'act_series_experto': (BuildContext context) => const ActSeriesExpertoPage(),
+        'act_series_extra': (BuildContext context) => const ActSeriesExtraPage(),
 
         //PANTALLA PRUEBAS DE API
         'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),

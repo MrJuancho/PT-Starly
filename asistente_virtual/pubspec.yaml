@@ -110,6 +110,13 @@ flutter:
   - assets/images/Actividades/Memorama/Act_Memorama_Revolucion/
   - assets/images/Actividades/Memorama/Act_Memorama_Peso/
   
+  #SERIES LOGICAS
+  - assets/images/Actividades/Series/Act_Series_Principiante/
+  - assets/images/Actividades/Series/Act_Series_Facil/
+  - assets/images/Actividades/Series/Act_Series_Medio/
+  - assets/images/Actividades/Series/Act_Series_Avanzado/
+  - assets/images/Actividades/Series/Act_Series_Experto/
+  - assets/images/Actividades/Series/Act_Series_Extra/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
