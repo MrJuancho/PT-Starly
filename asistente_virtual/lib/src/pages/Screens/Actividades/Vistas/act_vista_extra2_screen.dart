@@ -1,0 +1,1161 @@
+import 'package:asistente_virtual/src/pages/Controllers/Estadistics_controller.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
+import 'package:asistente_virtual/src/pages/Widgets/_vistaImagenExpandida.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:flutter/material.dart';
+import 'package:marquee_widget/marquee_widget.dart';
+import 'package:asistente_virtual/src/utils/utils_preferences.dart';
+import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
+
+class ActVistasExtra2Page extends StatefulWidget {
+  const ActVistasExtra2Page({
+    Key? key,
+    String? counter,
+  })  : this.counter = counter ?? '0',
+        super(key: key);
+
+  final String counter;
+
+  @override
+  _ActVistasExtra2State createState() => _ActVistasExtra2State();
+}
+
+class _ActVistasExtra2State extends State<ActVistasExtra2Page> {
+  final PageController _pageController = PageController();
+  final EstadisticsController _estadisticsController = EstadisticsController();
+  bool _startPressed = false;
+  bool _activityFinished = false;
+  int correctas = 0;
+  int intentos = 0;
+  int ayudas = 0;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _unfocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _estadisticsController.dispose();
+    _unfocusNode.dispose();
+    super.dispose();
+  }
+
+  void incrementarIntentos() {
+    setState(() {
+      intentos++;
+    });
+  }
+
+  void incrementarAyudas() {
+    setState(() {
+      ayudas++;
+    });
+  }
+
+  void presionado() {
+    setState(() {
+      _startPressed = true;
+      _estadisticsController.startTimer();
+    });
+  }
+
+  void resultados() {
+    setState(() {
+      _startPressed = false;
+      _activityFinished = true;
+    });
+  }
+
+  void goToNextPage() {
+    if (_pageController.page != null) {
+      final nextPage = _pageController.page!.toInt() + 1;
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void goToFirstPage() {
+    _pageController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _startPressed
+        ? _actividad(context)
+        : _activityFinished
+            ? ResultadosWidget.show(
+                context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
+            : InstruccionesWidget.show(context, _estadisticsController, presionado,
+                'Se muestra una serie de figuras en 3D seleccionar la vista que se pide correctamente. Dificultad experto');
+  }
+
+  Widget _actividad(BuildContext context) {
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: PersonalTheme.of(context).primaryBackground,
+        appBar: AppBar(
+          backgroundColor: PersonalTheme.of(context).primary,
+          elevation: 2,
+          centerTitle: true,
+          title: Marquee(
+            forwardAnimation: Curves.easeIn,
+            autoRepeat: true,
+            direction: Axis.horizontal,
+            textDirection: TextDirection.ltr,
+            animationDuration: Duration(seconds: 2),
+            backDuration: Duration(milliseconds: 1000),
+            pauseDuration: Duration(milliseconds: 1000),
+            directionMarguee: DirectionMarguee.TwoDirection,
+            child: Text(
+              'Vistas extra 2',
+              style: PersonalTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Poppins',
+                    color: Colors.white,
+                    fontSize: 22.0,
+                  ),
+            ),
+          ),
+        ),
+        body: SafeArea(
+          child: Visibility(
+            visible: responsiveVisibility(
+              context: context,
+              tablet: false,
+              tabletLandscape: false,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 1.0,
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                        stops: [0.0, 1.0],
+                        begin: AlignmentDirectional(0.0, -1.0),
+                        end: AlignmentDirectional(0, 1.0),
+                      ),
+                    ),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                          child: PageView(
+                            controller: _pageController,
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                              Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ExpandedImageView(
+                                                image: Image.asset(
+                                                  'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-1Desc.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                tag: 'imageTag1',
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: 'imageTag1',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-1Desc.png',
+                                              width: MediaQuery.of(context).size.width * 1.0,
+                                              height: MediaQuery.of(context).size.height * 0.15,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-1-1.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '1',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                            correctas += 1;
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-1-2.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '2',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-1-3.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '3',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ExpandedImageView(
+                                                image: Image.asset(
+                                                  'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-2Desc.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                tag: 'imageTag5',
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: 'imageTag5',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-2Desc.png',
+                                              width: MediaQuery.of(context).size.width * 1.0,
+                                              height: MediaQuery.of(context).size.height * 0.15,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-2-1.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '1',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-2-2.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '2',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                            correctas += 1;
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-2-3.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '3',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ExpandedImageView(
+                                                image: Image.asset(
+                                                  'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-3Desc.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                tag: 'imageTag9',
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: 'imageTag9',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-3Desc.png',
+                                              width: MediaQuery.of(context).size.width * 1.0,
+                                              height: MediaQuery.of(context).size.height * 0.15,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-3-1.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '1',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-3-2.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '2',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                            correctas += 1;
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-3-3.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '3',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ExpandedImageView(
+                                                image: Image.asset(
+                                                  'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-4Desc.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                tag: 'imageTag9',
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: 'imageTag9',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-4Desc.png',
+                                              width: MediaQuery.of(context).size.width * 1.0,
+                                              height: MediaQuery.of(context).size.height * 0.15,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-4-1.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '1',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-4-2.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '2',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            correctas += 1;
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-4-3.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '3',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ExpandedImageView(
+                                                image: Image.asset(
+                                                  'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-5Desc.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                tag: 'imageTag9',
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: 'imageTag9',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-5Desc.png',
+                                              width: MediaQuery.of(context).size.width * 1.0,
+                                              height: MediaQuery.of(context).size.height * 0.15,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-5-1.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '1',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-5-2.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '2',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            correctas += 1;
+                                            goToNextPage();
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-5-3.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '3',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 10.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ExpandedImageView(
+                                                image: Image.asset(
+                                                  'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-6Desc.png',
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                tag: 'imageTag9',
+                                                useHeroAnimation: true,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: 'imageTag9',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: Image.asset(
+                                              'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-6Desc.png',
+                                              width: MediaQuery.of(context).size.width * 1.0,
+                                              height: MediaQuery.of(context).size.height * 0.15,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            correctas += 1;
+                                            if (correctas == 6) {
+                                              incrementarIntentos();
+                                              _estadisticsController.stopTimer();
+                                              resultados();
+                                              _estadisticsController.registroResultados(
+                                                  67, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                            } else {
+                                              incrementarIntentos();
+                                              correctas = 0;
+                                              goToFirstPage();
+                                              UtilsSnackbar.show(context,
+                                                  'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                            }
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-6-1.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '1',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            if (correctas < 6) {
+                                              incrementarIntentos();
+                                              correctas = 0;
+                                              goToFirstPage();
+                                              UtilsSnackbar.show(context,
+                                                  'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                            }
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-6-2.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '2',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            if (correctas < 6) {
+                                              incrementarIntentos();
+                                              correctas = 0;
+                                              goToFirstPage();
+                                              UtilsSnackbar.show(context,
+                                                  'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                            }
+                                          },
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.width * 0.5,
+                                            height: MediaQuery.of(context).size.height * 0.2,
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(8.0),
+                                                  child: Image.asset(
+                                                    'assets/images/Actividades/Vistas/Act_Vistas_Extra2/7-6-3.png',
+                                                    width: MediaQuery.of(context).size.width * 0.35,
+                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '3',
+                                                  style: PersonalTheme.of(context).titleMedium.override(
+                                                        fontFamily: 'Readex Pro',
+                                                        color: PersonalTheme.of(context).primaryText,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                EstadisticasWidget.build(context, intentos, ayudas, _estadisticsController),
+              ],
+            ),
+          ),
+        ),
+        floatingActionButton: AyudasWidget.build(context, _estadisticsController, 18, incrementarAyudas),
+        //bottomNavigationBar: MenuInferior(),
+      ),
+    );
+  }
+}

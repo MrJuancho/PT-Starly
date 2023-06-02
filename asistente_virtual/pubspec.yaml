@@ -118,6 +118,14 @@ flutter:
   - assets/images/Actividades/Series/Act_Series_Experto/
   - assets/images/Actividades/Series/Act_Series_Extra/
 
+  #VISTAS AEREAS
+  - assets/images/Actividades/Vistas/Act_Vistas_Principiante/
+  - assets/images/Actividades/Vistas/Act_Vistas_Facil/
+  - assets/images/Actividades/Vistas/Act_Vistas_Intermedio/
+  - assets/images/Actividades/Vistas/Act_Vistas_Dificil/
+  - assets/images/Actividades/Vistas/Act_Vistas_Experto/
+  - assets/images/Actividades/Vistas/Act_Vistas_Extra1/
+  - assets/images/Actividades/Vistas/Act_Vistas_Extra2/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

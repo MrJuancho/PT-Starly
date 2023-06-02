@@ -1039,7 +1039,6 @@ class _ActSeriesMedioState extends State<ActSeriesMedioPage> {
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    goToNextPage();
                                                     correctas += 1;
                                                     if (correctas == 5) {
                                                       incrementarIntentos();

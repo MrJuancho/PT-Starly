@@ -40,6 +40,13 @@ import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letr
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_revolucion_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_sentimientos_emociones_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_triangulos_cuadrilateros.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_avanzado_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_experto_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_extra1_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_extra2_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_facil_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_medio_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_principiante_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Personalizacion_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/TareasDiarias_screen.dart';
@@ -73,7 +80,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'act_series_extra',
+      initialRoute: 'act_vistas_extra2',
       //rutas de la aplicacion
       routes: {
         //CORE APP
@@ -84,7 +91,7 @@ class _MyAppState extends State<MyApp> {
         'tareasdiarias': (BuildContext context) => TareasDiariasPage(),
         //'registroDiario':(BuildContext context) => RegistroDiario(),
 
-        //ACTIVIDADES ENCUENTRA MISMA IMAGEN
+        //ACTIVIDADES ENCUENTRA MISMA IMAGEN - 7
         'act_encuentra_recta_secante': (BuildContext context) => const ActEncuentraRectaSecantePage(),
         'act_encuentra_partidos_politicos': (BuildContext context) => const ActEncuentraPartidosPoliticosPage(),
         'act_encuentra_expresiones_algebraicas': (BuildContext context) =>
@@ -94,7 +101,7 @@ class _MyAppState extends State<MyApp> {
         'act_encuentra_simbolos_ciudad': (BuildContext context) => const ActEncuentraSimbolosCiudadPage(),
         'act_encuentra_caminos': (BuildContext context) => const ActEncuentraCaminosPage(),
 
-        //ACTIVIDADES INTRUSO
+        //ACTIVIDADES INTRUSO - 9
         'act_intruso_angulos': (BuildContext context) => const ActIntrusoAngulosPage(),
         'act_intruso_paralelogramos': (BuildContext context) => const ActIntrusoParalelogramosPage(),
         'act_intruso_aislantesconductores': (BuildContext context) => const ActIntrusoAislantesConductoresPage(),
@@ -105,7 +112,7 @@ class _MyAppState extends State<MyApp> {
         'act_intruso_personajeshistoricos': (BuildContext context) => const ActIntrusoPersonajesHistoricosPage(),
         'act_intruso_sistemasolar': (BuildContext context) => const ActIntrusoSistemaSolarPage(),
 
-        //MEMORAMA
+        //MEMORAMA - 9
         'act_memorama_sistemasolar': (BuildContext context) => const ActMemoramaSistemaSolarPage(),
         'act_memorama_especiespeligro': (BuildContext context) => const ActMemoramaEspeciosPeligroPage(),
         'act_memorama_areas': (BuildContext context) => const ActMemoramaAreasPage(),
@@ -116,7 +123,7 @@ class _MyAppState extends State<MyApp> {
         'act_memorama_revolucion': (BuildContext context) => const ActMemoramaRevolucionPage(),
         'act_memorama_peso': (BuildContext context) => const ActMemoramaPesoPage(),
 
-        //SOPAS DE LETRAS
+        //SOPAS DE LETRAS - 11
         'act_sopa_sentimientos_emociones': (BuildContext context) => ActSopaSentimientosEmocionesPage(),
         'act_sopa_adverbios_verbos': (BuildContext context) => ActSopaAdjetivosVerbosPage(),
         'act_sopa_triangulos_cuadrilateros': (BuildContext context) => ActSopaTriangulosCuadrilaterosPage(),
@@ -129,13 +136,22 @@ class _MyAppState extends State<MyApp> {
         'act_sopa_apellidos_reforma': (BuildContext context) => ActSopaApellidosCelebresPage(),
         'act_sopa_anticonceptivos': (BuildContext context) => ActSopaAnticonceptivosPage(),
 
-        //SERIES LOGICAS
+        //SERIES LOGICAS - 6 
         'act_series_principiante': (BuildContext context) => const ActSeriesPrincipiantePage(),
         'act_series_facil': (BuildContext context) => const ActSeriesFacilPage(),
         'act_series_medio': (BuildContext context) => const ActSeriesMedioPage(),
         'act_series_avanzado': (BuildContext context) => const ActSeriesAvanzadoPage(),
         'act_series_experto': (BuildContext context) => const ActSeriesExpertoPage(),
         'act_series_extra': (BuildContext context) => const ActSeriesExtraPage(),
+
+        //VISTAS AEREAS - 7 
+        'act_vistas_principiante': (BuildContext context) => const ActVistasPrincipiantePage(),
+        'act_vistas_facil': (BuildContext context) => const ActVistasFacilPage(),
+        'act_vistas_medio': (BuildContext context) => const ActVistasMedioPage(),
+        'act_vistas_avanzado': (BuildContext context) => const ActVistasAvanzadoPage(),
+        'act_vistas_experto': (BuildContext context) => const ActVistasExpertoPage(),
+        'act_vistas_extra1': (BuildContext context) => const ActVistasExtra1Page(),
+        'act_vistas_extra2': (BuildContext context) => const ActVistasExtra2Page(),
 
         //PANTALLA PRUEBAS DE API
         'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),

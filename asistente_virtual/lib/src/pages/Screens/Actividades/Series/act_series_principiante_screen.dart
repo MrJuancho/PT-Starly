@@ -993,7 +993,6 @@ class _ActSeriesPrincipianteState extends State<ActSeriesPrincipiantePage> {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-                                                    goToNextPage();
                                                     correctas += 1;
                                                     if (correctas == 5) {
                                                       incrementarIntentos();

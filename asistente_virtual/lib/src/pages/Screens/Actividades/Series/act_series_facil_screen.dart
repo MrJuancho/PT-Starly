@@ -1036,7 +1036,6 @@ class _ActSeriesFacilState extends State<ActSeriesFacilPage> {
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    goToNextPage();
                                                     correctas += 1;
                                                     if (correctas == 5) {
                                                       incrementarIntentos();
