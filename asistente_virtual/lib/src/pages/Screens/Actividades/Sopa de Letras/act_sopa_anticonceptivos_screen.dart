@@ -107,6 +107,7 @@ class _ActSopaAnticonceptivosState extends State<ActSopaAnticonceptivosPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

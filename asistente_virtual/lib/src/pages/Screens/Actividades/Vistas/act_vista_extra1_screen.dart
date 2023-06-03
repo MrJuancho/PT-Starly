@@ -71,6 +71,7 @@ class _ActVistasExtra1State extends State<ActVistasExtra1Page> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

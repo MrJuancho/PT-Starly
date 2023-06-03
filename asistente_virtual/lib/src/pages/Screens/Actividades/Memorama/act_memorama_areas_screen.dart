@@ -102,6 +102,7 @@ class _ActMemoramaAreasState extends State<ActMemoramaAreasPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

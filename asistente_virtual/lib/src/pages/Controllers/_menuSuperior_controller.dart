@@ -14,15 +14,17 @@ class MenuSuperiorController {
   }
 
   Future<String> stars() async {
-    final estrellas = await _sharedPref.readtodato('Alumno', 'balanceEstrellas');
-    final estrellasString = estrellas.toString();
-    return estrellasString;
+    final usuario = await _sharedPref.readtodato('Alumno', 'nombreUsuario');
+    final datos = await usersProvider.login(usuario);
+    final estrellas = datos['balanceEstrellas'];
+    return estrellas.toString();
   }
 
   Future<String> coins() async {
-    final monedas = await _sharedPref.readtodato('Alumno', 'balanceMonedas');
-    final monedasString = monedas.toString();
-    return monedasString;
+    final usuario = await _sharedPref.readtodato('Alumno', 'nombreUsuario');
+    final datos = await usersProvider.login(usuario);
+    final estrellas = datos['balanceMonedas'];
+    return estrellas.toString();
   }
 
   void tareasDiarias(BuildContext context) async {

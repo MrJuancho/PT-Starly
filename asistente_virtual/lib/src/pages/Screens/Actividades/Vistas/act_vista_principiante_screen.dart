@@ -71,6 +71,7 @@ class _ActVistasPrincipianteState extends State<ActVistasPrincipiantePage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -534,7 +535,7 @@ class _ActVistasPrincipianteState extends State<ActVistasPrincipiantePage> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            if (correctas<3){
+                                            if (correctas < 3) {
                                               incrementarIntentos();
                                               correctas = 0;
                                               goToFirstPage();
@@ -572,7 +573,7 @@ class _ActVistasPrincipianteState extends State<ActVistasPrincipiantePage> {
                                         ),
                                         InkWell(
                                           onTap: () {
-                                            if (correctas<3){
+                                            if (correctas < 3) {
                                               incrementarIntentos();
                                               correctas = 0;
                                               goToFirstPage();

@@ -67,6 +67,7 @@ class _ActIntrusoAngulosState extends State<ActIntrusoAngulosPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

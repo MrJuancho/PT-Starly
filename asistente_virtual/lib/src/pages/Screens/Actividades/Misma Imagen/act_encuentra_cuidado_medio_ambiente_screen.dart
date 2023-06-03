@@ -69,6 +69,7 @@ class _ActEncuentraCuidadoMedioAmbienteState
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

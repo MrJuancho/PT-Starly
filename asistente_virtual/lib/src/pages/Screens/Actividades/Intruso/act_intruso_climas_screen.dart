@@ -69,6 +69,7 @@ class _ActIntrusoClimasState extends State<ActIntrusoClimasPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

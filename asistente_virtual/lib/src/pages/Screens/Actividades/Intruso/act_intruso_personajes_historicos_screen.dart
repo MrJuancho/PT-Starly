@@ -69,6 +69,7 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -80,7 +81,7 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Se presentan dentro de los sets diferentes momentos dentro de la epoca (1920 a 1982) seleccionar el que no corresponde.');
+                'Selecciona al personaje que no pertenece a la epoca historica de México.');
   }
 
   Widget _actividad(BuildContext context) {
@@ -267,7 +268,7 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      22,
+                                      18,
                                       intentos,
                                       ayudas,
                                       _estadisticsController
@@ -316,7 +317,7 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      22,
+                                      18,
                                       intentos,
                                       ayudas,
                                       _estadisticsController
@@ -473,7 +474,7 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      22,
+                                      18,
                                       intentos,
                                       ayudas,
                                       _estadisticsController
@@ -702,7 +703,7 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      22,
+                                      18,
                                       intentos,
                                       ayudas,
                                       _estadisticsController
@@ -823,7 +824,7 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
                                   _estadisticsController.stopTimer();
                                   resultados();
                                   _estadisticsController.registroResultados(
-                                      22,
+                                      18,
                                       intentos,
                                       ayudas,
                                       _estadisticsController

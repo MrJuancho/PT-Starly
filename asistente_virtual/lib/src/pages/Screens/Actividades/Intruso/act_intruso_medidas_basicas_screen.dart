@@ -69,6 +69,7 @@ class _ActIntrusoMedidasBasicasState extends State<ActIntrusoMedidasBasicasPage>
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

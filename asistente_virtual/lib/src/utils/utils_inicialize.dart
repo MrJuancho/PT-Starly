@@ -1,6 +1,7 @@
 import 'package:asistente_virtual/src/pages/Controllers/TareasDiarias_controller.dart';
 import 'package:asistente_virtual/src/pages/Provider/ping_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
+import 'package:flutter/material.dart';
 
 class UtilsInicialize {
   final UtilsSharedPref _sharedPref = UtilsSharedPref();
@@ -17,8 +18,11 @@ class UtilsInicialize {
         final fechajson = await _sharedPref.readtodato(key, value);
         final fechastring = fechajson.toString();
         DateTime conversion = DateTime.parse(fechastring);
-        if (conversion.year == fecha.year && conversion.month == fecha.month && conversion.day < fecha.day) {
+        print(conversion);
+        print(fecha);
+        if (fecha.isAfter(conversion)) {
           _sharedPref.remove(key);
+          _tareasDiariasController.desafioRandom();
         }
       }
     } else {
@@ -30,5 +34,9 @@ class UtilsInicialize {
   Future<String> initapi() async {
     final pong = await _pingProvider.ping();
     return pong['message'];
+  }
+
+  Future<int> tareaUno() async {
+    return 1;
   }
 }

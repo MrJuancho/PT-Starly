@@ -106,6 +106,7 @@ class _ActMemoramaRectasState extends State<ActMemoramaRectasPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -162,7 +163,7 @@ class _ActMemoramaRectasState extends State<ActMemoramaRectasPage> {
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Buscar el tipo de recta con su igual.');
+                'Encuentra la tarjeta que contenga el mismo elemento.');
   }
 
   Widget _actividad(BuildContext context) {

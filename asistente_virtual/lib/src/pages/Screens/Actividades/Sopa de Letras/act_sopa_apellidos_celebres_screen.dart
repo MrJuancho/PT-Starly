@@ -107,6 +107,7 @@ class _ActSopaApellidosCelebresState extends State<ActSopaApellidosCelebresPage>
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

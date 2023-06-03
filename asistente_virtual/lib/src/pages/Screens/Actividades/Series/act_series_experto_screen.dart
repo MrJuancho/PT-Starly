@@ -71,6 +71,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

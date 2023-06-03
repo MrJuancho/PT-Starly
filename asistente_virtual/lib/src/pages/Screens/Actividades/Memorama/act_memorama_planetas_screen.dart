@@ -101,6 +101,7 @@ class _ActMemoramaSistemaSolarState extends State<ActMemoramaSistemaSolarPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -180,7 +181,7 @@ class _ActMemoramaSistemaSolarState extends State<ActMemoramaSistemaSolarPage> {
             pauseDuration: const Duration(milliseconds: 1000),
             directionMarguee: DirectionMarguee.TwoDirection,
             child: Text(
-              'Memorama de planetas del sistema solar',
+              'Memorama del sistema solar',
               style: PersonalTheme.of(context).headlineMedium.override(
                     fontFamily: 'Poppins',
                     color: Colors.white,

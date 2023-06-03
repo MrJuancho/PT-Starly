@@ -104,6 +104,7 @@ class _ActSopaProbabilidadState extends State<ActSopaProbabilidadPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

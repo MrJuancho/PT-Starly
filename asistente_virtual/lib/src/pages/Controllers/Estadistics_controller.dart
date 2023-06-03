@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:asistente_virtual/src/pages/Provider/CatDatoCurioso_provider.dart';
+import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/pages/Provider/TblResultadosActividad_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,11 +9,10 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 class EstadisticsController {
   BuildContext? context;
   StopWatchTimer timerController = StopWatchTimer(mode: StopWatchMode.countUp);
-  final CatDatoCuriosoProvider _catDatoCuriosoProvider =
-      CatDatoCuriosoProvider();
+  final CatDatoCuriosoProvider _catDatoCuriosoProvider = CatDatoCuriosoProvider();
   final UtilsSharedPref _sharedPref = UtilsSharedPref();
-  final TblResultadosActividadProvider _resultadosActividadProvider =
-      TblResultadosActividadProvider();
+  final TblResultadosActividadProvider _resultadosActividadProvider = TblResultadosActividadProvider();
+  final TblAlumnoProvider _alumnoProvider = TblAlumnoProvider();
   int elapsedMilliseconds = 0;
   //constructort de clase - puede requerir await si se necesita esperar algo
   Future init(BuildContext context) async {
@@ -40,13 +40,12 @@ class EstadisticsController {
   }
 
   Future<dynamic> asistencia(int idContenido) async {
-    List<Map<String, dynamic>> datosCuriosos = await _catDatoCuriosoProvider
-        .datoCuriosobyContenido(idContenido); // Obtener datos curiosos
+    List<Map<String, dynamic>> datosCuriosos =
+        await _catDatoCuriosoProvider.datoCuriosobyContenido(idContenido); // Obtener datos curiosos
     Random random = Random(); // Crear instancia de la clase Random
-    Map<String, dynamic> datoCurioso = datosCuriosos[random.nextInt(
-        datosCuriosos.length)]; // Seleccionar aleatoriamente un elemento
-    String descripcionDatos = datoCurioso[
-        "descripcionDatos"]; // Obtener la descripción del elemento seleccionado
+    Map<String, dynamic> datoCurioso =
+        datosCuriosos[random.nextInt(datosCuriosos.length)]; // Seleccionar aleatoriamente un elemento
+    String descripcionDatos = datoCurioso["descripcionDatos"]; // Obtener la descripción del elemento seleccionado
     return descripcionDatos; // retornar la descripción
   }
 
@@ -54,8 +53,7 @@ class EstadisticsController {
     Navigator.pushNamedAndRemoveUntil(context, 'actividades', (route) => false);
   }
 
-  void registroResultados(
-      int idActividad, int intentos, int ayudas, String tiempo) async {
+  void registroResultados(int idActividad, int intentos, int ayudas, String tiempo) async {
     final idAlumno = await _sharedPref.readtodato('Alumno', 'idAlumno');
     //print(tiempo);
     List<String> parts = tiempo.split(':');
@@ -71,7 +69,11 @@ class EstadisticsController {
 
     //print(formattedTime); // Imprime: 00:12:30.500
 
-    _resultadosActividadProvider.postResultadoActividad(
-        idActividad, idAlumno, formattedTime, intentos, ayudas);
+    _resultadosActividadProvider.postResultadoActividad(idActividad, idAlumno, formattedTime, intentos, ayudas);
+  }
+
+  void sumamonedas() async {
+    final userAlumno = await _sharedPref.readtodato('Alumno', 'nombreUsuario');
+    _alumnoProvider.putMonedasEstrellas(userAlumno, 100, 0);
   }
 }

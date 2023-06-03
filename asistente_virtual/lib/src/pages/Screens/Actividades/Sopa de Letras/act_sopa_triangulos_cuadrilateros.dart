@@ -104,6 +104,7 @@ class _ActSopaTriangulosCuadrilaterosState extends State<ActSopaTriangulosCuadri
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

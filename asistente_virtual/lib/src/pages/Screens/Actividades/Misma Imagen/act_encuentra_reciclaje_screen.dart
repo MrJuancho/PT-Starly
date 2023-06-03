@@ -67,6 +67,7 @@ class _ActEncuentraReciclajeState extends State<ActEncuentraReciclajePage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

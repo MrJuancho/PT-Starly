@@ -105,6 +105,7 @@ class _ActMemoramaPesoState extends State<ActMemoramaPesoPage> {
   void resultados() {
     setState(() {
       _startPressed = false;
+      _estadisticsController.sumamonedas();
       _activityFinished = true;
     });
   }
@@ -162,7 +163,7 @@ class _ActMemoramaPesoState extends State<ActMemoramaPesoPage> {
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Encontrar diferentes materiales y sus diferentes estados y variaciones.');
+                context, _estadisticsController, presionado, 'Encontrar diferentes materiales y sus diferentes estados fisicos.');
   }
 
   Widget _actividad(BuildContext context) {

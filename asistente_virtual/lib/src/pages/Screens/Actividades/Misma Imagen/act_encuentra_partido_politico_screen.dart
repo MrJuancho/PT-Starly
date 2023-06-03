@@ -69,6 +69,7 @@ class _ActEncuentraPartidosPoliticosState
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

@@ -11,7 +11,6 @@ class TblResultadosActividadProvider {
 
   BuildContext? context;
 
-
   //respuesta de las solicitudes
   Future<Map<String, dynamic>> oneresultadoActividad(int idActividad) async {
     try {
@@ -35,15 +34,16 @@ class TblResultadosActividadProvider {
     }
   }
 
-  void postResultadoActividad(int idActividad, int idAlumno, String tiempo,
-      int intentos, int asistencias) async {
+  void postResultadoActividad(int idActividad, int idAlumno, String tiempo, int intentos, int asistencias) async {
+    DateTime currentdatetime = DateTime.now().toLocal();
     try {
       Map<String, dynamic> datos = {
         'idActividad': idActividad,
         'idAlumno': idAlumno,
         'tiempoResolucion': tiempo,
         'intentos': intentos,
-        'asistencias': asistencias
+        'asistencias': asistencias,
+        'fecha': currentdatetime.toString()
       };
       String body = jsonEncode(datos);
       // URL para el get

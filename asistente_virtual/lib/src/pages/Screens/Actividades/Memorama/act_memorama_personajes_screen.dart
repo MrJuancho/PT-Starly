@@ -108,6 +108,7 @@ class _ActMemoramaPersonajesState extends State<ActMemoramaPersonajesPage> {
   void resultados() {
     setState(() {
       _startPressed = false;
+      _estadisticsController.sumamonedas();
       _activityFinished = true;
     });
   }
@@ -151,7 +152,7 @@ class _ActMemoramaPersonajesState extends State<ActMemoramaPersonajesPage> {
         if (flippedStatus.every((status) => status == true)) {
           resultados();
           _estadisticsController.stopTimer();
-          _estadisticsController.registroResultados(29, intentos, ayudas, _estadisticsController.formatMilliseconds());
+          _estadisticsController.registroResultados(31, intentos, ayudas, _estadisticsController.formatMilliseconds());
         }
       }
     }

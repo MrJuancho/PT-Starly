@@ -104,6 +104,7 @@ class _ActSopaEsdrujulasState extends State<ActSopaEsdrujulasPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

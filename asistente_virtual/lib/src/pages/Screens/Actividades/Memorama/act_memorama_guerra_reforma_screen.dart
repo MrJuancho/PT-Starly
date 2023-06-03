@@ -101,6 +101,7 @@ class _ActMemoramaGuerraReformaState extends State<ActMemoramaGuerraReformaPage>
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -143,7 +144,7 @@ class _ActMemoramaGuerraReformaState extends State<ActMemoramaGuerraReformaPage>
         if (flippedStatus.every((status) => status == true)) {
           resultados();
           _estadisticsController.stopTimer();
-          _estadisticsController.registroResultados(30, intentos, ayudas, _estadisticsController.formatMilliseconds());
+          _estadisticsController.registroResultados(29, intentos, ayudas, _estadisticsController.formatMilliseconds());
         }
       }
     }
@@ -157,7 +158,7 @@ class _ActMemoramaGuerraReformaState extends State<ActMemoramaGuerraReformaPage>
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Relacionar el personaje historico con un evento que lidero.');
+                'Realiza pares de personajes importantes que participaron en la guerra de reforma.');
   }
 
   Widget _actividad(BuildContext context) {
@@ -180,7 +181,7 @@ class _ActMemoramaGuerraReformaState extends State<ActMemoramaGuerraReformaPage>
             pauseDuration: const Duration(milliseconds: 1000),
             directionMarguee: DirectionMarguee.TwoDirection,
             child: Text(
-              'Personajes historicos de la guerra de reforma',
+              'Memorama personajes de la guerra de reforma',
               style: PersonalTheme.of(context).headlineMedium.override(
                     fontFamily: 'Poppins',
                     color: Colors.white,

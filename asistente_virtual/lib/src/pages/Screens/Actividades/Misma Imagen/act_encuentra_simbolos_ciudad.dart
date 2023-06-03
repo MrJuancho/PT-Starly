@@ -69,6 +69,7 @@ class _ActEncuentraSimbolosCiudadState
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

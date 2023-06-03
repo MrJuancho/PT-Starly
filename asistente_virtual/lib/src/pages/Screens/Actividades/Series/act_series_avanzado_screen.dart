@@ -71,6 +71,7 @@ class _ActSeriesAvanzadoState extends State<ActSeriesAvanzadoPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

@@ -109,6 +109,7 @@ class _ActMemoramaRevolucionState extends State<ActMemoramaRevolucionPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -165,7 +166,7 @@ class _ActMemoramaRevolucionState extends State<ActMemoramaRevolucionPage> {
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Relacionar por medio de un memorama personajes historicos de la revolución mexicana');
+                context, _estadisticsController, presionado, 'Encuentra personajes que celebres del ultimo siglo.');
   }
 
   Widget _actividad(BuildContext context) {
@@ -188,7 +189,7 @@ class _ActMemoramaRevolucionState extends State<ActMemoramaRevolucionPage> {
             pauseDuration: const Duration(milliseconds: 1000),
             directionMarguee: DirectionMarguee.TwoDirection,
             child: Text(
-              'Personajes de la Revolución Mexicana',
+              'Personajes célebres del México moderno',
               style: PersonalTheme.of(context).headlineMedium.override(
                     fontFamily: 'Poppins',
                     color: Colors.white,

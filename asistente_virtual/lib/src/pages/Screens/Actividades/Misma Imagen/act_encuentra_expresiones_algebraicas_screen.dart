@@ -69,6 +69,7 @@ class _ActEncuentraExpresionesAlgebraicasState
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

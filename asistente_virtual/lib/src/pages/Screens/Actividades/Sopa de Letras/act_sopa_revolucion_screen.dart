@@ -105,6 +105,7 @@ class _ActSopaRevolucionState extends State<ActSopaRevolucionPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

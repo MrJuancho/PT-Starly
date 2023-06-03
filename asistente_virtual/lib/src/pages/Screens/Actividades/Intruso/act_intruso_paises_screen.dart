@@ -69,6 +69,7 @@ class _ActIntrusoPaisesState extends State<ActIntrusoPaisesPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

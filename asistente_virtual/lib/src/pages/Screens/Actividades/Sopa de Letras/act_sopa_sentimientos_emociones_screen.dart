@@ -102,6 +102,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

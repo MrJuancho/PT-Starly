@@ -71,6 +71,7 @@ class _ActSeriesPrincipianteState extends State<ActSeriesPrincipiantePage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

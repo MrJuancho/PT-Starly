@@ -105,6 +105,7 @@ class _ActSopaMetodoCientificoState extends State<ActSopaMetodoCientificoPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

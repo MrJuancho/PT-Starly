@@ -71,6 +71,7 @@ class _ActVistasAvanzadoState extends State<ActVistasAvanzadoPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -288,7 +289,6 @@ class _ActVistasAvanzadoState extends State<ActVistasAvanzadoPage> {
                                         InkWell(
                                           onTap: () {
                                             goToNextPage();
-                                            
                                           },
                                           child: Container(
                                             width: MediaQuery.of(context).size.width * 0.5,
@@ -535,7 +535,6 @@ class _ActVistasAvanzadoState extends State<ActVistasAvanzadoPage> {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            
                                             goToNextPage();
                                           },
                                           child: Container(
@@ -747,7 +746,6 @@ class _ActVistasAvanzadoState extends State<ActVistasAvanzadoPage> {
                                               UtilsSnackbar.show(context,
                                                   'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
                                             }
-                                            
                                           },
                                           child: Container(
                                             width: MediaQuery.of(context).size.width * 0.5,

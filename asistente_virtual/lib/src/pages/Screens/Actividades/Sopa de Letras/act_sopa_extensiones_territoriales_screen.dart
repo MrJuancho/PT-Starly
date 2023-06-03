@@ -105,6 +105,7 @@ class _ActSopaExtensionesTerritorialesState extends State<ActSopaExtensionesTerr
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

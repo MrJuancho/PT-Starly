@@ -71,6 +71,7 @@ class _ActVistasFacilState extends State<ActVistasFacilPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

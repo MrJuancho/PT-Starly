@@ -98,6 +98,7 @@ class _ActMemoramaEspeciosPeligroState extends State<ActMemoramaEspeciosPeligroP
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

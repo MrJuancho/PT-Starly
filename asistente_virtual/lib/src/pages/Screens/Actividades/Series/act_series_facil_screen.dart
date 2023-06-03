@@ -71,6 +71,7 @@ class _ActSeriesFacilState extends State<ActSeriesFacilPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

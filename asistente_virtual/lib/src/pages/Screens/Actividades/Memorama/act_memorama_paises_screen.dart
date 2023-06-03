@@ -110,6 +110,7 @@ class _ActMemoramaPaisesState extends State<ActMemoramaPaisesPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

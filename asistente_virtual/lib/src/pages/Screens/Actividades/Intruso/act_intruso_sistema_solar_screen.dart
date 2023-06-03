@@ -69,6 +69,7 @@ class _ActIntrusoSistemaSolarState extends State<ActIntrusoSistemaSolarPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

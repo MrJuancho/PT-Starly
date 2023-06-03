@@ -69,6 +69,7 @@ class _ActIntrusoAislantesConductoresState extends State<ActIntrusoAislantesCond
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

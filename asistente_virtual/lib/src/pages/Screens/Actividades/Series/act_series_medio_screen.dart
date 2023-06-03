@@ -71,6 +71,7 @@ class _ActSeriesMedioState extends State<ActSeriesMedioPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

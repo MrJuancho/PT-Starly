@@ -69,6 +69,7 @@ class _ActIntrusoBiodiverdidadState extends State<ActIntrusoBiodiverdidadPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

@@ -71,6 +71,7 @@ class _ActSeriesExtraState extends State<ActSeriesExtraPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 

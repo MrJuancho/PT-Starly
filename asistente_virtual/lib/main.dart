@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'act_vistas_extra2',
+      initialRoute: 'tareasdiarias',
       //rutas de la aplicacion
       routes: {
         //CORE APP
@@ -136,7 +136,7 @@ class _MyAppState extends State<MyApp> {
         'act_sopa_apellidos_reforma': (BuildContext context) => ActSopaApellidosCelebresPage(),
         'act_sopa_anticonceptivos': (BuildContext context) => ActSopaAnticonceptivosPage(),
 
-        //SERIES LOGICAS - 6 
+        //SERIES LOGICAS - 6
         'act_series_principiante': (BuildContext context) => const ActSeriesPrincipiantePage(),
         'act_series_facil': (BuildContext context) => const ActSeriesFacilPage(),
         'act_series_medio': (BuildContext context) => const ActSeriesMedioPage(),
@@ -144,7 +144,7 @@ class _MyAppState extends State<MyApp> {
         'act_series_experto': (BuildContext context) => const ActSeriesExpertoPage(),
         'act_series_extra': (BuildContext context) => const ActSeriesExtraPage(),
 
-        //VISTAS AEREAS - 7 
+        //VISTAS AEREAS - 7
         'act_vistas_principiante': (BuildContext context) => const ActVistasPrincipiantePage(),
         'act_vistas_facil': (BuildContext context) => const ActVistasFacilPage(),
         'act_vistas_medio': (BuildContext context) => const ActVistasMedioPage(),

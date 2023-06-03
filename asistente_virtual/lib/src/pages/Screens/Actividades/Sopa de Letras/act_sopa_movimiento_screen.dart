@@ -106,6 +106,7 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
@@ -143,7 +144,7 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
             : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Encontrar palabras como Trayectoria, Direccion, Rapidez.');
+                'Encontrar palabras relacionadas al moviemiento, rapidez y velocidad.');
   }
 
   Scaffold _actividad(BuildContext context) {
@@ -165,7 +166,7 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
           pauseDuration: const Duration(milliseconds: 1000),
           directionMarguee: DirectionMarguee.TwoDirection,
           child: Text(
-            'Términos relacionados al movimiento',
+            'Términos usados en física',
             style: PersonalTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,

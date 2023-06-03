@@ -103,6 +103,7 @@ class _ActSopaAdjetivosVerbosState extends State<ActSopaAdjetivosVerbosPage> {
     setState(() {
       _startPressed = false;
       _activityFinished = true;
+      _estadisticsController.sumamonedas();
     });
   }
 
