@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () async {
         setState(() {
+          _homeController.interaccionesAV();
           _isPress = true;
         });
         await Future.delayed(const Duration(seconds: 6));
@@ -63,10 +64,7 @@ class _HomePageState extends State<HomePage> {
           height: MediaQuery.of(context).size.height * 1,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                PersonalTheme.of(context).primary,
-                PersonalTheme.of(context).tertiary
-              ],
+              colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
               stops: [0.0, 1.0],
               begin: AlignmentDirectional(0.0, -1.0),
               end: AlignmentDirectional(0, 1.0),
@@ -92,8 +90,7 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           child: FutureBuilder<String>(
                             future: _homeController.fraseRandom(),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<String> snapshot) {
+                            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                               if (snapshot.hasData) {
                                 return Text(
                                   "\n¿Sabias que?\n${snapshot.data}",

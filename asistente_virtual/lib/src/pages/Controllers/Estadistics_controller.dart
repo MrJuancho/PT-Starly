@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:math';
+import 'package:asistente_virtual/src/pages/Controllers/TareasDiarias_controller.dart';
 import 'package:asistente_virtual/src/pages/Provider/CatDatoCurioso_provider.dart';
 import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/pages/Provider/TblResultadosActividad_provider.dart';
@@ -13,6 +15,7 @@ class EstadisticsController {
   final UtilsSharedPref _sharedPref = UtilsSharedPref();
   final TblResultadosActividadProvider _resultadosActividadProvider = TblResultadosActividadProvider();
   final TblAlumnoProvider _alumnoProvider = TblAlumnoProvider();
+  final TareasDiariasController _tareasDiariasController = TareasDiariasController();
   int elapsedMilliseconds = 0;
   //constructort de clase - puede requerir await si se necesita esperar algo
   Future init(BuildContext context) async {
@@ -67,7 +70,33 @@ class EstadisticsController {
     String formattedTime =
         '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}.${dateTime.millisecond.toString().padLeft(3, '0')}';
 
-    //print(formattedTime); // Imprime: 00:12:30.500
+    if (await _sharedPref.contains('Tareas')) {
+      print('Existe shared de actividades');
+      if (await _sharedPref.existField('Tareas', 'Actividades')) {
+        Map<String, dynamic> tareas = json.decode(await _sharedPref.read('Tareas'));
+        tareas['Actividades'] += 1;
+        final userAlumno = await _sharedPref.readtodato('Alumno', 'nombreUsuario');
+        if (tareas['Actividades'] == 3) {
+          _alumnoProvider.putMonedasEstrellas(userAlumno, 300, 1);
+        } else if (tareas['Actividades'] == 5) {
+          _alumnoProvider.putMonedasEstrellas(userAlumno, 500, 1);
+        } else if (await _tareasDiariasController.tareaDD() == 'Completa 10 actividades') {
+          if (tareas['TareasCom'] >= 3) {
+            Map<String, dynamic> desafiosDiarios = json.decode(await _sharedPref.read('DesafioDiario'));
+            desafiosDiarios['Conteo'] += 1;
+            _sharedPref.save('DesafioDiario', json.encode(desafiosDiarios));
+            if (desafiosDiarios['Conteo'] == 10) {
+              _alumnoProvider.putMonedasEstrellas(userAlumno, 1000, 5);
+            }
+          }
+        }
+
+        _sharedPref.save('Tareas', json.encode(tareas));
+      }
+    } else {
+      Map<String, dynamic> tareas = {'Actividades': 0, 'Interacciones': 0, 'TareasCom': 0};
+      _sharedPref.save('Tareas', json.encode(tareas));
+    }
 
     _resultadosActividadProvider.postResultadoActividad(idActividad, idAlumno, formattedTime, intentos, ayudas);
   }

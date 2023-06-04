@@ -13,8 +13,7 @@ class TareasDiariasPage extends StatefulWidget {
 
 class _TareasDiariasPageState extends State<TareasDiariasPage> {
   //Controllers
-  final TareasDiariasController _tareasDiariasController =
-      TareasDiariasController();
+  final TareasDiariasController _tareasDiariasController = TareasDiariasController();
 
   // Lista de variables booleanas para controlar la selección de botones
   bool vertical = false;
@@ -30,21 +29,38 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MenuSuperior(),
-      body: _body(),
-      bottomNavigationBar: MenuInferior(),
+    return FutureBuilder<Map<String, dynamic>>(
+      future: _tareasDiariasController.getTareas(),
+      builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Mientras se cargan los valores, puedes mostrar un indicador de carga o un mensaje
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          // En caso de error al obtener los valores, puedes mostrar un mensaje de error
+          return Text('Error al obtener los valores');
+        } else {
+          // Si se obtienen los valores correctamente, puedes pasarlos al método _body()
+          Map<String, dynamic> tareas = snapshot.data!;
+          int actividades = tareas['Actividades'] ?? 0;
+          int interacciones = tareas['Interacciones'] ?? 0;
+          int tareasCompletadas = tareas['TareasCom'] >= 3 ? 3 : tareas['TareasCom'];
+
+          return Scaffold(
+            appBar: MenuSuperior(),
+            body: _body(actividades, interacciones, tareasCompletadas),
+            bottomNavigationBar: MenuInferior(),
+          );
+        }
+      },
     );
   }
 
-  Widget _body() {
+  Widget _body(int actCompletadas, int interaccionesAV, int tareasCom) {
     //variable actualizable con controller
-    int fraccion = 3;
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     double wcentecima = w / 100;
     double hcentecima = h / 100;
-    bool hecho = true;
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
       child: Container(
@@ -52,10 +68,7 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
         height: MediaQuery.of(context).size.height * 1,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              PersonalTheme.of(context).primary,
-              PersonalTheme.of(context).tertiary
-            ],
+            colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
             stops: [0.0, 1.0],
             begin: AlignmentDirectional(0.0, -1.0),
             end: AlignmentDirectional(0, 1.0),
@@ -94,16 +107,33 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
               height: hcentecima,
             ),
             Container(
-              margin:
-                  EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
-              height: 20.0,
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              height: 20,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(10.0),
-                color: hecho
-                    ? Colors.green
-                    : Colors.grey[
-                        300], // Cambia el color de fondo dependiendo de la condición
+                color: PersonalTheme.of(context).primaryBackground,
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: PersonalTheme.of(context).fadedalternate,
+                    ),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: actCompletadas >= 3 ? 3 / 3 : actCompletadas / 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: PersonalTheme.of(context).tertiary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -178,16 +208,33 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
               height: hcentecima,
             ),
             Container(
-              margin:
-                  EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
-              height: 20.0,
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              height: 20,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(10.0),
-                color: hecho
-                    ? Colors.green
-                    : Colors.grey[
-                        300], // Cambia el color de fondo dependiendo de la condición
+                color: PersonalTheme.of(context).primaryBackground,
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: PersonalTheme.of(context).fadedalternate,
+                    ),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: actCompletadas >= 5 ? 5 / 5 : actCompletadas / 5,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: PersonalTheme.of(context).tertiary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -262,16 +309,33 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
               height: hcentecima,
             ),
             Container(
-              margin:
-                  EdgeInsets.only(left: 3 * wcentecima, right: 3 * wcentecima),
-              height: 20.0,
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              height: 20,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(10.0),
-                color: hecho
-                    ? Colors.green
-                    : Colors.grey[
-                        300], // Cambia el color de fondo dependiendo de la condición
+                color: PersonalTheme.of(context).primaryBackground,
+              ),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: PersonalTheme.of(context).fadedalternate,
+                    ),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: interaccionesAV >= 3 ? 3 / 3 : interaccionesAV / 3,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: PersonalTheme.of(context).tertiary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -332,7 +396,7 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.black),
-                color: Colors.grey[300],
+                color: PersonalTheme.of(context).primaryBackground,
               ),
               child: Stack(
                 children: [
@@ -341,15 +405,15 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
                     height: 20,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.green,
+                      color: PersonalTheme.of(context).fadedalternate,
                     ),
                   ),
                   FractionallySizedBox(
-                    widthFactor: fraccion / 3,
+                    widthFactor: tareasCom >= 3 ? 3 / 3 : tareasCom / 3,
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue,
+                        color: PersonalTheme.of(context).tertiary,
                       ),
                     ),
                   ),
@@ -361,7 +425,7 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("$fraccion/3")],
+              children: [Text("$tareasCom/3")],
             ),
 
             //Desafios
@@ -372,19 +436,19 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   "Desafio",
-                  style: TextStyle(fontSize: 16),
+                  style: PersonalTheme.of(context).titleMedium,
                 )
               ],
             ),
             SizedBox(
               height: 2 * hcentecima,
             ),
-            fraccion != 3
-                ? const Text(
+            tareasCom < 3
+                ? Text(
                     "Bloqueado",
-                    style: TextStyle(fontFamily: 'Comfortaa', fontSize: 20),
+                    style: PersonalTheme.of(context).titleLarge,
                   )
                 : Column(
                     //mainAxisAlignment: MainAxisAlignment.center,
@@ -395,8 +459,7 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
                         children: [
                           FutureBuilder(
                             future: _tareasDiariasController.tareaDD(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
+                            builder: (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
                                 return Row(
                                   children: [
@@ -414,16 +477,42 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
                         height: hcentecima,
                       ),
                       Container(
-                        margin: EdgeInsets.only(
-                            left: 3 * wcentecima, right: 3 * wcentecima),
-                        height: 20.0,
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        height: 20,
                         decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: hecho
-                              ? Colors.green
-                              : Colors.grey[
-                                  300], // Cambia el color de fondo dependiendo de la condición
+                          color: PersonalTheme.of(context).primaryBackground,
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: PersonalTheme.of(context).fadedalternate,
+                              ),
+                            ),
+                            FutureBuilder(
+                              future: _tareasDiariasController.conteoDD(),
+                              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                                if (snapshot.hasData) {
+                                  return FractionallySizedBox(
+                                    widthFactor: snapshot.data! >= 10 ? 10 / 10 : snapshot.data! / 10,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: PersonalTheme.of(context).tertiary,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return const CircularProgressIndicator();
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ),
                       Row(
@@ -431,8 +520,7 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
                         children: [
                           FutureBuilder(
                             future: _tareasDiariasController.estrellasDD(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
+                            builder: (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
                                 return Row(
                                   children: [
@@ -449,8 +537,7 @@ class _TareasDiariasPageState extends State<TareasDiariasPage> {
                           ),
                           FutureBuilder(
                             future: _tareasDiariasController.monedasDD(),
-                            builder:
-                                (BuildContext context, AsyncSnapshot snapshot) {
+                            builder: (BuildContext context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
                                 return Row(
                                   children: [

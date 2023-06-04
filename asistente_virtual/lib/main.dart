@@ -60,8 +60,9 @@ import 'package:asistente_virtual/src/pages/Screens/PruebasAPI_screen.dart';
 void main() async {
   runApp(MyApp());
   UtilsInicialize _utilsInicialize = UtilsInicialize();
-  await _utilsInicialize.initDD('DesafioDiario', 'Expiracion');
   print(await _utilsInicialize.initapi());
+  await _utilsInicialize.initDD('DesafioDiario', 'Expiracion');
+  await _utilsInicialize.initTareas();
 }
 
 class MyApp extends StatefulWidget {
@@ -80,7 +81,7 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'tareasdiarias',
+      initialRoute: 'home',
       //rutas de la aplicacion
       routes: {
         //CORE APP
