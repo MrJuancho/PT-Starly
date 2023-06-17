@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';

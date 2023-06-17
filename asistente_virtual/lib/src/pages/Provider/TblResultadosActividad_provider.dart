@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, file_names
 
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
@@ -24,12 +24,12 @@ class TblResultadosActividadProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as Map<String, dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -56,7 +56,7 @@ class TblResultadosActividadProvider {
           },
           body: body);
     } catch (e) {
-      print("Error: $e");
+      //print("Error: $e");
     }
   }
 }

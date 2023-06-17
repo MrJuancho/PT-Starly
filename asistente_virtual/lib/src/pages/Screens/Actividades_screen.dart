@@ -1,40 +1,48 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
+import 'package:asistente_virtual/src/models/itemsAct.dart';
+import 'package:asistente_virtual/src/pages/Controllers/Actividades_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
-import '../flutter_flow/Theme_Personal.dart';
+import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 
 class ActividadesPage extends StatefulWidget {
+  const ActividadesPage({super.key});
+
   @override
   _ActividadesPageState createState() => _ActividadesPageState();
 }
 
 class _ActividadesPageState extends State<ActividadesPage> {
   //Controllers
-
+  final ActividadesController _actividadesController = ActividadesController();
   // Lista de variables booleanas para controlar la selección de botones
   bool vertical = false;
+  List actividades = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    //método para iniciar controlador
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onBackPressed,
-      child: Scaffold(
-        appBar: MenuSuperior(),
-        body: _body(),
-        bottomNavigationBar: MenuInferior(),
-      ),
-    );
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+    const reducedwindowWidth = 500.00;
+    const reducedwindowHeight = 810.00;
+
+    if (screenWidth >= 450) {
+      return SizedBox(
+        height: reducedwindowHeight,
+        width: reducedwindowWidth,
+        child: Center(child: carga(reducedwindowWidth, reducedwindowHeight)),
+      );
+    } else {
+      return carga(screenWidth, screenHeight);
+    }
   }
 
   Future<bool> onBackPressed() async {
@@ -42,68 +50,127 @@ class _ActividadesPageState extends State<ActividadesPage> {
     return false;
   }
 
-  Widget _body() {
-    double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
-    double hcentecima = h / 100;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Future<void> getInfo() async {
+    actividades = await _actividadesController.actividadYRuta([26, 2, 51, 36, 12]);
+  }
+
+  List<Item> generateItems(int numberOfItems) {
+    return List<Item>.generate(numberOfItems, (int index) {
+      return Item(
+        id: index,
+        headerValue: '${actividades[index][0]}',
+        expandedValue: '${actividades[index][1]}',
+        ruta: '${actividades[index][2]}',
+      );
+    });
+  }
+
+  Widget carga(double screenWidth, double screenHeight) {
+    return WillPopScope(
+      onWillPop: onBackPressed,
+      child: Scaffold(
+        appBar: MenuSuperior(),
+        body: FutureBuilder<void>(
+          future: getInfo(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return Container(
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  height: MediaQuery.of(context).size.height * 1,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                      stops: const [0.0, 1.0],
+                      begin: const AlignmentDirectional(0.0, -1.0),
+                      end: const AlignmentDirectional(0, 1.0),
+                    ),
+                  ),
+                  child: const Center(
+                    child: Text('Error al cargar las actividades'),
+                  ),
+                );
+              } else {
+                return _body(screenWidth, screenHeight);
+              }
+            } else {
+              return Container(
+                width: MediaQuery.of(context).size.width * 1.0,
+                height: MediaQuery.of(context).size.height * 1,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                    stops: const [0.0, 1.0],
+                    begin: const AlignmentDirectional(0.0, -1.0),
+                    end: const AlignmentDirectional(0, 1.0),
+                  ),
+                ),
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            }
+          },
+        ),
+        bottomNavigationBar: MenuInferior(),
+      ),
+    );
+  }
+
+  Widget _body(double screenWidth, double screenHeight) {
+    final List<Item> data = generateItems(actividades.length);
+    return Stack(
       children: [
-        Expanded(
-            child: Container(
+        Container(
           width: MediaQuery.of(context).size.width * 1.0,
           height: MediaQuery.of(context).size.height * 1,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [
-                PersonalTheme.of(context).primary,
-                PersonalTheme.of(context).tertiary
-              ],
-              stops: [0.0, 1.0],
+              colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+              stops: const [0.0, 1.0],
               begin: const AlignmentDirectional(0.0, -1.0),
               end: const AlignmentDirectional(0, 1.0),
             ),
           ),
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(top: hcentecima, bottom: hcentecima),
-            child: ConstrainedBox(
-                constraints: const BoxConstraints(),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: List.generate(5, (index) {
-                    final temp = index + 1;
-                    return Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.all(8),
-                          color: Colors.grey[300],
-                          child: Center(
-                            child: Image.asset(
-                                'assets/images/home/download.jpg',
-                                width: w / 2.1,
-                                fit: BoxFit.fill),
-                          ),
-                        ),
-                        Text(
-                          'Actividad\n$temp',
-                          style: TextStyle(
-                              fontFamily: 'Comfortaa',
-                              fontSize: hcentecima * 2),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    );
-                  }),
-                )),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: screenWidth,
+            height: screenHeight,
+            child: SingleChildScrollView(
+              child: ExpansionPanelList.radio(
+                dividerColor: PersonalTheme.of(context).alternate,
+                expandIconColor: PersonalTheme.of(context).primaryText,
+                //initialOpenPanelValue: 0,
+                children: data.map<ExpansionPanelRadio>((Item item) {
+                  return ExpansionPanelRadio(
+                      backgroundColor: Colors.transparent,
+                      value: item.id,
+                      headerBuilder: (BuildContext context, bool isExpanded) {
+                        return ListTile(
+                          title: Text(item.headerValue,style: PersonalTheme.of(context).headlineSmall,),
+                        );
+                      },
+                      body: ListTile(
+                          title: Text(item.expandedValue,style: PersonalTheme.of(context).titleLarge.override(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.normal
+                          ),),
+                          //subtitle: const Text('Iniciar la actividad'),
+                          trailing: Icon(Icons.play_arrow_rounded, color: PersonalTheme.of(context).fadedalternate),
+                          onTap: () async {
+                            setState(() {
+                              Navigator.pushNamed(
+                                context,
+                                item.ruta,
+                              );
+                            });
+                          }));
+                }).toList(),
+              ),
+            ),
           ),
-        )),
+        ),
       ],
     );
-  }
-
-  void refresh() {
-    setState(() {});
   }
 }

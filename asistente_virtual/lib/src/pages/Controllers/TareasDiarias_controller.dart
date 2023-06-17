@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'dart:math';
 import 'package:asistente_virtual/src/pages/Provider/CatDesafioDiario_provider.dart';
@@ -7,8 +9,8 @@ import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 
 class TareasDiariasController {
   BuildContext? context;
-  CatTareaDiariaProvider tareadiariaProvider = CatTareaDiariaProvider();
-  CatDesafioDiarioProvider _catDesafioDiarioProvider = CatDesafioDiarioProvider();
+  final CatTareaDiariaProvider tareadiariaProvider = CatTareaDiariaProvider();
+  final CatDesafioDiarioProvider _catDesafioDiarioProvider = CatDesafioDiarioProvider();
   final UtilsSharedPref _sharedPref = UtilsSharedPref();
 
   //constructort de clase - puede requerir await si se necesita esperar algo
@@ -20,7 +22,6 @@ class TareasDiariasController {
   void desafioRandom() async {
     final numero = Random().nextInt(2) + 1;
     final desafio = await _catDesafioDiarioProvider.oneDesafioDiario(numero);
-    print(desafio);
     _sharedPref.save('DesafioDiario', json.encode(desafio));
   }
 
@@ -59,23 +60,26 @@ class TareasDiariasController {
 
   Future<Map<String, dynamic>> getTareas() async {
     Map<String, dynamic> actCompletadas = json.decode(await _sharedPref.read('Tareas'));
-    print(actCompletadas);
+    //print(actCompletadas);
     int interacciones = 0;
     if (actCompletadas['Interacciones'] >= 3) {
       interacciones = 1;
     }
 
-    if (actCompletadas['Actividades'] == 3) {
+    if (actCompletadas['Actividades'] == 3 || actCompletadas['Actividades'] == 4) {
       actCompletadas['TareasCom'] = 1 + interacciones;
-    } else if (actCompletadas['Actividades'] == 5) {
+    } else if (actCompletadas['Actividades'] >= 5) {
       actCompletadas['TareasCom'] = 2 + interacciones;
+    } else if (actCompletadas['Actividades'] < 3) {
+      actCompletadas['TareasCom'] = interacciones;
     }
     _sharedPref.save('Tareas', json.encode(actCompletadas));
-    print(actCompletadas);
+
+    //print(actCompletadas);
     return actCompletadas;
   }
 
-  Future<int> conteoDD()async{
+  Future<int> conteoDD() async {
     final conteoDD = await _sharedPref.readtodato('DesafioDiario', 'Conteo');
     return conteoDD;
   }

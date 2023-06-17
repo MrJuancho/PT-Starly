@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, file_names
 
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
@@ -27,13 +27,10 @@ class CatDesafioDiarioProvider {
       data['Expiracion'] = DateTime(fecha.year, fecha.month, fecha.day, 23, 59, 59).toString();
       // Imprimir la respuesta en la consola
       data['Conteo'] = 0;
-
-      print(data);
-
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as Map<String, dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -50,12 +47,12 @@ class CatDesafioDiarioProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as List<dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }

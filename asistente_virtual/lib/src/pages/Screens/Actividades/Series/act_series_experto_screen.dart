@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:asistente_virtual/src/pages/Controllers/Estadistics_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
@@ -15,7 +17,7 @@ class ActSeriesExpertoPage extends StatefulWidget {
   const ActSeriesExpertoPage({
     Key? key,
     String? counter,
-  })  : this.counter = counter ?? '0',
+  })  : counter = counter ?? '0',
         super(key: key);
 
   final String counter;
@@ -96,16 +98,34 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return _startPressed
-        ? _actividad(context)
-        : _activityFinished
-            ? ResultadosWidget.show(
-                context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
-            : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Identificar la figura que sigue en la serie; dificultad dificil');
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+    const reducedwindowWidth = 500.00;
+    const reducedwindowHeight = 900.00;
+
+    if (screenWidth >= 450) {
+      return SizedBox(
+        height: reducedwindowHeight,
+        width: reducedwindowWidth,
+        child: Center(child: eleccion(reducedwindowWidth, reducedwindowHeight)),
+      );
+    } else {
+      return eleccion(screenWidth, screenHeight);
+    }
   }
 
-  Widget _actividad(BuildContext context) {
+  Widget eleccion(double screenWidth, double screenHeight) {
+    return _startPressed
+        ? _actividad(context, screenWidth, screenHeight)
+        : _activityFinished
+            ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
+                _estadisticsController, screenWidth, screenHeight)
+            : InstruccionesWidget.show(context, _estadisticsController, presionado,
+                'Identificar la figura que sigue en la serie; dificultad dificil', screenWidth, screenHeight);
+  }
+
+  Widget _actividad(BuildContext context, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -151,7 +171,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
-                        stops: [0.0, 1.0],
+                        stops: const [0.0, 1.0],
                         begin: const AlignmentDirectional(0.0, -1.0),
                         end: const AlignmentDirectional(0, 1.0),
                       ),
@@ -161,9 +181,8 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
-                          child: Container(
-                            width: double.infinity,
-                            height: 500.0,
+                          child: SizedBox(
+                            width: screenWidth,
                             child: Stack(
                               children: [
                                 Padding(
@@ -173,8 +192,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                     scrollDirection: Axis.horizontal,
                                     children: [
                                       Container(
-                                        width: 100.0,
-                                        height: 100.0,
                                         decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -209,16 +226,23 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                   borderRadius: BorderRadius.circular(8.0),
                                                   child: Image.asset(
                                                     'assets/images/Actividades/Series/Act_Series_Experto/lvl5-1Desc.png',
-                                                    width: MediaQuery.of(context).size.width * 1.0,
-                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    width: screenWidth * 1.0,
+                                                    height: screenHeight * 0.15,
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
@@ -226,8 +250,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     correctas += 1;
                                                   },
                                                   child: Container(
-                                                      width: MediaQuery.of(context).size.width * 0.5,
-                                                      height: MediaQuery.of(context).size.height * 0.2,
                                                       decoration: const BoxDecoration(),
                                                       child: Column(
                                                         mainAxisSize: MainAxisSize.max,
@@ -237,7 +259,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                             borderRadius: BorderRadius.circular(8.0),
                                                             child: Image.asset(
                                                               'assets/images/Actividades/Series/Act_Series_Experto/lvl5-1-1.png',
-                                                              width: MediaQuery.of(context).size.width * 0.35,
+                                                              width: screenWidth * 0.35,
                                                               fit: BoxFit.contain,
                                                             ),
                                                           ),
@@ -256,8 +278,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     goToNextPage();
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -267,7 +287,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-1-2.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -284,17 +304,22 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                 ),
                                               ],
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -304,7 +329,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-1-3.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -322,11 +347,8 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
-                                                    
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -336,7 +358,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-1-4.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -357,8 +379,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                         ),
                                       ),
                                       Container(
-                                        width: 100.0,
-                                        height: 100.0,
                                         decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -393,24 +413,29 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                   borderRadius: BorderRadius.circular(8.0),
                                                   child: Image.asset(
                                                     'assets/images/Actividades/Series/Act_Series_Experto/lvl5-2Desc.png',
-                                                    width: MediaQuery.of(context).size.width * 1.0,
-                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    width: screenWidth * 1.0,
+                                                    height: screenHeight * 0.15,
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -420,7 +445,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-2-1.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -441,8 +466,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     correctas += 1;
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -452,7 +475,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-2-2.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -469,18 +492,22 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                 ),
                                               ],
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
-                                                    
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -490,7 +517,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-2-3.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -510,8 +537,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     goToNextPage();
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -521,7 +546,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-2-4.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -542,8 +567,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                         ),
                                       ),
                                       Container(
-                                        width: 100.0,
-                                        height: 100.0,
                                         decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -578,25 +601,29 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                   borderRadius: BorderRadius.circular(8.0),
                                                   child: Image.asset(
                                                     'assets/images/Actividades/Series/Act_Series_Experto/lvl5-3Desc.png',
-                                                    width: MediaQuery.of(context).size.width * 1.0,
-                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    width: screenWidth * 1.0,
+                                                    height: screenHeight * 0.15,
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
-                                                    
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -606,7 +633,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-3-1.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -626,8 +653,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     goToNextPage();
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -637,7 +662,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-3-2.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -654,18 +679,22 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                 ),
                                               ],
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
-                                                    
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -675,7 +704,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-3-3.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -696,8 +725,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     correctas += 1;
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -707,7 +734,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-3-4.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -728,8 +755,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                         ),
                                       ),
                                       Container(
-                                        width: 100.0,
-                                        height: 100.0,
                                         decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -764,25 +789,29 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                   borderRadius: BorderRadius.circular(8.0),
                                                   child: Image.asset(
                                                     'assets/images/Actividades/Series/Act_Series_Experto/lvl5-4Desc.png',
-                                                    width: MediaQuery.of(context).size.width * 1.0,
-                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    width: screenWidth * 1.0,
+                                                    height: screenHeight * 0.15,
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
-                                                    
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -792,7 +821,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-4-1.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -812,8 +841,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     goToNextPage();
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -823,7 +850,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-4-2.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -840,9 +867,16 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                 ),
                                               ],
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
@@ -850,8 +884,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     correctas += 1;
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -861,7 +893,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-4-3.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -879,11 +911,8 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
-                                                    
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -893,7 +922,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-4-4.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -914,8 +943,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                         ),
                                       ),
                                       Container(
-                                        width: 100.0,
-                                        height: 100.0,
                                         decoration: const BoxDecoration(),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -950,16 +977,23 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                   borderRadius: BorderRadius.circular(8.0),
                                                   child: Image.asset(
                                                     'assets/images/Actividades/Series/Act_Series_Experto/lvl5-5Desc.png',
-                                                    width: MediaQuery.of(context).size.width * 1.0,
-                                                    height: MediaQuery.of(context).size.height * 0.15,
+                                                    width: screenWidth * 1.0,
+                                                    height: screenHeight * 0.15,
                                                     fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ),
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
@@ -972,8 +1006,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     }
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -983,7 +1015,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-5-1.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -1009,8 +1041,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     }
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -1020,7 +1050,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-5-2.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -1037,9 +1067,16 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                 ),
                                               ],
                                             ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
                                             Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
@@ -1059,8 +1096,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     }
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -1070,7 +1105,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-5-3.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -1096,8 +1131,6 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                     }
                                                   },
                                                   child: Container(
-                                                    width: MediaQuery.of(context).size.width * 0.5,
-                                                    height: MediaQuery.of(context).size.height * 0.2,
                                                     decoration: const BoxDecoration(),
                                                     child: Column(
                                                       mainAxisSize: MainAxisSize.max,
@@ -1107,7 +1140,7 @@ class _ActSeriesExpertoState extends State<ActSeriesExpertoPage> {
                                                           borderRadius: BorderRadius.circular(8.0),
                                                           child: Image.asset(
                                                             'assets/images/Actividades/Series/Act_Series_Experto/lvl5-5-4.png',
-                                                            width: MediaQuery.of(context).size.width * 0.35,
+                                                            width: screenWidth * 0.35,
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),

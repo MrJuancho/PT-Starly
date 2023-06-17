@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, library_private_types_in_public_api
 
 import 'package:asistente_virtual/src/pages/Controllers/Estadistics_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 
 class ActSopaSentimientosEmocionesPage extends StatefulWidget {
+  const ActSopaSentimientosEmocionesPage({super.key});
+
   @override
   _ActSopaSentimientosEmocionesState createState() => _ActSopaSentimientosEmocionesState();
 }
@@ -56,7 +58,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
     ['G', 'P', 'A', 'R', 'M', 'O', 'I', 'J', 'S', 'C', 'W', 'Z', 'L', 'F'],
     ['P', 'K', 'I', 'O', 'C', 'C', 'V', 'B', 'T', 'D', 'Y', 'B', 'Q', 'Q'],
   ];
-  
+
   String currentWord = '';
   bool isDragging = false;
   Offset startPoint = Offset.zero;
@@ -134,17 +136,35 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
 
   @override
   Widget build(BuildContext context) {
-    return _startPressed
-        ? _actividad(context)
-        : _activityFinished
-            ? ResultadosWidget.show(
-                context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController)
-            : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Sopa de letras con diferentes emociones y sentimientos');
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+    const reducedwindowWidth = 500.00;
+    const reducedwindowHeight = 900.00;
+
+    if (screenWidth >= 450) {
+      return SizedBox(
+        height: reducedwindowHeight,
+        width: reducedwindowWidth,
+        child: Center(child: eleccion(reducedwindowWidth, reducedwindowHeight)),
+      );
+    } else {
+      return eleccion(screenWidth, screenHeight);
+    }
   }
 
-  Scaffold _actividad(BuildContext context) {
-    final cellSize = (MediaQuery.of(context).size.width * 0.95) / letterGrid.first.length;
+  Widget eleccion(double screenWidth, double screenHeight) {
+    return _startPressed
+        ? _actividad(context, screenWidth, screenHeight)
+        : _activityFinished
+            ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
+                _estadisticsController, screenWidth, screenHeight)
+            : InstruccionesWidget.show(context, _estadisticsController, presionado,
+                'Sopa de letras con diferentes emociones y sentimientos', screenWidth, screenHeight);
+  }
+
+  Scaffold _actividad(BuildContext context, double screenWidth, double screenHeight) {
+    final cellSize = (screenWidth * 0.95) / letterGrid.first.length;
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: PersonalTheme.of(context).primaryBackground,
@@ -198,7 +218,7 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
                       Container(
                         margin: const EdgeInsets.only(top: 20),
                         height: cellSize * letterGrid.length,
-                        width: MediaQuery.of(context).size.width * 0.95,
+                        width: screenWidth * 0.95,
                         color: PersonalTheme.of(context).primaryText,
                         child: GestureDetector(
                           behavior: HitTestBehavior.translucent,
@@ -278,7 +298,6 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
                                 _estadisticsController.registroResultados(
                                     50, intentos, ayudas, _estadisticsController.formatMilliseconds());
                               } else {
-                                print('Current word: $currentWord');
                                 currentWord = '';
                                 isDragging = false;
                               }
@@ -324,8 +343,8 @@ class _ActSopaSentimientosEmocionesState extends State<ActSopaSentimientosEmocio
                       ),
                       Expanded(
                         child: SingleChildScrollView(
-                          child: Container(
-                            //constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+                          child: SizedBox(
+                            width: screenWidth,
                             child: Column(
                               children: [
                                 Row(

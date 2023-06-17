@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, file_names
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -10,7 +10,7 @@ class CatTipoPersonalizacionProvider {
   final String _url = Enviroment.api;
 
   BuildContext? context;
-  
+
   //respuesta de la solicitud materia especifica
   Future<String> oneTipoPersonalizacion(String name) async {
     try {
@@ -25,12 +25,12 @@ class CatTipoPersonalizacionProvider {
 
       final personalizacion = data['descTipoPersonalizacion'];
       // Imprimir la respuesta en la consola
-      print(personalizacion);
+      //print(personalizacion);
 
       // Convertir la respuesta JSON en un string de lo que utilizaremos
       return personalizacion;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -48,12 +48,12 @@ class CatTipoPersonalizacionProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as List<dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }

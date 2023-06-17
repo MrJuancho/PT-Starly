@@ -1,11 +1,15 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'dart:math';
+import 'package:asistente_virtual/src/pages/Controllers/RegistroDiario_controller.dart';
 import 'package:asistente_virtual/src/pages/Controllers/TareasDiarias_controller.dart';
 import 'package:asistente_virtual/src/pages/Provider/CatDatoCurioso_provider.dart';
 import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/pages/Provider/TblResultadosActividad_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class EstadisticsController {
@@ -16,6 +20,7 @@ class EstadisticsController {
   final TblResultadosActividadProvider _resultadosActividadProvider = TblResultadosActividadProvider();
   final TblAlumnoProvider _alumnoProvider = TblAlumnoProvider();
   final TareasDiariasController _tareasDiariasController = TareasDiariasController();
+  final RegistroDiarioController _registroDiarioController = RegistroDiarioController();
   int elapsedMilliseconds = 0;
   //constructort de clase - puede requerir await si se necesita esperar algo
   Future init(BuildContext context) async {
@@ -71,7 +76,9 @@ class EstadisticsController {
         '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}.${dateTime.millisecond.toString().padLeft(3, '0')}';
 
     if (await _sharedPref.contains('Tareas')) {
-      print('Existe shared de actividades');
+      if (kDebugMode) {
+        print('Existe shared de actividades');
+      }
       if (await _sharedPref.existField('Tareas', 'Actividades')) {
         Map<String, dynamic> tareas = json.decode(await _sharedPref.read('Tareas'));
         tareas['Actividades'] += 1;
@@ -99,6 +106,7 @@ class EstadisticsController {
     }
 
     _resultadosActividadProvider.postResultadoActividad(idActividad, idAlumno, formattedTime, intentos, ayudas);
+    _registroDiarioController.putRegistroDiario();
   }
 
   void sumamonedas() async {

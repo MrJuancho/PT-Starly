@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, file_names
 
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
@@ -24,12 +24,12 @@ class CatDatoCuriosoProvider {
       final data = json.decode(res.body);
       final frase = data["descripcionDatos"];
       // Imprimir la respuesta en la consola
-      print(frase);
+      //print(frase);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return frase;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -49,15 +49,14 @@ class CatDatoCuriosoProvider {
       List<Map<String, dynamic>> datosCuriosos = List<Map<String, dynamic>>.from(data);
 
       // Imprimir la respuesta en la consola
-      print(datosCuriosos);
+      //print(datosCuriosos);
 
       return datosCuriosos;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
-
 
   Future<List<dynamic>> allDatosCuriosos() async {
     try {
@@ -71,12 +70,12 @@ class CatDatoCuriosoProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as List<dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }

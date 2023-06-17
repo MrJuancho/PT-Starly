@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -54,9 +55,13 @@ class UtilsSharedPref {
 
     if (jsonData != null) {
       final data = json.decode(jsonData);
-      print(data);
+      if (kDebugMode) {
+        print(data);
+      }
     } else {
-      print('La clave $key no existe en SharedPreferences.');
+      if (kDebugMode) {
+        print('La clave $key no existe en SharedPreferences.');
+      }
     }
   }
 

@@ -12,25 +12,25 @@ class PingProvider {
   BuildContext? context;
 
   //respuesta de las solicitudes
-  Future<Map<String,dynamic>> ping() async {
-  try {
-    // URL para el get
-    Uri url = Uri.https(_url, '/ping');
+  Future<Map<String, dynamic>> ping() async {
+    try {
+      // URL para el get
+      Uri url = Uri.https(_url, '/ping');
 
-    // Petición GET de login
-    final res = await http.get(url);
+      // Petición GET de login
+      final res = await http.get(url);
 
-    // Obtener la respuesta como JSON
-    final data = json.decode(res.body);
+      // Obtener la respuesta como JSON
+      final data = json.decode(res.body);
 
-    // Imprimir la respuesta en la consola
-    print(data);
+      // Imprimir la respuesta en la consola
+      //print(data);
 
-    // Convertir la respuesta JSON en un Map<String, dynamic>
-    return data as Map<String,dynamic>;
-  } catch (e) {
-    print('Error: $e');
-    return null!;
+      // Convertir la respuesta JSON en un Map<String, dynamic>
+      return data as Map<String, dynamic>;
+    } catch (e) {
+      //print('Error: $e');
+      return null!;
     }
   }
 }

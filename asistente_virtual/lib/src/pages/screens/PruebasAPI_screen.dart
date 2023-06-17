@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 //Paquete de la api a probar
@@ -6,18 +8,18 @@ import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 import '../Provider/CatPropPersonalizacion_provider.dart';
 
 class MyTextFieldAndButton extends StatefulWidget {
-  const MyTextFieldAndButton() : super();
+  const MyTextFieldAndButton({super.key});
 
   @override
   _MyTextFieldAndButtonState createState() => _MyTextFieldAndButtonState();
 }
 
 class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
-  TextEditingController _textEditingController = TextEditingController();
-  TextEditingController _textEditingController1 = TextEditingController();
-  TextEditingController _textEditingController2 = TextEditingController();
-  TextEditingController _textEditingController3 = TextEditingController();
-  TblAlumnoProvider personalizacion = TblAlumnoProvider();
+  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _textEditingController1 = TextEditingController();
+  final TextEditingController _textEditingController2 = TextEditingController();
+  final TextEditingController _textEditingController3 = TextEditingController();
+  final TblAlumnoProvider personalizacion = TblAlumnoProvider();
   final CatPropPersonalizacionProvider _catPropPersonalizacionProvider =
       CatPropPersonalizacionProvider();
 
@@ -119,7 +121,7 @@ class _MyTextFieldAndButtonState extends State<MyTextFieldAndButton> {
   void showModal(BuildContext context, String frase) {
     showDialog(
       context: context,
-      builder: (BuildContext) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         content: Text("Sabias que?\n$frase"),
         actions: [
           TextButton(

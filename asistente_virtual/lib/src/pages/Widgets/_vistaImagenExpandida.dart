@@ -1,8 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ExpandedImageView extends StatelessWidget {
-  const ExpandedImageView({
+  const ExpandedImageView({super.key, 
     required this.image,
     this.allowRotation = false,
     this.useHeroAnimation = true,
@@ -22,7 +24,7 @@ class ExpandedImageView extends StatelessWidget {
       child: SafeArea(
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               height: screenSize.height,
               width: screenSize.width,
               child: PhotoView.customChild(

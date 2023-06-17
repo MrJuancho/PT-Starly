@@ -1,12 +1,17 @@
+// ignore_for_file: file_names, library_private_types_in_public_api
+
 import 'package:asistente_virtual/src/pages/Controllers/Home_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonesFlotantes_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
 import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
+import 'package:asistente_virtual/src/utils/utils_inicialize.dart';
+//import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -14,119 +19,161 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Controler
   final HomeController _homeController = HomeController();
+  //final UtilsSharedPref _sharedPref = UtilsSharedPref();
+
   bool _isPress = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    //método para iniciar controlador
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _homeController.init(context, refresh);
-    });
+    init();
+    _homeController.init(context, refresh);
   }
+
+  void init() async {
+    UtilsInicialize utilsInicialize = UtilsInicialize();
+    await utilsInicialize.initTareasyDesafio();
+    //prints();
+  }
+
+  /* void prints() async {
+    print(await _sharedPref.read('Alumno'));
+    print(await _sharedPref.read('Tareas'));
+    print(await _sharedPref.read('DesafioDiario'));
+  } */
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MenuSuperior(),
-      body: _asistente(),
-      bottomNavigationBar: MenuInferior(),
-      floatingActionButton: BotonesFlotantes(),
-      backgroundColor: PersonalTheme.of(context).primaryBackground,
-    );
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+    const reducedwindowWidth = 500.00;
+    const reducedwindowHeight = 810.00;
+
+    if (screenWidth >= 450) {
+      double wpart = reducedwindowWidth / 1.5;
+      double hpart = reducedwindowHeight / 1.5;
+      return SizedBox(
+        height: reducedwindowHeight,
+        width: reducedwindowWidth,
+        child: Center(child: asistente(screenWidth, screenHeight, wpart, hpart)),
+      );
+    } else {
+      double wpart = screenWidth / 1.5;
+      double hpart = screenHeight / 1.5;
+      return asistente(screenWidth, screenHeight, wpart, hpart);
+    }
   }
 
   void refresh() {
     setState(() {});
   }
 
-  Widget _asistente() {
-    double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
-    double wpart = w / 1.5;
-    double hpart = h / 1.5;
+  void changeState() {
+    
+    setState(() {
+      _isPress = !_isPress;
+    });
+  }
 
-    return GestureDetector(
-      onTap: () async {
-        setState(() {
-          _homeController.interaccionesAV();
-          _isPress = true;
-        });
-        await Future.delayed(const Duration(seconds: 6));
-        setState(() {
-          _isPress = false;
-        });
-      },
-      child: Container(
-          width: MediaQuery.of(context).size.width * 1.0,
-          height: MediaQuery.of(context).size.height * 1,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
-              stops: [0.0, 1.0],
-              begin: AlignmentDirectional(0.0, -1.0),
-              end: AlignmentDirectional(0, 1.0),
+  Widget asistente(double screenWidth, double screenHeight, double wpart, double hpart) {
+    return Scaffold(
+      appBar: MenuSuperior(),
+      bottomNavigationBar: MenuInferior(),
+      floatingActionButton: BotonesFlotantes(),
+      body: Stack(
+        children: [
+          Container(
+            width: screenWidth * 1,
+            height: screenHeight * 1,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                stops: const [0.0, 1.0],
+                begin: const AlignmentDirectional(0.0, -1.0),
+                end: const AlignmentDirectional(0, 1.0),
+              ),
             ),
           ),
-          child: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: w - wpart, top: hpart / 13),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 600),
-                  width: _isPress ? wpart : 0,
-                  height: _isPress ? hpart / 2 : 0,
-                  child: Stack(
-                    children: [
-                      Image.asset(
-                        'assets/images/home/Nube.png',
-                        fit: BoxFit.cover,
-                      ),
-                      Opacity(
-                        opacity: _isPress ? 1 : 0,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: FutureBuilder<String>(
-                            future: _homeController.fraseRandom(),
-                            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(
-                                  "\n¿Sabias que?\n${snapshot.data}",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                  ),
-                                  textAlign: TextAlign.justify,
-                                );
-                              } else {
-                                return Text('Cargando frase...');
-                              }
-                            },
+          Center(
+            child: Column(
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  width: _isPress ? screenWidth : 0,
+                  height: hpart / 1.5,
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.topCenter,
+                          child: Image.asset(
+                            'assets/images/home/Nube.png',
+                            fit: BoxFit.fill,
                           ),
                         ),
-                      ),
-                    ],
+                        Opacity(
+                          opacity: _isPress ? 1 : 0,
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: SizedBox(
+                              width: wpart, // Ajusta el ancho máximo del texto aquí
+                              child: FutureBuilder<String>(
+                                future: _homeController.fraseRandom(),
+                                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                  if (snapshot.hasData) {
+                                    return Wrap(
+                                      children: [
+                                        Text(
+                                          "\n¿Sabias que?\n${snapshot.data}",
+                                          style: PersonalTheme.of(context).titleMedium.override(
+                                              fontFamily: 'Poppins',
+                                              color: PersonalTheme.of(context).primaryBackground,
+                                              fontSize: screenWidth >= 450 ? 20 : 17),
+                                          textAlign: TextAlign.justify,
+                                        ),
+                                      ],
+                                    );
+                                  } else {
+                                    return Text(
+                                      'Cargando frase...',
+                                      style: PersonalTheme.of(context).titleMedium.override(
+                                          fontFamily: 'Poppins',
+                                          color: PersonalTheme.of(context).primaryBackground,
+                                          fontSize: 20),
+                                      textAlign: TextAlign.justify,
+                                    );
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  (w - wpart) / 2,
-                  (h - hpart) / 2,
-                  0,
-                  0,
+                GestureDetector(
+                  onTap: () async {
+                    setState(() {
+                      _homeController.interaccionesAV();
+                    });
+                    changeState();
+                    await Future.delayed(const Duration(seconds: 6));
+                    changeState();
+                  },
+                  child: Image.asset(
+                    'assets/images/home/download.jpg',
+                    fit: BoxFit.contain,
+                    height: wpart,
+                    //width: wpart,
+                  ),
                 ),
-                child: Image.asset(
-                  'assets/images/home/download.jpg',
-                  width: wpart,
-                  height: hpart,
-                ),
-              ),
-            ],
-          )),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

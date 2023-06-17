@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, file_names
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -25,12 +25,12 @@ class CatMateriaProvider {
 
       // Imprimir la respuesta en la consola
       final materia = data['descripcionMateria'];
-      print(materia);
+      //print(materia);
 
       // Convertir la respuesta JSON en solo un string de la materia
       return materia;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -48,12 +48,12 @@ class CatMateriaProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as List<dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }

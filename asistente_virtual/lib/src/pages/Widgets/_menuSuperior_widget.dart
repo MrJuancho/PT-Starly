@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:asistente_virtual/src/pages/Controllers/_menuSuperior_controller.dart';
 import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
@@ -13,12 +15,12 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
     return AppBar(
-      toolbarHeight: 60,
-
+      toolbarHeight: screenWidth >=450? 80:60,
       centerTitle: false,
       titleSpacing: 0,
-      //backgroundColor: UtilsColors.primaryColor,
       title: Transform(
         transform: Matrix4.translationValues(0, 0, 0),
         child: TextButton.icon(
@@ -32,7 +34,7 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
           //SizedBox(width: 10),
           label: Text(
             'Tareas Diarias',
-            style: TextStyle(color: PersonalTheme.of(context).primaryText),
+            style: PersonalTheme.of(context).titleMedium,
           ),
         ),
       ),
@@ -45,7 +47,7 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   const Icon(Icons.star_rounded),
                   const SizedBox(width: 1),
-                  Text(snapshot.data),
+                  Text(snapshot.data,style:PersonalTheme.of(context).titleMedium,),
                   const SizedBox(width: 10),
                 ],
               );
@@ -53,6 +55,9 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
               return const CircularProgressIndicator();
             }
           },
+        ),
+        const SizedBox(
+          width: 5,
         ),
         FutureBuilder(
           future: _menuSuperiorController.coins(),
@@ -62,7 +67,7 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   const Icon(Icons.attach_money_rounded),
                   const SizedBox(width: 0),
-                  Text(snapshot.data),
+                  Text(snapshot.data,style:PersonalTheme.of(context).titleMedium,),
                 ],
               );
             } else {
@@ -117,7 +122,6 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
               )),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
               _sharedPref.logout(context);
             },
             child: Text(

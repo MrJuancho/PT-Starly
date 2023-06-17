@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:asistente_virtual/src/pages/provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
@@ -12,11 +13,11 @@ class LoginController {
   BuildContext? context;
 
   //Controladores para detectar escritos
-  TextEditingController usernameCtrller = new TextEditingController();
-  TextEditingController passCtrller = new TextEditingController();
+  final TextEditingController usernameCtrller =  TextEditingController();
+  final TextEditingController passCtrller =  TextEditingController();
 
-  TblAlumnoProvider usersProvider = new TblAlumnoProvider();
-  UtilsSharedPref _sharedpref = new UtilsSharedPref();
+  final TblAlumnoProvider usersProvider =  TblAlumnoProvider();
+  final UtilsSharedPref _sharedpref =  UtilsSharedPref();
 
   //constructort de clase - puede requerir await si se necesita esperar algo
   Future init(BuildContext context) async {
@@ -58,7 +59,9 @@ class LoginController {
         UtilsSnackbar.show(context!, "Usuario y/o contraseña incorrecta");
       }
     } else {
-      print("No hay datos en el JSON");
+      if (kDebugMode) {
+        print("No hay datos en el JSON");
+      }
     }
   }
 }

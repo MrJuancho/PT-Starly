@@ -1,21 +1,26 @@
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_aislantes_conductores_screen.dart';
+// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors
+
+//INTRUSO
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_angulos_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_paralelogramos_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_aislantes_conductores_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_biodiversidad_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_climas_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_medidas_basicas_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_paises_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_paralelogramos_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_personajes_historicos_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Intruso/act_intruso_sistema_solar_screen.dart';
+//MEMORAMA
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_areas_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_planetas_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_especies_peligro_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_guerra_reforma_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_rectas_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_paises_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_personajes_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_peso_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_planetas_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_rectas_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_revolucion_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Memorama/act_memorama_peso_screen.dart';
+//MISMA IMAGEN
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_caminos.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_cuidado_medio_ambiente_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_expresiones_algebraicas_screen.dart';
@@ -23,46 +28,50 @@ import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/a
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_reciclaje_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_recta_secante_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Misma%20Imagen/act_encuentra_simbolos_ciudad.dart';
+//SERIES
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_principiante_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_facil_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_medio_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_avanzado_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_experto_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_extra_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_facil_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_medio_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Series/act_series_principiante_screen.dart';
+//SOPA DE LETRAS
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_sentimientos_emociones_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_adverbios_verbos_adjetivos_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_anticonceptivos_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_apellidos_celebres_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_esdrujulas_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_triangulos_cuadrilateros.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_probabilidad_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_movimiento_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_revolucion_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_extensiones_territoriales_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_metodo_cientifico_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_movimiento_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_probabilidad_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_revolucion_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_sentimientos_emociones_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_triangulos_cuadrilateros.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_esdrujulas_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_apellidos_celebres_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Sopa%20de%20Letras/act_sopa_anticonceptivos_screen.dart';
+//VISTAS
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_principiante_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_facil_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_medio_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_avanzado_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_experto_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_extra1_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_extra2_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_facil_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_medio_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/Actividades/Vistas/act_vista_principiante_screen.dart';
+
+//CORE
 import 'package:asistente_virtual/src/pages/Screens/Actividades_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/Personalizacion_screen.dart';
+import 'package:asistente_virtual/src/pages/Screens/RegistroDiario_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/TareasDiarias_screen.dart';
 import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:asistente_virtual/src/utils/utils_inicialize.dart';
-import 'package:flutter/material.dart';
 import 'package:asistente_virtual/src/pages/Screens/Login_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/PaginaInicio_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/PruebasAPI_screen.dart';
+import 'package:flutter/material.dart';
 
 void main() async {
   runApp(MyApp());
-  UtilsInicialize _utilsInicialize = UtilsInicialize();
-  print(await _utilsInicialize.initapi());
-  await _utilsInicialize.initDD('DesafioDiario', 'Expiracion');
-  await _utilsInicialize.initTareas();
+  UtilsInicialize utilsInicialize = UtilsInicialize();
+  await utilsInicialize.initapi();
 }
 
 class MyApp extends StatefulWidget {
@@ -81,16 +90,16 @@ class _MyAppState extends State<MyApp> {
       //Quitar bandera de debug
       debugShowCheckedModeBanner: false,
       //Ruta inicial de la aplicación
-      initialRoute: 'home',
+      initialRoute: 'login',
       //rutas de la aplicacion
       routes: {
         //CORE APP
-        'login': (BuildContext context) => LoginPage(),
-        'home': (BuildContext context) => HomePage(),
-        'personalizacion': (BuildContext context) => PersonalizacionPage(),
-        'actividades': (BuildContext context) => ActividadesPage(),
-        'tareasdiarias': (BuildContext context) => TareasDiariasPage(),
-        //'registroDiario':(BuildContext context) => RegistroDiario(),
+        'login': (BuildContext context) => const LoginPage(),
+        'home': (BuildContext context) => const HomePage(),
+        'personalizacion': (BuildContext context) => const PersonalizacionPage(),
+        'actividades': (BuildContext context) => const ActividadesPage(),
+        'tareasdiarias': (BuildContext context) => const TareasDiariasPage(),
+        'registroDiario': (BuildContext context) => const RegistroDiarioPage(),
 
         //ACTIVIDADES ENCUENTRA MISMA IMAGEN - 7
         'act_encuentra_recta_secante': (BuildContext context) => const ActEncuentraRectaSecantePage(),
@@ -114,9 +123,9 @@ class _MyAppState extends State<MyApp> {
         'act_intruso_sistemasolar': (BuildContext context) => const ActIntrusoSistemaSolarPage(),
 
         //MEMORAMA - 9
+        'act_memorama_areas': (BuildContext context) => const ActMemoramaAreasPage(),
         'act_memorama_sistemasolar': (BuildContext context) => const ActMemoramaSistemaSolarPage(),
         'act_memorama_especiespeligro': (BuildContext context) => const ActMemoramaEspeciosPeligroPage(),
-        'act_memorama_areas': (BuildContext context) => const ActMemoramaAreasPage(),
         'act_memorama_guerra_reforma': (BuildContext context) => const ActMemoramaGuerraReformaPage(),
         'act_memorama_rectas': (BuildContext context) => const ActMemoramaRectasPage(),
         'act_memorama_paises': (BuildContext context) => const ActMemoramaPaisesPage(),
@@ -125,17 +134,17 @@ class _MyAppState extends State<MyApp> {
         'act_memorama_peso': (BuildContext context) => const ActMemoramaPesoPage(),
 
         //SOPAS DE LETRAS - 11
-        'act_sopa_sentimientos_emociones': (BuildContext context) => ActSopaSentimientosEmocionesPage(),
-        'act_sopa_adverbios_verbos': (BuildContext context) => ActSopaAdjetivosVerbosPage(),
-        'act_sopa_triangulos_cuadrilateros': (BuildContext context) => ActSopaTriangulosCuadrilaterosPage(),
-        'act_sopa_probabilidad': (BuildContext context) => ActSopaProbabilidadPage(),
-        'act_sopa_movimiento': (BuildContext context) => ActSopaMovimientoPage(),
-        'act_sopa_revolucion': (BuildContext context) => ActSopaRevolucionPage(),
-        'act_sopa_extensiones': (BuildContext context) => ActSopaExtensionesTerritorialesPage(),
-        'act_sopa_metodo_cientifico': (BuildContext context) => ActSopaMetodoCientificoPage(),
-        'act_sopa_esdrujulas': (BuildContext context) => ActSopaEsdrujulasPage(),
-        'act_sopa_apellidos_reforma': (BuildContext context) => ActSopaApellidosCelebresPage(),
-        'act_sopa_anticonceptivos': (BuildContext context) => ActSopaAnticonceptivosPage(),
+        'act_sopa_sentimientos_emociones': (BuildContext context) => const ActSopaSentimientosEmocionesPage(),
+        'act_sopa_adverbios_verbos': (BuildContext context) => const ActSopaAdjetivosVerbosPage(),
+        'act_sopa_triangulos_cuadrilateros': (BuildContext context) => const ActSopaTriangulosCuadrilaterosPage(),
+        'act_sopa_probabilidad': (BuildContext context) => const ActSopaProbabilidadPage(),
+        'act_sopa_movimiento': (BuildContext context) => const ActSopaMovimientoPage(),
+        'act_sopa_revolucion': (BuildContext context) => const ActSopaRevolucionPage(),
+        'act_sopa_extensiones': (BuildContext context) => const ActSopaExtensionesTerritorialesPage(),
+        'act_sopa_metodo_cientifico': (BuildContext context) => const ActSopaMetodoCientificoPage(),
+        'act_sopa_esdrujulas': (BuildContext context) => const ActSopaEsdrujulasPage(),
+        'act_sopa_apellidos_reforma': (BuildContext context) => const ActSopaApellidosCelebresPage(),
+        'act_sopa_anticonceptivos': (BuildContext context) => const ActSopaAnticonceptivosPage(),
 
         //SERIES LOGICAS - 6
         'act_series_principiante': (BuildContext context) => const ActSeriesPrincipiantePage(),

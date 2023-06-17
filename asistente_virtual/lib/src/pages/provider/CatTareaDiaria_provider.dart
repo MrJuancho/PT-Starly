@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, file_names
 
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
@@ -11,52 +11,52 @@ class CatTareaDiariaProvider {
 
   BuildContext? context;
 
-  Future? init(BuildContext context) async{
+  Future? init(BuildContext context) async {
     this.context = context;
   }
 
   //respuesta de las solicitudes
   Future<Map<String, dynamic>> oneTareaDiaria(int idTareaDiaria) async {
-  try {
-    // URL para el get
-    Uri url = Uri.https(_url, '/tareaDiaria/$idTareaDiaria');
+    try {
+      // URL para el get
+      Uri url = Uri.https(_url, '/tareaDiaria/$idTareaDiaria');
 
-    // Petición GET de login
-    final res = await http.get(url);
+      // Petición GET de login
+      final res = await http.get(url);
 
-    // Obtener la respuesta como JSON
-    final data = json.decode(res.body);
+      // Obtener la respuesta como JSON
+      final data = json.decode(res.body);
 
-    // Imprimir la respuesta en la consola
-    print(data);
+      // Imprimir la respuesta en la consola
+      //print(data);
 
-    // Convertir la respuesta JSON en un Map<String, dynamic>
-    return data as Map<String, dynamic>;
-  } catch (e) {
-    print('Error: $e');
-    return null!;
+      // Convertir la respuesta JSON en un Map<String, dynamic>
+      return data as Map<String, dynamic>;
+    } catch (e) {
+      //print('Error: $e');
+      return null!;
     }
   }
 
   Future<List<dynamic>> allTareasDiarias() async {
-  try {
-    // URL para el get
-    Uri url = Uri.https(_url, '/tareaDiaria');
+    try {
+      // URL para el get
+      Uri url = Uri.https(_url, '/tareaDiaria');
 
-    // Petición GET de login
-    final res = await http.get(url);
+      // Petición GET de login
+      final res = await http.get(url);
 
-    // Obtener la respuesta como JSON
-    final data = json.decode(res.body);
+      // Obtener la respuesta como JSON
+      final data = json.decode(res.body);
 
-    // Imprimir la respuesta en la consola
-    print(data);
+      // Imprimir la respuesta en la consola
+      //print(data);
 
-    // Convertir la respuesta JSON en un Map<String, dynamic>
-    return data as List<dynamic>;
-  } catch (e) {
-    print('Error: $e');
-    return null!;
+      // Convertir la respuesta JSON en un Map<String, dynamic>
+      return data as List<dynamic>;
+    } catch (e) {
+      //print('Error: $e');
+      return null!;
     }
   }
 }

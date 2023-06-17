@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:asistente_virtual/src/pages/Controllers/Estadistics_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
@@ -12,18 +14,16 @@ class ActEncuentraExpresionesAlgebraicasPage extends StatefulWidget {
   const ActEncuentraExpresionesAlgebraicasPage({
     Key? key,
     String? counter,
-  })  : this.counter = counter ?? '0',
+  })  : counter = counter ?? '0',
         super(key: key);
 
   final String counter;
 
   @override
-  _ActEncuentraExpresionesAlgebraicasState createState() =>
-      _ActEncuentraExpresionesAlgebraicasState();
+  _ActEncuentraExpresionesAlgebraicasState createState() => _ActEncuentraExpresionesAlgebraicasState();
 }
 
-class _ActEncuentraExpresionesAlgebraicasState
-    extends State<ActEncuentraExpresionesAlgebraicasPage> {
+class _ActEncuentraExpresionesAlgebraicasState extends State<ActEncuentraExpresionesAlgebraicasPage> {
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -75,23 +75,39 @@ class _ActEncuentraExpresionesAlgebraicasState
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+    const reducedwindowWidth = 500.00;
+    const reducedwindowHeight = 810.00;
+
+    if (screenWidth >= 450) {
+      return SizedBox(
+        height: reducedwindowHeight,
+        width: reducedwindowWidth,
+        child: Center(child: eleccion(reducedwindowWidth, reducedwindowHeight)),
+      );
+    } else {
+      return eleccion(screenWidth, screenHeight);
+    }
+  }
+
+  Widget eleccion(double screenWidth, double screenHeight) {
     return _startPressed
-        ? _actividad(context)
+        ? _actividad(context, screenWidth, screenHeight)
         : _activityFinished
-            ? ResultadosWidget.show(
-                context,
-                intentos,
-                ayudas,
-                _estadisticsController.formatMilliseconds(),
-                _estadisticsController)
+            ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
+                _estadisticsController, screenWidth, screenHeight)
             : InstruccionesWidget.show(
                 context,
                 _estadisticsController,
                 presionado,
-                'Se muestran elementos basicos de operaciones algebraicas, que busque el que es el mismo.');
+                'Se muestran elementos basicos de operaciones algebraicas, que busque el que es el mismo.',
+                screenWidth,
+                screenHeight);
   }
 
-  Widget _actividad(BuildContext context) {
+  Widget _actividad(BuildContext context, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -106,9 +122,9 @@ class _ActEncuentraExpresionesAlgebraicasState
             autoRepeat: true,
             direction: Axis.horizontal,
             textDirection: TextDirection.ltr,
-            animationDuration: Duration(seconds: 2),
-            backDuration: Duration(milliseconds: 1000),
-            pauseDuration: Duration(milliseconds: 1000),
+            animationDuration: const Duration(seconds: 2),
+            backDuration: const Duration(milliseconds: 1000),
+            pauseDuration: const Duration(milliseconds: 1000),
             directionMarguee: DirectionMarguee.TwoDirection,
             child: Text(
               'Encontrar los símbolos de reciclaje',
@@ -136,25 +152,22 @@ class _ActEncuentraExpresionesAlgebraicasState
                     height: MediaQuery.of(context).size.height * 0.7,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          PersonalTheme.of(context).primary,
-                          PersonalTheme.of(context).tertiary
-                        ],
-                        stops: [0.0, 1.0],
-                        begin: AlignmentDirectional(0.0, -1.0),
-                        end: AlignmentDirectional(0, 1.0),
+                        colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                        stops: const [0.0, 1.0],
+                        begin: const AlignmentDirectional(0.0, -1.0),
+                        end: const AlignmentDirectional(0, 1.0),
                       ),
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 1.0,
-                        height: MediaQuery.of(context).size.height * 0.7,
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: SizedBox(
+                        width: screenWidth * 1.0,
+                        height: screenHeight * 0.7,
                         child: Stack(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.6, -0.5),
+                              alignment: const AlignmentDirectional(0.6, -0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -163,7 +176,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -178,7 +190,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.8, -0.75),
+                              alignment: const AlignmentDirectional(0.8, -0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -187,7 +199,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -202,7 +213,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.2, -1.0),
+                              alignment: const AlignmentDirectional(0.2, -1.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -216,15 +227,10 @@ class _ActEncuentraExpresionesAlgebraicasState
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
-                                          4,
-                                          intentos,
-                                          ayudas,
-                                          _estadisticsController
-                                              .formatMilliseconds());
+                                          4, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
                                       _onefound = true;
                                     }
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -239,7 +245,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.2, -1.0),
+                              alignment: const AlignmentDirectional(-0.2, -1.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -248,7 +254,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -263,7 +268,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, -0.76),
+                              alignment: const AlignmentDirectional(0.0, -0.76),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -272,7 +277,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -287,7 +291,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.4, -0.75),
+                              alignment: const AlignmentDirectional(0.4, -0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -296,7 +300,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -311,7 +314,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.4, -0.75),
+                              alignment: const AlignmentDirectional(-0.4, -0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -320,7 +323,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -335,7 +337,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.8, -0.75),
+                              alignment: const AlignmentDirectional(-0.8, -0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -344,7 +346,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -359,7 +360,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.6, -0.5),
+                              alignment: const AlignmentDirectional(-0.6, -0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -368,7 +369,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -383,7 +383,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.2, -0.5),
+                              alignment: const AlignmentDirectional(-0.2, -0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -392,7 +392,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -407,7 +406,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.2, -0.5),
+                              alignment: const AlignmentDirectional(0.2, -0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -416,7 +415,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -431,7 +429,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-1.0, -0.5),
+                              alignment: const AlignmentDirectional(-1.0, -0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -440,7 +438,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -455,7 +452,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(1.0, -0.5),
+                              alignment: const AlignmentDirectional(1.0, -0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -464,7 +461,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -479,7 +475,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.8, -0.25),
+                              alignment: const AlignmentDirectional(-0.8, -0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -488,7 +484,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -503,7 +498,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.4, -0.25),
+                              alignment: const AlignmentDirectional(-0.4, -0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -512,7 +507,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -527,7 +521,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.4, -0.25),
+                              alignment: const AlignmentDirectional(0.4, -0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -536,7 +530,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -551,7 +544,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.8, -0.25),
+                              alignment: const AlignmentDirectional(0.8, -0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -560,7 +553,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -575,7 +567,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.6, 0.0),
+                              alignment: const AlignmentDirectional(-0.6, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -584,7 +576,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -599,7 +590,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              alignment: const AlignmentDirectional(-1.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -608,7 +599,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -623,7 +613,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.2, 0.0),
+                              alignment: const AlignmentDirectional(-0.2, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -632,7 +622,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -647,7 +636,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.2, 0.0),
+                              alignment: const AlignmentDirectional(0.2, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -661,15 +650,10 @@ class _ActEncuentraExpresionesAlgebraicasState
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
-                                          4,
-                                          intentos,
-                                          ayudas,
-                                          _estadisticsController
-                                              .formatMilliseconds());
+                                          4, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
                                       _onefound = true;
                                     }
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -684,7 +668,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.6, 0.0),
+                              alignment: const AlignmentDirectional(0.6, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -693,7 +677,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -708,7 +691,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(1.0, 0.0),
+                              alignment: const AlignmentDirectional(1.0, 0.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -717,7 +700,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -732,7 +714,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.8, 0.25),
+                              alignment: const AlignmentDirectional(-0.8, 0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -741,7 +723,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -756,7 +737,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.4, 0.25),
+                              alignment: const AlignmentDirectional(-0.4, 0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -765,7 +746,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -780,7 +760,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.4, 0.25),
+                              alignment: const AlignmentDirectional(0.4, 0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -789,7 +769,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -804,7 +783,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.8, 0.25),
+                              alignment: const AlignmentDirectional(0.8, 0.25),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -813,7 +792,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -828,7 +806,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.6, 0.5),
+                              alignment: const AlignmentDirectional(-0.6, 0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -837,7 +815,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -852,7 +829,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-1.0, 0.5),
+                              alignment: const AlignmentDirectional(-1.0, 0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -861,7 +838,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -876,7 +852,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.2, 0.5),
+                              alignment: const AlignmentDirectional(0.2, 0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -885,7 +861,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -900,7 +875,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.2, 0.5),
+                              alignment: const AlignmentDirectional(-0.2, 0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -909,7 +884,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -924,7 +898,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.6, 0.5),
+                              alignment: const AlignmentDirectional(0.6, 0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -933,7 +907,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -948,7 +921,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(1.0, 0.5),
+                              alignment: const AlignmentDirectional(1.0, 0.5),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -957,7 +930,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -972,7 +944,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.8, 0.75),
+                              alignment: const AlignmentDirectional(0.8, 0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -981,7 +953,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -996,7 +967,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.8, 0.75),
+                              alignment: const AlignmentDirectional(-0.8, 0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -1005,7 +976,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -1020,7 +990,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.4, 0.75),
+                              alignment: const AlignmentDirectional(-0.4, 0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -1029,7 +999,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -1044,7 +1013,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.75),
+                              alignment: const AlignmentDirectional(0.0, 0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -1053,7 +1022,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -1068,7 +1036,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.4, 0.75),
+                              alignment: const AlignmentDirectional(0.4, 0.75),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -1077,7 +1045,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -1092,7 +1059,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.2, 1.0),
+                              alignment: const AlignmentDirectional(0.2, 1.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -1101,7 +1068,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -1116,7 +1082,7 @@ class _ActEncuentraExpresionesAlgebraicasState
                               ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(-0.2, 1.0),
+                              alignment: const AlignmentDirectional(-0.2, 1.0),
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -1125,7 +1091,6 @@ class _ActEncuentraExpresionesAlgebraicasState
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
-                                        
                                   });
                                 },
                                 child: ClipRRect(
@@ -1145,14 +1110,12 @@ class _ActEncuentraExpresionesAlgebraicasState
                     ),
                   ),
                 ),
-                EstadisticasWidget.build(
-                    context, intentos, ayudas, _estadisticsController),
+                EstadisticasWidget.build(context, intentos, ayudas, _estadisticsController),
               ],
             ),
           ),
         ),
-        floatingActionButton: AyudasWidget.build(
-            context, _estadisticsController, 16, incrementarAyudas),
+        floatingActionButton: AyudasWidget.build(context, _estadisticsController, 16, incrementarAyudas),
         //bottomNavigationBar: MenuInferior(),
       ),
     );

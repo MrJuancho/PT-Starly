@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails, unnecessary_null_comparison
+// ignore_for_file: null_check_always_fails, unnecessary_null_comparison, file_names
 
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
@@ -28,12 +28,12 @@ class TblAlumnoProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as Map<String, dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -50,12 +50,12 @@ class TblAlumnoProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as List<dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -67,11 +67,7 @@ class TblAlumnoProvider {
       } else if (monedas == 0 || monedas == null) {
         monedas = 0;
       }
-      Map<String, dynamic> datos = {
-        'username': username,
-        'monedas': monedas,
-        'estrellas': estrellas
-      };
+      Map<String, dynamic> datos = {'username': username, 'monedas': monedas, 'estrellas': estrellas};
       String body = jsonEncode(datos);
       // URL para el get
       Uri url = Uri.https(_url, '/alumno/$username');
@@ -83,7 +79,7 @@ class TblAlumnoProvider {
           },
           body: body);
     } catch (e) {
-      print("Error: $e");
+      //print("Error: $e");
     }
   }
 }

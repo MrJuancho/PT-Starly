@@ -1,9 +1,13 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'dart:math';
+import 'package:asistente_virtual/src/pages/Controllers/RegistroDiario_controller.dart';
 import 'package:asistente_virtual/src/pages/Controllers/TareasDiarias_controller.dart';
 import 'package:asistente_virtual/src/pages/Provider/CatDatoCurioso_provider.dart';
 import 'package:asistente_virtual/src/pages/Provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class HomeController {
@@ -15,6 +19,7 @@ class HomeController {
   final UtilsSharedPref _sharedPref = UtilsSharedPref();
   final TblAlumnoProvider _alumnoProvider = TblAlumnoProvider();
   final TareasDiariasController _tareasDiariasController = TareasDiariasController();
+  final RegistroDiarioController _registroDiarioController = RegistroDiarioController();
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
@@ -31,7 +36,9 @@ class HomeController {
 
   void interaccionesAV() async {
     if (await _sharedPref.contains('Tareas')) {
-      print('Existe shared de actividades');
+      if (kDebugMode) {
+        print('Existe shared de actividades');
+      }
       if (await _sharedPref.existField('Tareas', 'TareasCom')) {
         Map<String, dynamic> tareas = json.decode(await _sharedPref.read('Tareas'));
         tareas['Interacciones'] += 1;
@@ -51,5 +58,6 @@ class HomeController {
         _sharedPref.save('Tareas', json.encode(tareas));
       }
     }
+    _registroDiarioController.putRegistroDiario();
   }
 }

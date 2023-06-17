@@ -1,4 +1,4 @@
-// ignore_for_file: null_check_always_fails
+// ignore_for_file: null_check_always_fails, file_names
 
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
@@ -25,12 +25,12 @@ class CatTipoDesbloqueoProvider {
 
       final desbloqueo = data['descTipoDebloqueo'];
       // Imprimir la respuesta en la consola
-      print(desbloqueo);
+      //print(desbloqueo);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return desbloqueo;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }
@@ -47,12 +47,12 @@ class CatTipoDesbloqueoProvider {
       final data = json.decode(res.body);
 
       // Imprimir la respuesta en la consola
-      print(data);
+      //print(data);
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as List<dynamic>;
     } catch (e) {
-      print('Error: $e');
+      //print('Error: $e');
       return null!;
     }
   }

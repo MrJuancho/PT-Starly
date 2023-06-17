@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:asistente_virtual/src/pages/Controllers/Estadistics_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
@@ -12,7 +14,7 @@ class ActIntrusoAngulosPage extends StatefulWidget {
   const ActIntrusoAngulosPage({
     Key? key,
     String? counter,
-  })  : this.counter = counter ?? '0',
+  })  : counter = counter ?? '0',
         super(key: key);
 
   final String counter;
@@ -73,23 +75,39 @@ class _ActIntrusoAngulosState extends State<ActIntrusoAngulosPage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final screenWidth = mediaQuery.size.width;
+    final screenHeight = mediaQuery.size.height;
+    const reducedwindowWidth = 500.00;
+    const reducedwindowHeight = 900.00;
+
+    if (screenWidth >= 450) {
+      return SizedBox(
+        height: reducedwindowHeight,
+        width: reducedwindowWidth,
+        child: Center(child: eleccion(reducedwindowWidth, reducedwindowHeight)),
+      );
+    } else {
+      return eleccion(screenWidth, screenHeight);
+    }
+  }
+
+  Widget eleccion(double screenWidth, double screenHeight) {
     return _startPressed
-        ? _actividad(context)
+        ? _actividad(context, screenWidth, screenHeight)
         : _activityFinished
-            ? ResultadosWidget.show(
-                context,
-                intentos,
-                ayudas,
-                _estadisticsController.formatMilliseconds(),
-                _estadisticsController)
+            ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
+                _estadisticsController, screenWidth, screenHeight)
             : InstruccionesWidget.show(
                 context,
                 _estadisticsController,
                 presionado,
-                'Muestra varios angulos donde probablemente sean muy parecidos y cambie uno tipo una serie de 3 angulos obtusos y uno sea recto o agudo');
+                'Muestra varios angulos donde probablemente sean muy parecidos y cambie uno tipo una serie de 3 angulos obtusos y uno sea recto o agudo',
+                screenWidth,
+                screenHeight);
   }
 
-  Widget _actividad(BuildContext context) {
+  Widget _actividad(BuildContext context, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -104,9 +122,9 @@ class _ActIntrusoAngulosState extends State<ActIntrusoAngulosPage> {
             autoRepeat: true,
             direction: Axis.horizontal,
             textDirection: TextDirection.ltr,
-            animationDuration: Duration(seconds: 2),
-            backDuration: Duration(milliseconds: 1000),
-            pauseDuration: Duration(milliseconds: 1000),
+            animationDuration: const Duration(seconds: 2),
+            backDuration: const Duration(milliseconds: 1000),
+            pauseDuration: const Duration(milliseconds: 1000),
             directionMarguee: DirectionMarguee.TwoDirection,
             child: Text(
               'Ángulos',
@@ -134,260 +152,247 @@ class _ActIntrusoAngulosState extends State<ActIntrusoAngulosPage> {
                     height: MediaQuery.of(context).size.height * 0.7,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          PersonalTheme.of(context).primary,
-                          PersonalTheme.of(context).tertiary
-                        ],
-                        stops: [0.0, 1.0],
-                        begin: AlignmentDirectional(0.0, -1.0),
-                        end: AlignmentDirectional(0, 1.0),
+                        colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                        stops: const [0.0, 1.0],
+                        begin: const AlignmentDirectional(0.0, -1.0),
+                        end: const AlignmentDirectional(0, 1.0),
                       ),
                     ),
                     child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: GridView(
-                        padding: EdgeInsets.zero,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 10.0,
-                          mainAxisSpacing: 40.0,
-                          childAspectRatio: 1.0,
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: SizedBox(
+                        width: screenWidth * 1.0,
+                        height: screenHeight * 0.7,
+                        child: GridView(
+                          padding: EdgeInsets.zero,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10.0,
+                            mainAxisSpacing: 40.0,
+                            childAspectRatio: 1.0,
+                          ),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  incrementarIntentos();
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/Ang1.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  //AQUI
+                                  incrementarIntentos();
+                                  if (correctas == 2) {
+                                    _estadisticsController.stopTimer();
+                                    resultados();
+                                    _estadisticsController.registroResultados(
+                                        11, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                  } else {
+                                    correctas += 1;
+                                  }
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang9.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  incrementarIntentos();
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang3.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  incrementarIntentos();
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang4.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  incrementarIntentos();
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang6.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  //AQUI
+                                  incrementarIntentos();
+                                  if (correctas == 2) {
+                                    _estadisticsController.stopTimer();
+                                    resultados();
+                                    _estadisticsController.registroResultados(
+                                        11, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                  } else {
+                                    correctas += 1;
+                                  }
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang5.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  incrementarIntentos();
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang9.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  //AQUI
+                                  incrementarIntentos();
+                                  if (correctas == 2) {
+                                    _estadisticsController.stopTimer();
+                                    resultados();
+                                    _estadisticsController.registroResultados(
+                                        11, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                  } else {
+                                    correctas += 1;
+                                  }
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang7.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  incrementarIntentos();
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(0.0),
+                                child: Image.asset(
+                                  'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang8.png',
+                                  width: 100.0,
+                                  height: 100.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                incrementarIntentos();
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/Ang1.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 2) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      11,
-                                      intentos,
-                                      ayudas,
-                                      _estadisticsController
-                                          .formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang9.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                incrementarIntentos();
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang3.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                incrementarIntentos();
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang4.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                incrementarIntentos();
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang6.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 2) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      11,
-                                      intentos,
-                                      ayudas,
-                                      _estadisticsController
-                                          .formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang5.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                incrementarIntentos();
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang9.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 2) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      11,
-                                      intentos,
-                                      ayudas,
-                                      _estadisticsController
-                                          .formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang7.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                incrementarIntentos();
-                              });
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/Actividades/Intruso/Act_Intruso_Angulos/ang8.png',
-                                width: 100.0,
-                                height: 100.0,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ),
                 ),
-                EstadisticasWidget.build(
-                    context, intentos, ayudas, _estadisticsController),
+                EstadisticasWidget.build(context, intentos, ayudas, _estadisticsController),
               ],
             ),
           ),
         ),
-        floatingActionButton: AyudasWidget.build(
-            context, _estadisticsController, 12, incrementarAyudas),
+        floatingActionButton: AyudasWidget.build(context, _estadisticsController, 12, incrementarAyudas),
         //bottomNavigationBar: MenuInferior(),
       ),
     );
