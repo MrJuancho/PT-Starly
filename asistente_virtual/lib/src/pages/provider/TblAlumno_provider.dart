@@ -11,7 +11,7 @@ class TblAlumnoProvider {
 
   BuildContext? context;
 
-  Future? init(BuildContext context) async {
+  Future<void> init(BuildContext context) async {
     this.context = context;
   }
 
@@ -34,7 +34,7 @@ class TblAlumnoProvider {
       return data as Map<String, dynamic>;
     } catch (e) {
       //print('Error: $e');
-      return null!;
+      return {};
     }
   }
 
@@ -56,7 +56,7 @@ class TblAlumnoProvider {
       return data as List<dynamic>;
     } catch (e) {
       //print('Error: $e');
-      return null!;
+      return [];
     }
   }
 

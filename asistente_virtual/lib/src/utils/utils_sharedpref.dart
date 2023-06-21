@@ -32,6 +32,8 @@ class UtilsSharedPref {
     }
   }
 
+  
+
   //método para verificar si existe algún dato
   Future<bool> contains(String key) async {
     final prefs = await SharedPreferences.getInstance();

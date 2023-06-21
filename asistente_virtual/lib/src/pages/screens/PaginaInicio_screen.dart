@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, library_private_types_in_public_api
 
 import 'package:asistente_virtual/src/pages/Controllers/Home_controller.dart';
+import 'package:asistente_virtual/src/pages/Controllers/Personalizacion_controller.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonesFlotantes_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
@@ -19,9 +20,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //Controler
   final HomeController _homeController = HomeController();
+  final PersonalizacionController _personalizacionController = PersonalizacionController();
   //final UtilsSharedPref _sharedPref = UtilsSharedPref();
 
   bool _isPress = false;
+  int idAV = 0;
 
   @override
   void initState() {
@@ -33,14 +36,11 @@ class _HomePageState extends State<HomePage> {
   void init() async {
     UtilsInicialize utilsInicialize = UtilsInicialize();
     await utilsInicialize.initTareasyDesafio();
-    //prints();
+    int avactualtemp = await _personalizacionController.asistenteActual();
+    setState(() {
+      idAV = avactualtemp;
+    });
   }
-
-  /* void prints() async {
-    print(await _sharedPref.read('Alumno'));
-    print(await _sharedPref.read('Tareas'));
-    print(await _sharedPref.read('DesafioDiario'));
-  } */
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   void changeState() {
-    
     setState(() {
       _isPress = !_isPress;
     });
@@ -162,12 +161,14 @@ class _HomePageState extends State<HomePage> {
                     await Future.delayed(const Duration(seconds: 6));
                     changeState();
                   },
-                  child: Image.asset(
-                    'assets/images/home/download.jpg',
-                    fit: BoxFit.contain,
-                    height: wpart,
-                    //width: wpart,
-                  ),
+                  child: idAV == 0
+                      ? const CircularProgressIndicator()
+                      : Image.asset(
+                          'assets/images/AV/$idAV.png',
+                          fit: BoxFit.contain,
+                          height: wpart,
+                          //width: wpart,
+                        ),
                 ),
               ],
             ),

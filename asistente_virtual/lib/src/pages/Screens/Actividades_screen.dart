@@ -45,11 +45,6 @@ class _ActividadesPageState extends State<ActividadesPage> {
     }
   }
 
-  Future<bool> onBackPressed() async {
-    Navigator.pop(context);
-    return false;
-  }
-
   Future<void> getInfo() async {
     actividades = await _actividadesController.actividadYRuta([26, 2, 51, 36, 12]);
   }
@@ -66,34 +61,13 @@ class _ActividadesPageState extends State<ActividadesPage> {
   }
 
   Widget carga(double screenWidth, double screenHeight) {
-    return WillPopScope(
-      onWillPop: onBackPressed,
-      child: Scaffold(
-        appBar: MenuSuperior(),
-        body: FutureBuilder<void>(
-          future: getInfo(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                return Container(
-                  width: MediaQuery.of(context).size.width * 1.0,
-                  height: MediaQuery.of(context).size.height * 1,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
-                      stops: const [0.0, 1.0],
-                      begin: const AlignmentDirectional(0.0, -1.0),
-                      end: const AlignmentDirectional(0, 1.0),
-                    ),
-                  ),
-                  child: const Center(
-                    child: Text('Error al cargar las actividades'),
-                  ),
-                );
-              } else {
-                return _body(screenWidth, screenHeight);
-              }
-            } else {
+    return Scaffold(
+      appBar: MenuSuperior(),
+      body: FutureBuilder<void>(
+        future: getInfo(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
               return Container(
                 width: MediaQuery.of(context).size.width * 1.0,
                 height: MediaQuery.of(context).size.height * 1,
@@ -105,13 +79,31 @@ class _ActividadesPageState extends State<ActividadesPage> {
                     end: const AlignmentDirectional(0, 1.0),
                   ),
                 ),
-                child: const Center(child: CircularProgressIndicator()),
+                child: const Center(
+                  child: Text('Error al cargar las actividades'),
+                ),
               );
+            } else {
+              return _body(screenWidth, screenHeight);
             }
-          },
-        ),
-        bottomNavigationBar: MenuInferior(),
+          } else {
+            return Container(
+              width: MediaQuery.of(context).size.width * 1.0,
+              height: MediaQuery.of(context).size.height * 1,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [PersonalTheme.of(context).primary, PersonalTheme.of(context).tertiary],
+                  stops: const [0.0, 1.0],
+                  begin: const AlignmentDirectional(0.0, -1.0),
+                  end: const AlignmentDirectional(0, 1.0),
+                ),
+              ),
+              child: const Center(child: CircularProgressIndicator()),
+            );
+          }
+        },
       ),
+      bottomNavigationBar: MenuInferior(),
     );
   }
 
@@ -147,14 +139,19 @@ class _ActividadesPageState extends State<ActividadesPage> {
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return ListTile(
-                          title: Text(item.headerValue,style: PersonalTheme.of(context).headlineSmall,),
+                          title: Text(
+                            item.headerValue,
+                            style: PersonalTheme.of(context).headlineSmall,
+                          ),
                         );
                       },
                       body: ListTile(
-                          title: Text(item.expandedValue,style: PersonalTheme.of(context).titleLarge.override(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.normal
-                          ),),
+                          title: Text(
+                            item.expandedValue,
+                            style: PersonalTheme.of(context)
+                                .titleLarge
+                                .override(fontFamily: 'Poppins', fontWeight: FontWeight.normal),
+                          ),
                           //subtitle: const Text('Iniciar la actividad'),
                           trailing: Icon(Icons.play_arrow_rounded, color: PersonalTheme.of(context).fadedalternate),
                           onTap: () async {

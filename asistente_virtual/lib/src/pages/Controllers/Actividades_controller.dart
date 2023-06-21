@@ -19,10 +19,6 @@ class ActividadesController {
     refresh();
   }
 
-  void pantallaanterior(BuildContext context) {
-    Navigator.pop(context);
-  }
-
   List actividades() {
     final entrenamiento = <List>[
       ['Especies en peligro de extinción', 'Se muestra una variedad de especies en peligro de extincion, haz pares.'],

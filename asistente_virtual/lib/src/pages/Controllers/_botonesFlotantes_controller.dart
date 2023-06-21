@@ -15,8 +15,5 @@ class BotonesFlotantesController {
     Navigator.pushNamed(context, 'personalizacion');
   }
 
-  void actividades(BuildContext context) async {
-    //pasar a otra pantalla sin eliminar historial de pantallas
-    Navigator.pushNamed(context, 'actividades');
-  }
+  
 }

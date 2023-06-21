@@ -21,6 +21,7 @@ class MenuSuperior extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: screenWidth >=450? 80:60,
       centerTitle: false,
       titleSpacing: 0,
+      automaticallyImplyLeading: false,
       title: Transform(
         transform: Matrix4.translationValues(0, 0, 0),
         child: TextButton.icon(

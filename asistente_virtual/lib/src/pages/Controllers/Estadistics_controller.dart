@@ -85,8 +85,16 @@ class EstadisticsController {
         final userAlumno = await _sharedPref.readtodato('Alumno', 'nombreUsuario');
         if (tareas['Actividades'] == 3) {
           _alumnoProvider.putMonedasEstrellas(userAlumno, 300, 1);
+          Map<String, dynamic> alumno = json.decode(await _sharedPref.read('Alumno'));
+          alumno['balanceEstrellas'] += 1;
+          alumno['balanceMonedas'] += 300;
+          _sharedPref.save('Alumno', json.encode(alumno));
         } else if (tareas['Actividades'] == 5) {
           _alumnoProvider.putMonedasEstrellas(userAlumno, 500, 1);
+          Map<String, dynamic> alumno = json.decode(await _sharedPref.read('Alumno'));
+          alumno['balanceEstrellas'] += 1;
+          alumno['balanceMonedas'] += 500;
+          _sharedPref.save('Alumno', json.encode(alumno));
         } else if (await _tareasDiariasController.tareaDD() == 'Completa 10 actividades') {
           if (tareas['TareasCom'] >= 3) {
             Map<String, dynamic> desafiosDiarios = json.decode(await _sharedPref.read('DesafioDiario'));
@@ -112,5 +120,8 @@ class EstadisticsController {
   void sumamonedas() async {
     final userAlumno = await _sharedPref.readtodato('Alumno', 'nombreUsuario');
     _alumnoProvider.putMonedasEstrellas(userAlumno, 100, 0);
+    Map<String, dynamic> alumno = json.decode(await _sharedPref.read('Alumno'));
+    alumno['balanceMonedas'] += 100;
+    _sharedPref.save('Alumno', json.encode(alumno));
   }
 }

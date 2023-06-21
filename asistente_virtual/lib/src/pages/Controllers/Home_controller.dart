@@ -45,6 +45,10 @@ class HomeController {
         final userAlumno = await _sharedPref.readtodato('Alumno', 'nombreUsuario');
         if (tareas['Interacciones'] == 3) {
           _alumnoProvider.putMonedasEstrellas(userAlumno, 100, 1);
+          Map<String, dynamic> alumno = json.decode(await _sharedPref.read('Alumno'));
+          alumno['balanceEstrellas'] += 1;
+          alumno['balanceMonedas'] += 100;
+          _sharedPref.save('Alumno', json.encode(alumno));
         } else if (await _tareasDiariasController.tareaDD() == 'Interactua con el AV 10 veces') {
           if (tareas['TareasCom'] >= 3) {
             Map<String, dynamic> desafiosDiarios = json.decode(await _sharedPref.read('DesafioDiario'));
@@ -52,6 +56,10 @@ class HomeController {
             _sharedPref.save('DesafioDiario', json.encode(desafiosDiarios));
             if (desafiosDiarios['Conteo'] == 10) {
               _alumnoProvider.putMonedasEstrellas(userAlumno, 200, 3);
+              Map<String, dynamic> alumno = json.decode(await _sharedPref.read('Alumno'));
+              alumno['balanceEstrellas'] += 3;
+              alumno['balanceMonedas'] += 200;
+              _sharedPref.save('Alumno', json.encode(alumno));
             }
           }
         }
