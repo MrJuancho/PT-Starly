@@ -25,11 +25,6 @@ class TblAlumnoAVProvider {
       // Obtener la respuesta como JSON
       final data = json.decode(res.body);
 
-      // Imprimir la respuesta en la consola
-      if (kDebugMode) {
-        print(data);
-      }
-
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as List<dynamic>;
     } catch (e) {

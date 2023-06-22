@@ -24,10 +24,7 @@ class TblSeleccionAVProvider {
       // Obtener la respuesta como JSON
       final data = json.decode(res.body);
 
-      // Imprimir la respuesta en la consola
-      if (kDebugMode) {
-        print(data);
-      }
+      
 
       // Convertir la respuesta JSON en un Map<String, dynamic>
       return data as Map<String, dynamic>;
@@ -41,9 +38,7 @@ class TblSeleccionAVProvider {
     try {
       Map<String, dynamic> datos = {"idAlumno": idAlumno, "idAV": idAV};
       String body = jsonEncode(datos);
-      if (kDebugMode) {
-        print(datos);
-      }
+      
       // URL para el get
       Uri url = Uri.https(_url, '/seleccionAV/$idAlumno');
 
