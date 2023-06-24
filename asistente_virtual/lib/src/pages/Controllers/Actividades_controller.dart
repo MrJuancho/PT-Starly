@@ -1,7 +1,9 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, null_check_always_fails
 
-import 'package:asistente_virtual/src/pages/Provider/CatRutas_provider.dart';
-import 'package:asistente_virtual/src/pages/Provider/ViewDetalleActividad_provider.dart';
+import 'dart:convert';
+/* import 'package:asistente_virtual/src/pages/Provider/CatActividad_provider.dart';
+import 'package:asistente_virtual/src/pages/Provider/CatRutas_provider.dart'; */
+import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:flutter/material.dart';
 
 class ActividadesController {
@@ -9,41 +11,38 @@ class ActividadesController {
   Function? refresh;
 
   //Controllers
-  final CatRutasProvider _catRutasProvider = CatRutasProvider();
-  final ViewDetalleActividadProvider _detalleActividadProvider = ViewDetalleActividadProvider();
+  final UtilsSharedPref _sharedPref = UtilsSharedPref();
+  /* final CatActividadesProvider _actividadesProvider = CatActividadesProvider();
+  final CatRutasProvider _catRutasProvider = CatRutasProvider(); */
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
-    //final data = await _sharedPref.readtodato('Alumno', 'nombre');
     refresh();
   }
 
-  List actividades() {
-    final entrenamiento = <List>[
-      ['Especies en peligro de extinción', 'Se muestra una variedad de especies en peligro de extincion, haz pares.'],
-      ['Encontrar las rectas idénticas', 'Encuentra las rectas iguales en un conjunto de rectas.'],
-      ['Sopa de letras de adverbios, verbos y adjetivos', 'Sopa de letras con adverbios, adjetivos y verbos'],
-      ['Serie lógica principante', 'Identificar la figura que sigue en la serie; dificultad principante'],
-      ['Paralelogramo Intruso', 'Identifica de las figuras que se muestran cual no es un paralelogramo.'],
-    ];
+  Future<List<dynamic>> actividadYRuta() async {
+    List<dynamic> actividadesFinales = [];
+    if (await _sharedPref.contains('ActPostEntrenamiento')) {
+      String actividadesJson = await _sharedPref.read('ActPostEntrenamiento');
+      final actividades = json.decode(actividadesJson);
 
-    return entrenamiento;
-  }
+      for (var element in actividades) {
+        if (element['Completada'] == 0) {
+          actividadesFinales.add(element);
+        }
+      }
 
-  Future<List<List<String>>> actividadYRuta(List<int> idList) async {
-    List<List<String>> result = [];
-
-    for (int id in idList) {
-      final ruta = await _catRutasProvider.onlyRuta(id);
-      final info = await _detalleActividadProvider.onlyInfo(id);
-
-      List<String> array = [info['NombreActividad'], info['Descripcion'], ruta];
-      result.add(array);
+      return actividadesFinales;
+    } else {
+      String actividadesJson = await _sharedPref.read('ActPreEntrenamiento');
+      final actividades = json.decode(actividadesJson);
+      for (var element in actividades) {
+        if (element['Completada'] == 0) {
+          actividadesFinales.add(element);
+        }
+      }
+      return actividadesFinales;
     }
-
-    //print(result);
-
-    return result;
   }
 }

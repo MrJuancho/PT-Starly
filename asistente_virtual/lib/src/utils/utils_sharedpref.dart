@@ -68,9 +68,9 @@ class UtilsSharedPref {
   }
 
   //método para eliminar datos de shared preferences
-  Future<bool> remove(String key) async {
+  Future<void> remove(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.remove(key);
+    prefs.remove(key);
   }
 
   void logout(BuildContext context) async {

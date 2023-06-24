@@ -7,7 +7,6 @@ import 'package:asistente_virtual/src/pages/Widgets/_menuInferior_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_menuSuperior_widget.dart';
 import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:asistente_virtual/src/utils/utils_inicialize.dart';
-//import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   //Controler
   final HomeController _homeController = HomeController();
   final PersonalizacionController _personalizacionController = PersonalizacionController();
-  //final UtilsSharedPref _sharedPref = UtilsSharedPref();
+  final UtilsInicialize utilsInicialize = UtilsInicialize();
 
   bool _isPress = false;
   int idAV = 0;
@@ -34,8 +33,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void init() async {
-    UtilsInicialize utilsInicialize = UtilsInicialize();
+    //await _sharedPref.remove('ActPreEntrenamiento');
     await utilsInicialize.initTareasyDesafio();
+    await utilsInicialize.actividadesprime();
+    
+
     int avactualtemp = await _personalizacionController.asistenteActual();
     setState(() {
       idAV = avactualtemp;

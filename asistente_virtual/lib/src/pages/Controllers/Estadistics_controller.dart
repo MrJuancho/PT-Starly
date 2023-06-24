@@ -114,6 +114,27 @@ class EstadisticsController {
     }
 
     _resultadosActividadProvider.postResultadoActividad(idActividad, idAlumno, formattedTime, intentos, ayudas);
+    if (await _sharedPref.contains('ActPostEntrenamiento')) {
+      String actividadesJson = await _sharedPref.read('ActPostEntrenamiento');
+      final actividades = json.decode(actividadesJson);
+
+      for (var element in actividades) {
+        if (element['idActividad'] == idActividad) {
+          element['Completada'] = 1;
+        }
+      }
+      _sharedPref.save('ActPostEntrenamiento', json.encode(actividades));
+    } else {
+      String actividadesJson = await _sharedPref.read('ActPreEntrenamiento');
+      final actividades = json.decode(actividadesJson);
+
+      for (var element in actividades) {
+        if (element['idActividad'] == idActividad) {
+          element['Completada'] = 1;
+        }
+      }
+      _sharedPref.save('ActPreEntrenamiento', json.encode(actividades));
+    }
     _registroDiarioController.putRegistroDiario();
   }
 

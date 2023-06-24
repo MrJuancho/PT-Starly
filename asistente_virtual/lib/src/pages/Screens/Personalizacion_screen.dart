@@ -167,10 +167,11 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
                         isSelected: _selections,
                         onPressed: (index) {
                           setState(() {
-                            recepcion();
+                            
                             for (int i = 0; i < _selections.length; i++) {
                               _selections[i] = i == index;
                             }
+                            recepcion();
                           });
                         },
                         color: PersonalTheme.of(context).alternate,

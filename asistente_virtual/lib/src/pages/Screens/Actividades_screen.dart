@@ -18,8 +18,7 @@ class _ActividadesPageState extends State<ActividadesPage> {
   //Controllers
   final ActividadesController _actividadesController = ActividadesController();
   // Lista de variables booleanas para controlar la selección de botones
-  bool vertical = false;
-  List actividades = [];
+  List<dynamic> actividades = [];
 
   @override
   void initState() {
@@ -46,16 +45,16 @@ class _ActividadesPageState extends State<ActividadesPage> {
   }
 
   Future<void> getInfo() async {
-    actividades = await _actividadesController.actividadYRuta([26, 2, 51, 36, 12]);
+    actividades = await _actividadesController.actividadYRuta();
   }
 
   List<Item> generateItems(int numberOfItems) {
     return List<Item>.generate(numberOfItems, (int index) {
       return Item(
         id: index,
-        headerValue: '${actividades[index][0]}',
-        expandedValue: '${actividades[index][1]}',
-        ruta: '${actividades[index][2]}',
+        headerValue: '${actividades[index]['nombreActividad']}',
+        expandedValue: '${actividades[index]['descripcion']}',
+        ruta: '${actividades[index]['Ruta']}',
       );
     });
   }
@@ -79,8 +78,8 @@ class _ActividadesPageState extends State<ActividadesPage> {
                     end: const AlignmentDirectional(0, 1.0),
                   ),
                 ),
-                child: const Center(
-                  child: Text('Error al cargar las actividades'),
+                child: Center(
+                  child: Text('Error al cargar las actividades', style: PersonalTheme.of(context).headlineSmall),
                 ),
               );
             } else {
