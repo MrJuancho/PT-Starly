@@ -149,12 +149,12 @@ class UtilsInicialize {
         suma += element['Completada'];
       }
       if (suma == 20) {
-        final actPostTrain = json.decode(await _sharedPref.read('ActividadesHechas'));
         if (!await _sharedPref.contains('ActPostEntrenamiento')) {
           createBatch(idalumno);
         } else {
+          final actividadesBatch = json.decode(await _sharedPref.read('ActPostEntrenamiento'));
           num sumaPost = 0;
-          for (var element in actPostTrain) {
+          for (var element in actividadesBatch) {
             sumaPost += element['Completada'];
           }
           if (sumaPost == 5) {
@@ -180,20 +180,36 @@ class UtilsInicialize {
         allActividadesNoResult.add(element);
       }
     }
-    //Seleccion de 2 actividades que estan fuera de las que no se han realizado
+
     List<dynamic> mezclados = allActividadesNoResult..shuffle();
-    List<dynamic> actividadesNewBatch = mezclados.take(2).toList();
+    List<dynamic> actividadesNewBatch = [];
 
-    //Actividades que se tomaran para el nuevo batch de 5 actividades
-    for (var element in actividadesNewBatch) {
-      //Incluyendo esas 2 actividades fueras de las de shared preferences
-      actHechas.add(element['idActividad']);
-    }
-    _sharedPref.save('ActividadesHechas', json.encode(actHechas));
-
-    //RECOPILACION DE LAS 3 ACTIVIDADES DADAS POR EL ALGORITMO
+    //RECOPILACION DE LAS ACTIVIDADES DADAS POR EL ALGORITMO
     List<dynamic> indicesUCB = await _indiceUCBProvider.indices(idalumno);
-    List<dynamic> indicesUCB_3 = indicesUCB.sublist(0, 3);
+    List<dynamic> indicesUCB_3 = [];
+
+    //Seleccion de actividades que estan fuera de las que no se han realizado comprobando cuantas son las que faltan
+    if (actHechas.length < 48) {
+      actividadesNewBatch = mezclados.take(2).toList();
+      //Actividades que se tomaran para el nuevo batch de 5 actividades
+      for (var element in actividadesNewBatch) {
+        //Incluyendo esas 2 actividades fueras de las de shared preferences
+        actHechas.add(element['idActividad']);
+      }
+      _sharedPref.save('ActividadesHechas', json.encode(actHechas));
+      indicesUCB_3 = indicesUCB.sublist(0, 3);
+    } else if (actHechas.length == 48) {
+      actividadesNewBatch = mezclados.take(1).toList();
+      //Actividades que se tomaran para el nuevo batch de 5 actividades
+      for (var element in actividadesNewBatch) {
+        //Incluyendo esas 2 actividades fueras de las de shared preferences
+        actHechas.add(element['idActividad']);
+      }
+      _sharedPref.save('ActividadesHechas', json.encode(actHechas));
+      indicesUCB_3 = indicesUCB.sublist(0, 4);
+    } else if (actHechas.length == 49) {
+      indicesUCB_3 = indicesUCB.sublist(0, 5);
+    }
 
     List<int> actTemp = [];
     for (var element in indicesUCB_3) {
