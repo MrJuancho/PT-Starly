@@ -11,6 +11,11 @@ class CatAVProvider {
 
   BuildContext? context;
 
+
+  void dispose() {
+    
+  }
+
   //respuesta de las solicitudes
   Future<Map<String, dynamic>> allAVs() async {
     try {

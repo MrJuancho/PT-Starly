@@ -36,12 +36,18 @@ class _HomePageState extends State<HomePage> {
     //await _sharedPref.remove('ActPreEntrenamiento');
     await utilsInicialize.initTareasyDesafio();
     await utilsInicialize.actividadesprime();
-    
 
     int avactualtemp = await _personalizacionController.asistenteActual();
     setState(() {
       idAV = avactualtemp;
     });
+  }
+
+  @override
+  void dispose() {
+    _personalizacionController.dispose();
+    _homeController.dispose();
+    super.dispose();
   }
 
   @override

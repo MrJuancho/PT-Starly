@@ -16,6 +16,10 @@ class TblRegistroDiarioProvider {
     this.context = context;
   }
 
+  void dispose() {
+    
+  }
+
   //respuesta de las solicitudes
   Future<Map<String, dynamic>> registroFecha(int user, DateTime fecha) async {
     try {

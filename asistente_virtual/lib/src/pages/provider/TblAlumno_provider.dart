@@ -15,6 +15,9 @@ class TblAlumnoProvider {
     this.context = context;
   }
 
+  void dispose(){
+  }
+
   //respuesta de las solicitudes
   Future<Map<String, dynamic>> login(String user) async {
     try {

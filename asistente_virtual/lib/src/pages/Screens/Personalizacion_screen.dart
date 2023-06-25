@@ -115,12 +115,10 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
           children: [
             const Icon(Icons.attach_money_rounded),
             const SizedBox(width: 0),
-            monedasCantidad == 0
-                ? const CircularProgressIndicator()
-                : Text(
-                    monedasCantidad.toString(),
-                    style: PersonalTheme.of(context).titleMedium,
-                  ),
+            Text(
+              monedasCantidad.toString(),
+              style: PersonalTheme.of(context).titleMedium,
+            ),
             const SizedBox(width: 15),
           ],
         ),
@@ -167,7 +165,6 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
                         isSelected: _selections,
                         onPressed: (index) {
                           setState(() {
-                            
                             for (int i = 0; i < _selections.length; i++) {
                               _selections[i] = i == index;
                             }
@@ -227,7 +224,7 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
                                   // ignore: use_build_context_synchronously
                                   UtilsSnackbar.show(context, 'Monedas insuficientes');
                                 }
-                              }else{
+                              } else {
                                 final estrellas = await _sharedPref.readtodato('Alumno', 'balanceEstrellas');
                                 if (estrellas >= selectedImages[index][1]) {
                                   // ignore: use_build_context_synchronously

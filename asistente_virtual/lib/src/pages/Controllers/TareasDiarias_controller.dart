@@ -19,6 +19,10 @@ class TareasDiariasController {
     await tareadiariaProvider.init(context);
   }
 
+  void dispose() {
+    _sharedPref.dispose();
+  }
+
   void desafioRandom() async {
     final numero = Random().nextInt(2) + 1;
     final desafio = await _catDesafioDiarioProvider.oneDesafioDiario(numero);

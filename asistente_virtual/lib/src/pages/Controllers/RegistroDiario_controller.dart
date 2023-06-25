@@ -34,4 +34,9 @@ class RegistroDiarioController {
     }
     _registroDiarioProvider.putTareasyDesafio(idalumno, fecha, tareasCompletadas, desafio);
   }
+
+  void dispose() {
+    _sharedPref.dispose();
+    _registroDiarioProvider.dispose();
+  }
 }

@@ -5,6 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Movil (profile)",
+            "deviceId": "emulator-5554",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "Movil (debug)",
+            "deviceId": "emulator-5554",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
+        },
+        {
+            "name": "Movil (release)",
+            "deviceId": "emulator-5554",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
             "name": "Navegador",
             "deviceId": "Edge",
             "request": "launch",

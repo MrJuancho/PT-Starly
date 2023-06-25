@@ -25,6 +25,14 @@ class PersonalizacionController {
     refresh();
   }
 
+  void dispose() {
+    _sharedPref.dispose();
+    _alumnoAVProvider.dispose();
+    //_alumnoProvider.dispose();
+    _avProvider.dispose();
+    _seleccionAVProvider.dispose();
+  }
+
   Future<List> asistentesVXestrella() async {
     List asistentes = [];
     List<dynamic> asistente = await _avProvider.allTipoAVs(2);
@@ -90,7 +98,7 @@ class PersonalizacionController {
     _sharedPref.printAllSharedPreferences('Alumno');
   }
 
-  void claimNewAVStars(int idAV)async{
+  void claimNewAVStars(int idAV) async {
     Map<String, dynamic> infoAlumno = json.decode(await _sharedPref.read('Alumno'));
     int idAlumno = infoAlumno['idAlumno'];
     _alumnoAVProvider.postNewAVacquired(idAlumno, idAV);

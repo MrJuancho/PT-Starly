@@ -13,6 +13,10 @@ class TblAlumnoAVProvider {
 
   BuildContext? context;
 
+  void dispose() {
+    
+  }
+
   //respuesta de las solicitudes
   Future<List<dynamic>> allAVsAdquiered(int idAlumno) async {
     try {

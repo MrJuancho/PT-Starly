@@ -68,4 +68,9 @@ class HomeController {
     }
     _registroDiarioController.putRegistroDiario();
   }
+
+  void dispose() {
+    _tareasDiariasController.dispose();
+    _registroDiarioController.dispose();
+  }
 }

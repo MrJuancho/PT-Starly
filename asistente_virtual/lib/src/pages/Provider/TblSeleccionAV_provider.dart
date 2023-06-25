@@ -12,6 +12,10 @@ class TblSeleccionAVProvider {
 
   BuildContext? context;
 
+
+  void dispose(){
+  }
+
   //respuesta de las solicitudes
   Future<Map<String, dynamic>> selectedAV(int idAlumno) async {
     try {

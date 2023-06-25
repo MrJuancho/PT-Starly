@@ -1,17 +1,13 @@
-// ignore_for_file: null_check_always_fails
-
 import 'dart:convert';
 import 'package:asistente_virtual/src/api/enviroment.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class PingProvider {
-  //URL de la api
   final String _url = Enviroment.api;
 
   BuildContext? context;
 
-  //respuesta de las solicitudes
   Future<Map<String, dynamic>> ping() async {
     try {
       // URL para el get
@@ -30,7 +26,7 @@ class PingProvider {
       return data as Map<String, dynamic>;
     } catch (e) {
       //print('Error: $e');
-      return null!;
+      return {};
     }
   }
 }
