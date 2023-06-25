@@ -65,7 +65,6 @@ import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:asistente_virtual/src/utils/utils_inicialize.dart';
 import 'package:asistente_virtual/src/pages/Screens/Login_screen.dart';
 import 'package:asistente_virtual/src/pages/Screens/PaginaInicio_screen.dart';
-import 'package:asistente_virtual/src/pages/Screens/PruebasAPI_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -163,8 +162,6 @@ class _MyAppState extends State<MyApp> {
         'act_vistas_extra1': (BuildContext context) => const ActVistasExtra1Page(),
         'act_vistas_extra2': (BuildContext context) => const ActVistasExtra2Page(),
 
-        //PANTALLA PRUEBAS DE API
-        'pruebasapi': (BuildContext context) => const MyTextFieldAndButton(),
       },
 
       theme: ThemeData(brightness: Brightness.dark),
