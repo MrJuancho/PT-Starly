@@ -1127,7 +1127,7 @@ class _ActVistasExtra2State extends State<ActVistasExtra2Page> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -1165,7 +1165,7 @@ class _ActVistasExtra2State extends State<ActVistasExtra2Page> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -1216,7 +1216,7 @@ class _ActVistasExtra2State extends State<ActVistasExtra2Page> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(

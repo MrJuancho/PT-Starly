@@ -127,43 +127,51 @@ class _ActividadesPageState extends State<ActividadesPage> {
           child: SizedBox(
             width: screenWidth,
             height: screenHeight,
-            child: SingleChildScrollView(
-              child: ExpansionPanelList.radio(
-                dividerColor: PersonalTheme.of(context).alternate,
-                expandIconColor: PersonalTheme.of(context).primaryText,
-                //initialOpenPanelValue: 0,
-                children: data.map<ExpansionPanelRadio>((Item item) {
-                  return ExpansionPanelRadio(
-                      backgroundColor: Colors.transparent,
-                      value: item.id,
-                      headerBuilder: (BuildContext context, bool isExpanded) {
-                        return ListTile(
-                          title: Text(
-                            item.headerValue,
-                            style: PersonalTheme.of(context).headlineSmall,
-                          ),
-                        );
-                      },
-                      body: ListTile(
-                          title: Text(
-                            item.expandedValue,
-                            style: PersonalTheme.of(context)
-                                .titleLarge
-                                .override(fontFamily: 'Poppins', fontWeight: FontWeight.normal),
-                          ),
-                          //subtitle: const Text('Iniciar la actividad'),
-                          trailing: Icon(Icons.play_arrow_rounded, color: PersonalTheme.of(context).fadedalternate),
-                          onTap: () async {
-                            setState(() {
-                              Navigator.pushNamed(
-                                context,
-                                item.ruta,
+            child: actividades.isEmpty
+                ? Center(
+                    child: Text(
+                    'Felicidades!\nTerminaste tus actividades designadas\nRegresa al menu principal',
+                    style: PersonalTheme.of(context).displayMedium,
+                    textAlign: TextAlign.center,
+                  ))
+                : SingleChildScrollView(
+                    child: ExpansionPanelList.radio(
+                      dividerColor: PersonalTheme.of(context).alternate,
+                      expandIconColor: PersonalTheme.of(context).primaryText,
+                      //initialOpenPanelValue: 0,
+                      children: data.map<ExpansionPanelRadio>((Item item) {
+                        return ExpansionPanelRadio(
+                            backgroundColor: Colors.transparent,
+                            value: item.id,
+                            headerBuilder: (BuildContext context, bool isExpanded) {
+                              return ListTile(
+                                title: Text(
+                                  item.headerValue,
+                                  style: PersonalTheme.of(context).headlineSmall,
+                                ),
                               );
-                            });
-                          }));
-                }).toList(),
-              ),
-            ),
+                            },
+                            body: ListTile(
+                                title: Text(
+                                  item.expandedValue,
+                                  style: PersonalTheme.of(context)
+                                      .titleLarge
+                                      .override(fontFamily: 'Poppins', fontWeight: FontWeight.normal),
+                                ),
+                                //subtitle: const Text('Iniciar la actividad'),
+                                trailing:
+                                    Icon(Icons.play_arrow_rounded, color: PersonalTheme.of(context).fadedalternate),
+                                onTap: () async {
+                                  setState(() {
+                                    Navigator.pushNamed(
+                                      context,
+                                      item.ruta,
+                                    );
+                                  });
+                                }));
+                      }).toList(),
+                    ),
+                  ),
           ),
         ),
       ],

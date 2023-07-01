@@ -734,7 +734,7 @@ return _startPressed
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -779,7 +779,7 @@ return _startPressed
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                     
                                                   },
@@ -825,7 +825,7 @@ return _startPressed
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(

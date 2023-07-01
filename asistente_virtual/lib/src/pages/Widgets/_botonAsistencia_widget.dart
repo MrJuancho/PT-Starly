@@ -13,7 +13,7 @@ class AyudasWidget {
       backgroundColor: PersonalTheme.of(context).alternate,
       foregroundColor: PersonalTheme.of(context).primary,
       onPressed: () async {
-        UtilsSnackbar.show(context, await estadisticsController.asistencia(idcontenido));
+        UtilsSnackbar.show(context, await estadisticsController.asistencia(idcontenido),4);
         incrementarAyudas();
       },
       child: const Icon(Icons.assistant_rounded),

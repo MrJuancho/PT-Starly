@@ -2,7 +2,7 @@ import 'package:asistente_virtual/src/pages/flutter_flow/Theme_Personal.dart';
 import 'package:flutter/material.dart';
 
 class UtilsSnackbar {
-  static void show(BuildContext context, String text) {
+  static void show(BuildContext context, String text, int duracion) {
     //se verifica que haya conetxto de la aplicación
     // ignore: unnecessary_null_comparison
     if (context == null) return;
@@ -19,9 +19,9 @@ class UtilsSnackbar {
         textAlign: TextAlign.center,
         style: PersonalTheme.of(context).headlineMedium,
       ),
-      //fondo del snackbar negro y duración 3s
+      //Fondo del snackbar y duración
       backgroundColor: PersonalTheme.of(context).secondary,
-      duration: const Duration(seconds: 4),
+      duration: Duration(seconds: duracion),
     ));
   }
 }

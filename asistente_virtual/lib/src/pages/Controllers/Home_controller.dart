@@ -66,6 +66,7 @@ class HomeController {
         _sharedPref.save('Tareas', json.encode(tareas));
       }
     }
+    await Future.delayed(const Duration(seconds: 1));
     _registroDiarioController.putRegistroDiario();
   }
 

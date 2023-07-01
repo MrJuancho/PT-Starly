@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:asistente_virtual/src/pages/provider/TblAlumno_provider.dart';
 import 'package:asistente_virtual/src/utils/utils_sharedpref.dart';
 import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 
 class LoginController {
@@ -42,21 +41,11 @@ class LoginController {
         //salvar la sesion del usuario y quien es el que esta logueado
         _sharedpref.save('Alumno', json.encode(data));
         Navigator.pushNamedAndRemoveUntil(context!, 'home', (route) => false);
-        Fluttertoast.showToast(
-          msg: "Bienvenido $usuario",
-          backgroundColor: Colors.deepPurple,
-          textColor: Colors.white,
-          gravity: ToastGravity.TOP,
-        );
+        UtilsSnackbar.show(context!, "Bienvenido $usuario",3);
       } else {
         //Inicio de sesion fallido
-        Fluttertoast.showToast(
-          msg: "Si olvidaste tu contraseña contacta a tu administrador",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          gravity: ToastGravity.TOP,
-        );
-        UtilsSnackbar.show(context!, "Usuario y/o contraseña incorrecta");
+        
+        UtilsSnackbar.show(context!, "Usuario y/o contraseña incorrecta",4);
       }
     } else {
       if (kDebugMode) {

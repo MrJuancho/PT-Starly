@@ -5,6 +5,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import '../../../../utils/utils_preferences.dart';
@@ -94,12 +95,12 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
 
   Widget eleccion(double screenWidth, double screenHeight) {
     return _startPressed
-        ? _actividad(context,screenWidth, screenHeight)
+        ? _actividad(context, screenWidth, screenHeight)
         : _activityFinished
-            ? ResultadosWidget.show(
-                context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController,screenWidth, screenHeight)
+            ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
+                _estadisticsController, screenWidth, screenHeight)
             : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Simbolos Ferreos, maritimos y carreteros se muestran, encontrar el igual.',screenWidth, screenHeight);
+                'Simbolos Ferreos, maritimos y carreteros se muestran, encontrar el igual.', screenWidth, screenHeight);
   }
 
   Widget _actividad(BuildContext context, double screenWidth, double screenHeight) {
@@ -171,6 +172,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -196,12 +198,14 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                     //AQUI
                                     if (_onefound) {
                                       incrementarIntentos();
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
                                           9, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
                                       _onefound = true;
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                     }
                                   });
                                 },
@@ -226,6 +230,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -249,6 +254,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -272,6 +278,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -295,6 +302,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -320,12 +328,14 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                     //AQUI
                                     if (_onefound) {
                                       incrementarIntentos();
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
                                           9, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
                                       _onefound = true;
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                     }
                                   });
                                 },
@@ -350,6 +360,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -373,6 +384,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -396,6 +408,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -419,6 +432,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -442,6 +456,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -465,6 +480,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -488,6 +504,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -511,6 +528,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -534,6 +552,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -557,6 +576,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -580,12 +600,13 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(0.0),
                                   child: Image.asset(
-                                    'assets/images/Actividades/Misma_Imagen/Act_Encuentra_Caminos/11.png',
+                                    'assets/images/Actividades/Misma_Imagen/Act_Encuentra_Caminos/26.png',
                                     width: 70.0,
                                     height: 70.0,
                                     fit: BoxFit.fill,
@@ -603,6 +624,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -626,6 +648,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -649,6 +672,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -672,6 +696,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -695,6 +720,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -718,6 +744,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -741,6 +768,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -764,6 +792,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -787,6 +816,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -810,6 +840,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -833,6 +864,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -856,6 +888,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -879,6 +912,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -902,6 +936,7 @@ class _ActEncuentraCaminosState extends State<ActEncuentraCaminosPage> {
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(

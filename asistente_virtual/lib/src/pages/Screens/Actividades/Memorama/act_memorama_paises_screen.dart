@@ -247,8 +247,8 @@ class _ActMemoramaPaisesState extends State<ActMemoramaPaisesPage> {
                         height: screenHeight * 0.7,
                         child: GridView.builder(
                           padding: const EdgeInsets.only(top: 10),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: screenWidth >= 450 ? 5 : 4,
                             crossAxisSpacing: 0.0,
                             mainAxisSpacing: 10.0,
                             childAspectRatio: 0.75,

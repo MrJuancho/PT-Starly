@@ -161,7 +161,6 @@ class _MyAppState extends State<MyApp> {
         'act_vistas_experto': (BuildContext context) => const ActVistasExpertoPage(),
         'act_vistas_extra1': (BuildContext context) => const ActVistasExtra1Page(),
         'act_vistas_extra2': (BuildContext context) => const ActVistasExtra2Page(),
-
       },
 
       theme: ThemeData(brightness: Brightness.dark),

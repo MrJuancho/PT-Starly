@@ -5,6 +5,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import '../../../../utils/utils_preferences.dart';
@@ -94,7 +95,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
 
   Widget eleccion(double screenWidth, double screenHeight) {
     return _startPressed
-        ? _actividad(context,screenWidth,screenHeight)
+        ? _actividad(context, screenWidth, screenHeight)
         : _activityFinished
             ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
                 _estadisticsController, screenWidth, screenHeight)
@@ -107,7 +108,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                 screenHeight);
   }
 
-  Widget _actividad(BuildContext context,double screenWidth, double screenHeight) {
+  Widget _actividad(BuildContext context, double screenWidth, double screenHeight) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
@@ -127,7 +128,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
             pauseDuration: const Duration(milliseconds: 1000),
             directionMarguee: DirectionMarguee.TwoDirection,
             child: Text(
-              'Encontrar los símbolos de reciclaje',
+              'Encontrar la misma recta secante',
               style: PersonalTheme.of(context).headlineMedium.override(
                     fontFamily: 'Poppins',
                     color: Colors.white,
@@ -176,6 +177,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -199,6 +201,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -219,6 +222,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -239,6 +243,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -259,6 +264,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -279,6 +285,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -299,6 +306,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -319,6 +327,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -339,6 +348,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -359,6 +369,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -379,6 +390,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -399,6 +411,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -419,6 +432,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -439,6 +453,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -459,6 +474,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -479,6 +495,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -499,6 +516,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -521,12 +539,14 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                     //AQUI
                                     if (_onefound) {
                                       incrementarIntentos();
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
                                           2, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
                                       _onefound = true;
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                     }
                                   });
                                 },
@@ -548,6 +568,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -568,6 +589,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -588,6 +610,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -608,6 +631,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -628,6 +652,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(
@@ -650,11 +675,13 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                     //AQUI
                                     if (_onefound) {
                                       incrementarIntentos();
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
                                           2, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _onefound = true;
                                     }
                                   });
@@ -677,6 +704,7 @@ class _ActEncuentraRectaSecanteWidgetState extends State<ActEncuentraRectaSecant
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: Image.asset(

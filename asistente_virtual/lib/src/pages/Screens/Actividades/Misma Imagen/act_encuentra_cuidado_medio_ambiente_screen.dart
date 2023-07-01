@@ -5,6 +5,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import '../../../../utils/utils_preferences.dart';
@@ -127,7 +128,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
             pauseDuration: const Duration(milliseconds: 1000),
             directionMarguee: DirectionMarguee.TwoDirection,
             child: Text(
-              'Encontrar los símbolos de reciclaje',
+              'Encontrar los símbolos de medio ambiente',
               style: PersonalTheme.of(context).headlineMedium.override(
                     fontFamily: 'Poppins',
                     color: Colors.white,
@@ -176,6 +177,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -199,6 +201,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -222,6 +225,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -245,6 +249,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -270,12 +275,14 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                     //AQUI
                                     if (_onefound) {
                                       incrementarIntentos();
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
                                           5, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
                                       _onefound = true;
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                     }
                                   });
                                 },
@@ -300,6 +307,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -323,6 +331,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -346,6 +355,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -369,6 +379,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -392,6 +403,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -415,6 +427,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -438,6 +451,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -461,6 +475,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -484,6 +499,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -507,6 +523,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -530,6 +547,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -553,6 +571,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -576,6 +595,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -599,6 +619,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -622,6 +643,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -645,6 +667,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -668,6 +691,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -691,6 +715,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -714,6 +739,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -737,6 +763,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -760,6 +787,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -783,6 +811,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -806,6 +835,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -829,6 +859,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -852,6 +883,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -875,6 +907,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -898,6 +931,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -921,6 +955,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -944,6 +979,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -967,6 +1003,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -990,6 +1027,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -1015,11 +1053,13 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                     //AQUI
                                     if (_onefound) {
                                       incrementarIntentos();
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
                                           5, intentos, ayudas, _estadisticsController.formatMilliseconds());
                                     } else {
+                                      UtilsSnackbar.show(context, 'Correcto!', 1);
                                       _onefound = true;
                                     }
                                   });
@@ -1045,6 +1085,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -1068,6 +1109,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(
@@ -1091,6 +1133,7 @@ class _ActEncuentraCuidadoMedioAmbienteState extends State<ActEncuentraCuidadoMe
                                 onTap: () async {
                                   setState(() {
                                     incrementarIntentos();
+                                    UtilsSnackbar.show(context, 'Seleccion Incorrecta', 1);
                                   });
                                 },
                                 child: ClipRRect(

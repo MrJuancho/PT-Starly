@@ -5,8 +5,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
-import 'package:asistente_virtual/src/pages/Widgets/_vistaImagenExpandida.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import '../../../../utils/utils_preferences.dart';
@@ -26,6 +25,7 @@ class ActIntrusoPersonajesHistoricosPage extends StatefulWidget {
 }
 
 class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHistoricosPage> {
+  final PageController _pageController = PageController();
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -73,6 +73,25 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
       _activityFinished = true;
       _estadisticsController.sumamonedas();
     });
+  }
+
+  void goToNextPage() {
+    if (_pageController.page != null) {
+      final nextPage = _pageController.page!.toInt() + 1;
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void goToFirstPage() {
+    _pageController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -155,790 +174,865 @@ class _ActIntrusoPersonajesHistoricosState extends State<ActIntrusoPersonajesHis
                         end: const AlignmentDirectional(0, 1.0),
                       ),
                     ),
-                    child: Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: SizedBox(
-                        width: screenWidth * 1.0,
-                        height: screenHeight * 0.7,
-                        child: GridView(
-                          padding: EdgeInsets.zero,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 3.0,
-                            mainAxisSpacing: 40.0,
-                            childAspectRatio: 1.0,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: screenWidth,
+                            height: screenHeight,
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                  child: PageView(
+                                    controller: _pageController,
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph1.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph2.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph3.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph4.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph5.jpg',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph6.jpg',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph7.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph8.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph9.jpg',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph10.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph11.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph12.jpg',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph13.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph14.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph15.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph16.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 5) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph17.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    correctas += 1;
+                                                    if (correctas == 5) {
+                                                      incrementarIntentos();
+                                                      _estadisticsController.stopTimer();
+                                                      resultados();
+                                                      _estadisticsController.registroResultados(18, intentos, ayudas,
+                                                          _estadisticsController.formatMilliseconds());
+                                                    } else {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                    
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph18.jpg',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 5) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph19.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 5) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph20.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph1.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag1',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag1',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph1.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph2.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag2',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag2',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph2.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph3.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag3',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag3',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph3.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 4) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      18, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph4.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag4',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag4',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph4.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 4) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      18, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph5.jpg',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag5',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag5',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph5.jpg',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph6.jpg',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag6',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag6',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph6.jpg',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph7.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag7',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag7',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph7.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph8.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag8',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag8',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph8.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 4) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      18, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph9.jpg',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag9',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag9',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph9.jpg',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph10.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag10',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag10',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph10.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph11.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag11',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag11',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph11.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph12.jpg',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag12',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag12',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph12.jpg',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph14.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag13',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag13',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph14.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph15.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag14',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag14',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph15.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 4) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      18, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph16.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag15',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag15',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph16.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph13.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag16',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag16',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph13.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph17.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag17',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag17',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph17.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 4) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      18, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph18.jpg',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag18',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag18',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph18.jpg',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph19.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag19',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag19',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph19.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph20.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag20',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag20',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Personajes_Historicos/ph20.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),

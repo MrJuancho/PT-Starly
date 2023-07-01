@@ -961,7 +961,7 @@ class _ActSeriesFacilState extends State<ActSeriesFacilPage> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -996,7 +996,7 @@ class _ActSeriesFacilState extends State<ActSeriesFacilPage> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -1045,7 +1045,7 @@ class _ActSeriesFacilState extends State<ActSeriesFacilPage> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -1080,7 +1080,7 @@ class _ActSeriesFacilState extends State<ActSeriesFacilPage> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(

@@ -600,7 +600,7 @@ class _ActVistasPrincipianteState extends State<ActVistasPrincipiantePage> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -638,7 +638,7 @@ class _ActVistasPrincipianteState extends State<ActVistasPrincipiantePage> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(
@@ -696,7 +696,7 @@ class _ActVistasPrincipianteState extends State<ActVistasPrincipiantePage> {
                                                       correctas = 0;
                                                       goToFirstPage();
                                                       UtilsSnackbar.show(context,
-                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.');
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
                                                     }
                                                   },
                                                   child: Container(

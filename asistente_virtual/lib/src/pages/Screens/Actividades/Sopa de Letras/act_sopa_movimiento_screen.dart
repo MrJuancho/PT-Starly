@@ -217,167 +217,323 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
                       end: const AlignmentDirectional(0, 1.0),
                     ),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        height: cellSize * letterGrid.length,
-                        width: screenWidth * 0.95,
-                        color: PersonalTheme.of(context).primaryText,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onPanStart: (details) {
-                            setState(() {
-                              currentWord = '';
-                              isDragging = true;
-                              startPoint = details.localPosition;
-                            });
-                          },
-                          onPanUpdate: (details) {
-                            if (!isDragging) return;
+                  child: screenWidth >= 450
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: cellSize * letterGrid.length,
+                              width: screenWidth * 0.95,
+                              color: PersonalTheme.of(context).primaryText,
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onPanStart: (details) {
+                                  setState(() {
+                                    currentWord = '';
+                                    isDragging = true;
+                                    startPoint = details.localPosition;
+                                  });
+                                },
+                                onPanUpdate: (details) {
+                                  if (!isDragging) return;
 
-                            setState(() {
-                              final row = (startPoint.dy / cellSize).floor();
-                              final column = (startPoint.dx / cellSize).floor();
-                              final currentRow = (details.localPosition.dy / cellSize).floor();
-                              final currentColumn = (details.localPosition.dx / cellSize).floor();
+                                  setState(() {
+                                    final row = (startPoint.dy / cellSize).floor();
+                                    final column = (startPoint.dx / cellSize).floor();
+                                    final currentRow = (details.localPosition.dy / cellSize).floor();
+                                    final currentColumn = (details.localPosition.dx / cellSize).floor();
 
-                              currentWord = '';
+                                    currentWord = '';
 
-                              if (row >= 0 &&
-                                  row < letterGrid.length &&
-                                  column >= 0 &&
-                                  column < letterGrid[row].length &&
-                                  currentRow >= 0 &&
-                                  currentRow < letterGrid.length &&
-                                  currentColumn >= 0 &&
-                                  currentColumn < letterGrid[currentRow].length) {
-                                if (row == currentRow) {
-                                  final start = column < currentColumn ? column : currentColumn;
-                                  final end = column > currentColumn ? column : currentColumn;
+                                    if (row >= 0 &&
+                                        row < letterGrid.length &&
+                                        column >= 0 &&
+                                        column < letterGrid[row].length &&
+                                        currentRow >= 0 &&
+                                        currentRow < letterGrid.length &&
+                                        currentColumn >= 0 &&
+                                        currentColumn < letterGrid[currentRow].length) {
+                                      if (row == currentRow) {
+                                        final start = column < currentColumn ? column : currentColumn;
+                                        final end = column > currentColumn ? column : currentColumn;
 
-                                  for (int i = start; i <= end; i++) {
-                                    currentWord += letterGrid[row][i];
-                                  }
-                                } else if (column == currentColumn) {
-                                  final start = row < currentRow ? row : currentRow;
-                                  final end = row > currentRow ? row : currentRow;
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[row][i];
+                                        }
+                                      } else if (column == currentColumn) {
+                                        final start = row < currentRow ? row : currentRow;
+                                        final end = row > currentRow ? row : currentRow;
 
-                                  for (int i = start; i <= end; i++) {
-                                    currentWord += letterGrid[i][column];
-                                  }
-                                } else if ((currentColumn - column).abs() == (currentRow - row).abs()) {
-                                  final stepRow = currentRow > row ? 1 : -1;
-                                  final stepColumn = currentColumn > column ? 1 : -1;
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[i][column];
+                                        }
+                                      } else if ((currentColumn - column).abs() == (currentRow - row).abs()) {
+                                        final stepRow = currentRow > row ? 1 : -1;
+                                        final stepColumn = currentColumn > column ? 1 : -1;
 
-                                  int i = row;
-                                  int j = column;
+                                        int i = row;
+                                        int j = column;
 
-                                  while (i != currentRow || j != currentColumn) {
-                                    final selectedLetter = letterGrid[i][j];
-                                    currentWord += selectedLetter;
+                                        while (i != currentRow || j != currentColumn) {
+                                          final selectedLetter = letterGrid[i][j];
+                                          currentWord += selectedLetter;
 
-                                    i += stepRow;
-                                    j += stepColumn;
-                                  }
+                                          i += stepRow;
+                                          j += stepColumn;
+                                        }
 
-                                  final selectedLetter = letterGrid[currentRow][currentColumn];
-                                  currentWord += selectedLetter;
-                                }
-                              }
-                            });
-                          },
-                          onPanEnd: (details) {
-                            setState(() {
-                              if (checkString(words, currentWord)) {
-                                if (!selectedWords.contains(currentWord)) {
-                                  currentWord = currentString(words, currentWord);
-                                  selectedWords.add(currentWord);
-                                }
-                              }
-                              incrementarIntentos();
-                              if (haveSameContent(selectedWords, words)) {
-                                _estadisticsController.stopTimer();
-                                resultados();
-                                _estadisticsController.registroResultados(
-                                    54, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                              } else {
-                                currentWord = '';
-                                isDragging = false;
-                              }
-                            });
-                          },
-                          child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: letterGrid.first.length,
-                              childAspectRatio: 1.0, // Asegura que las celdas tengan un aspecto cuadrado
+                                        final selectedLetter = letterGrid[currentRow][currentColumn];
+                                        currentWord += selectedLetter;
+                                      }
+                                    }
+                                  });
+                                },
+                                onPanEnd: (details) {
+                                  setState(() {
+                                    if (checkString(words, currentWord)) {
+                                      if (!selectedWords.contains(currentWord)) {
+                                        currentWord = currentString(words, currentWord);
+                                        selectedWords.add(currentWord);
+                                      }
+                                    }
+                                    incrementarIntentos();
+                                    if (haveSameContent(selectedWords, words)) {
+                                      _estadisticsController.stopTimer();
+                                      resultados();
+                                      _estadisticsController.registroResultados(
+                                          54, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    } else {
+                                      currentWord = '';
+                                      isDragging = false;
+                                    }
+                                  });
+                                },
+                                child: GridView.builder(
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: letterGrid.first.length,
+                                    childAspectRatio: 1.0, // Asegura que las celdas tengan un aspecto cuadrado
+                                  ),
+                                  itemCount: letterGrid.length * letterGrid.first.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final row = index ~/ letterGrid.first.length;
+                                    final column = index % letterGrid.first.length;
+
+                                    if (row < letterGrid.length && column < letterGrid[row].length) {
+                                      final letter = letterGrid[row][column];
+
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            letter,
+                                            style: PersonalTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Poppins', color: PersonalTheme.of(context).primary),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Container(); // Celda vacía
+                                    }
+                                  },
+                                ),
+                              ),
                             ),
-                            itemCount: letterGrid.length * letterGrid.first.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final row = index ~/ letterGrid.first.length;
-                              final column = index % letterGrid.first.length;
-
-                              if (row < letterGrid.length && column < letterGrid[row].length) {
-                                final letter = letterGrid[row][column];
-
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      letter,
-                                      style: PersonalTheme.of(context)
-                                          .bodyMedium
-                                          .override(fontFamily: 'Poppins', color: PersonalTheme.of(context).primary),
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return Container(); // Celda vacía
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: SizedBox(
-                            width: screenWidth,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            SingleChildScrollView(
+                              child: SizedBox(
+                                width: screenWidth,
+                                child: Column(
                                   children: [
-                                    Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
-                                    Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
+                                        Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          words.join('\n'),
+                                          style: PersonalTheme.of(context).bodySmall,
+                                        ),
+                                        Text(
+                                          selectedWords.join('\n'),
+                                          style: PersonalTheme.of(context).bodySmall,
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      words.join('\n'),
-                                      style: PersonalTheme.of(context).bodySmall,
-                                    ),
-                                    Text(
-                                      selectedWords.join('\n'),
-                                      style: PersonalTheme.of(context).bodySmall,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: cellSize * letterGrid.length,
+                              width: screenWidth * 0.95,
+                              color: PersonalTheme.of(context).primaryText,
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onPanStart: (details) {
+                                  setState(() {
+                                    currentWord = '';
+                                    isDragging = true;
+                                    startPoint = details.localPosition;
+                                  });
+                                },
+                                onPanUpdate: (details) {
+                                  if (!isDragging) return;
+
+                                  setState(() {
+                                    final row = (startPoint.dy / cellSize).floor();
+                                    final column = (startPoint.dx / cellSize).floor();
+                                    final currentRow = (details.localPosition.dy / cellSize).floor();
+                                    final currentColumn = (details.localPosition.dx / cellSize).floor();
+
+                                    currentWord = '';
+
+                                    if (row >= 0 &&
+                                        row < letterGrid.length &&
+                                        column >= 0 &&
+                                        column < letterGrid[row].length &&
+                                        currentRow >= 0 &&
+                                        currentRow < letterGrid.length &&
+                                        currentColumn >= 0 &&
+                                        currentColumn < letterGrid[currentRow].length) {
+                                      if (row == currentRow) {
+                                        final start = column < currentColumn ? column : currentColumn;
+                                        final end = column > currentColumn ? column : currentColumn;
+
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[row][i];
+                                        }
+                                      } else if (column == currentColumn) {
+                                        final start = row < currentRow ? row : currentRow;
+                                        final end = row > currentRow ? row : currentRow;
+
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[i][column];
+                                        }
+                                      } else if ((currentColumn - column).abs() == (currentRow - row).abs()) {
+                                        final stepRow = currentRow > row ? 1 : -1;
+                                        final stepColumn = currentColumn > column ? 1 : -1;
+
+                                        int i = row;
+                                        int j = column;
+
+                                        while (i != currentRow || j != currentColumn) {
+                                          final selectedLetter = letterGrid[i][j];
+                                          currentWord += selectedLetter;
+
+                                          i += stepRow;
+                                          j += stepColumn;
+                                        }
+
+                                        final selectedLetter = letterGrid[currentRow][currentColumn];
+                                        currentWord += selectedLetter;
+                                      }
+                                    }
+                                  });
+                                },
+                                onPanEnd: (details) {
+                                  setState(() {
+                                    if (checkString(words, currentWord)) {
+                                      if (!selectedWords.contains(currentWord)) {
+                                        currentWord = currentString(words, currentWord);
+                                        selectedWords.add(currentWord);
+                                      }
+                                    }
+                                    incrementarIntentos();
+                                    if (haveSameContent(selectedWords, words)) {
+                                      _estadisticsController.stopTimer();
+                                      resultados();
+                                      _estadisticsController.registroResultados(
+                                          54, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    } else {
+                                      currentWord = '';
+                                      isDragging = false;
+                                    }
+                                  });
+                                },
+                                child: GridView.builder(
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: letterGrid.first.length,
+                                    childAspectRatio: 1.0, // Asegura que las celdas tengan un aspecto cuadrado
+                                  ),
+                                  itemCount: letterGrid.length * letterGrid.first.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final row = index ~/ letterGrid.first.length;
+                                    final column = index % letterGrid.first.length;
+
+                                    if (row < letterGrid.length && column < letterGrid[row].length) {
+                                      final letter = letterGrid[row][column];
+
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            letter,
+                                            style: PersonalTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Poppins', color: PersonalTheme.of(context).primary),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Container(); // Celda vacía
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: SizedBox(
+                                  width: screenWidth,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
+                                          Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            words.join('\n'),
+                                            style: PersonalTheme.of(context).bodySmall,
+                                          ),
+                                          Text(
+                                            selectedWords.join('\n'),
+                                            style: PersonalTheme.of(context).bodySmall,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
               EstadisticasWidget.build(context, intentos, ayudas, _estadisticsController),

@@ -5,6 +5,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:asistente_virtual/src/utils/utils_preferences.dart';
@@ -24,6 +25,7 @@ class ActIntrusoParalelogramosPage extends StatefulWidget {
 }
 
 class _ActIntrusoParalelogramosState extends State<ActIntrusoParalelogramosPage> {
+  final PageController _pageController = PageController();
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -71,6 +73,25 @@ class _ActIntrusoParalelogramosState extends State<ActIntrusoParalelogramosPage>
       _activityFinished = true;
       _estadisticsController.sumamonedas();
     });
+  }
+
+  void goToNextPage() {
+    if (_pageController.page != null) {
+      final nextPage = _pageController.page!.toInt() + 1;
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void goToFirstPage() {
+    _pageController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -158,232 +179,434 @@ class _ActIntrusoParalelogramosState extends State<ActIntrusoParalelogramosPage>
                         end: const AlignmentDirectional(0, 1.0),
                       ),
                     ),
-                    child: Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: SizedBox(
-                        width: screenWidth * 1.0,
-                        height: screenHeight * 0.7,
-                        child: GridView(
-                          padding: EdgeInsets.zero,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 10.0,
-                            mainAxisSpacing: 40.0,
-                            childAspectRatio: 1.0,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: screenWidth,
+                            height: screenHeight,
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                  child: PageView(
+                                    controller: _pageController,
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para1.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para2.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para3.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para4.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para5.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para6.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 3) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para7.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 3) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para8.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    correctas += 1;
+                                                    if (correctas == 3) {
+                                                      incrementarIntentos();
+                                                      _estadisticsController.stopTimer();
+                                                      resultados();
+                                                      _estadisticsController.registroResultados(12, intentos, ayudas,
+                                                          _estadisticsController.formatMilliseconds());
+                                                    } else {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                    
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para9.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  incrementarIntentos();
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para1.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  //AQUI
-                                  incrementarIntentos();
-                                  if (correctas == 2) {
-                                    _estadisticsController.stopTimer();
-                                    resultados();
-                                    _estadisticsController.registroResultados(
-                                        12, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                  } else {
-                                    correctas += 1;
-                                  }
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para2.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  incrementarIntentos();
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para3.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  //AQUI
-                                  incrementarIntentos();
-                                  if (correctas == 2) {
-                                    _estadisticsController.stopTimer();
-                                    resultados();
-                                    _estadisticsController.registroResultados(
-                                        12, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                  } else {
-                                    correctas += 1;
-                                  }
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para4.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  incrementarIntentos();
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para5.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  incrementarIntentos();
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para6.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  incrementarIntentos();
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para7.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  incrementarIntentos();
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para8.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  //AQUI
-                                  incrementarIntentos();
-                                  if (correctas == 2) {
-                                    _estadisticsController.stopTimer();
-                                    resultados();
-                                    _estadisticsController.registroResultados(
-                                        12, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                  } else {
-                                    correctas += 1;
-                                  }
-                                });
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paralelogramos/Para9.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),

@@ -5,8 +5,7 @@ import 'package:asistente_virtual/src/pages/Widgets/_Instrucciones_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Resultados_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_botonAsistencia_widget.dart';
 import 'package:asistente_virtual/src/pages/Widgets/_Estadisticas_widget.dart';
-import 'package:asistente_virtual/src/pages/Widgets/_vistaImagenExpandida.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:asistente_virtual/src/utils/utils_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import '../../../../utils/utils_preferences.dart';
@@ -26,6 +25,7 @@ class ActIntrusoPaisesPage extends StatefulWidget {
 }
 
 class _ActIntrusoPaisesState extends State<ActIntrusoPaisesPage> {
+  final PageController _pageController = PageController();
   final EstadisticsController _estadisticsController = EstadisticsController();
   bool _startPressed = false;
   bool _activityFinished = false;
@@ -75,6 +75,25 @@ class _ActIntrusoPaisesState extends State<ActIntrusoPaisesPage> {
     });
   }
 
+  void goToNextPage() {
+    if (_pageController.page != null) {
+      final nextPage = _pageController.page!.toInt() + 1;
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  void goToFirstPage() {
+    _pageController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -96,12 +115,12 @@ class _ActIntrusoPaisesState extends State<ActIntrusoPaisesPage> {
 
   Widget eleccion(double screenWidth, double screenHeight) {
     return _startPressed
-        ? _actividad(context,screenWidth, screenHeight  )
+        ? _actividad(context, screenWidth, screenHeight)
         : _activityFinished
-            ? ResultadosWidget.show(
-                context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController,screenWidth, screenHeight)
-            : InstruccionesWidget.show(
-                context, _estadisticsController, presionado, 'Encontrar el pais que no pertenece al continente.',screenWidth, screenHeight);
+            ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
+                _estadisticsController, screenWidth, screenHeight)
+            : InstruccionesWidget.show(context, _estadisticsController, presionado,
+                'Encontrar el pais que no pertenece al continente.', screenWidth, screenHeight);
   }
 
   Widget _actividad(BuildContext context, double screenWidth, double screenHeight) {
@@ -155,781 +174,887 @@ class _ActIntrusoPaisesState extends State<ActIntrusoPaisesPage> {
                         end: const AlignmentDirectional(0, 1.0),
                       ),
                     ),
-                    child: Align(
-                      alignment: const AlignmentDirectional(0.0, 0.0),
-                      child: SizedBox(
-                        width: screenWidth * 1.0,
-                        height: screenHeight * 0.7,
-                        child: GridView(
-                          padding: EdgeInsets.zero,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5,
-                            crossAxisSpacing: 3.0,
-                            mainAxisSpacing: 40.0,
-                            childAspectRatio: 1.0,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: screenWidth,
+                            height: screenHeight,
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+                                  child: PageView(
+                                    controller: _pageController,
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais1.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais2.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais3.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais4.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais5.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '5',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais6.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais7.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais8.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais9.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais10.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '5',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais11.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais12.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais13.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                    correctas += 1;
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais14.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    goToNextPage();
+                                                    incrementarIntentos();
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais15.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '5',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 4) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais16.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '1',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 4) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais17.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '2',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 4) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais18.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '3',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (correctas < 4) {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais19.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '4',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            screenWidth >= 450
+                                                ? const SizedBox(
+                                                    height: 30,
+                                                  )
+                                                : const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    correctas += 1;
+                                                    if (correctas == 4) {
+                                                      incrementarIntentos();
+                                                      _estadisticsController.stopTimer();
+                                                      resultados();
+                                                      _estadisticsController.registroResultados(23, intentos, ayudas,
+                                                          _estadisticsController.formatMilliseconds());
+                                                    } else {
+                                                      incrementarIntentos();
+                                                      correctas = 0;
+                                                      goToFirstPage();
+                                                      UtilsSnackbar.show(context,
+                                                          'Tienes una o más respuestas incorrectas, intentalo de nuevo.',4);
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    width: screenWidth * 0.5,
+                                                    height: screenHeight * 0.2,
+                                                    decoration: const BoxDecoration(),
+                                                    child: Column(
+                                                      mainAxisSize: MainAxisSize.max,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius: BorderRadius.circular(8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais20.png',
+                                                            width: screenWidth * 0.35,
+                                                            height: screenHeight * 0.15,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '5',
+                                                          style: PersonalTheme.of(context).titleMedium.override(
+                                                                fontFamily: 'Readex Pro',
+                                                                color: PersonalTheme.of(context).primaryText,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 3) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      23, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais1.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag1',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag1',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais1.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais2.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag2',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag2',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais2.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais3.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag3',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag3',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais3.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais4.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag4',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag4',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais4.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais5.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag5',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag5',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais5.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais6.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag6',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag6',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais6.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais7.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag7',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag7',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais7.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 3) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      23, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais8.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag8',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag8',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais8.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais9.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag9',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag9',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais9.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais10.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag10',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag10',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais10.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais11.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag11',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag11',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais11.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais12.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag12',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag12',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais12.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais13.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag13',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag13',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais13.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 3) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      23, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais14.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag14',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag14',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais14.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais15.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag15',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag15',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais15.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais16.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag16',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag16',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais16.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais17.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag17',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag17',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais17.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais18.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag18',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag18',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais18.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                incrementarIntentos();
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais19.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag19',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag19',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais19.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                //AQUI
-                                incrementarIntentos();
-                                if (correctas == 3) {
-                                  _estadisticsController.stopTimer();
-                                  resultados();
-                                  _estadisticsController.registroResultados(
-                                      23, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                                } else {
-                                  correctas += 1;
-                                }
-                              },
-                              onLongPress: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: ExpandedImageView(
-                                      image: Image.asset(
-                                        'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais20.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                      allowRotation: false,
-                                      tag: 'imageTag20',
-                                      useHeroAnimation: true,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Hero(
-                                tag: 'imageTag20',
-                                transitionOnUserGestures: true,
-                                child: Image.asset(
-                                  'assets/images/Actividades/Intruso/Act_Intruso_Paises/pais20.png',
-                                  width: 100.0,
-                                  height: 100.0,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),

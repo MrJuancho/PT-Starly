@@ -222,7 +222,7 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
                                   showModal(context, index, screenWidth);
                                 } else {
                                   // ignore: use_build_context_synchronously
-                                  UtilsSnackbar.show(context, 'Monedas insuficientes');
+                                  UtilsSnackbar.show(context, 'Monedas insuficientes',3);
                                 }
                               } else {
                                 final estrellas = await _sharedPref.readtodato('Alumno', 'balanceEstrellas');
@@ -231,7 +231,7 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
                                   showModalStar(context, index, screenWidth);
                                 } else {
                                   // ignore: use_build_context_synchronously
-                                  UtilsSnackbar.show(context, 'Estrellas insuficientes');
+                                  UtilsSnackbar.show(context, 'Estrellas insuficientes',3);
                                 }
                               }
                             }

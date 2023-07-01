@@ -104,6 +104,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Center(
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 500),
@@ -136,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                                           style: PersonalTheme.of(context).titleMedium.override(
                                               fontFamily: 'Poppins',
                                               color: PersonalTheme.of(context).primaryBackground,
-                                              fontSize: screenWidth >= 450 ? 20 : 17),
+                                              fontSize: screenWidth >= 450 ? 19 : 16),
                                           textAlign: TextAlign.justify,
                                         ),
                                       ],
@@ -174,7 +175,10 @@ class _HomePageState extends State<HomePage> {
                       : Image.asset(
                           'assets/images/AV/$idAV.png',
                           fit: BoxFit.contain,
-                          height: wpart,
+                          height:
+                              (MediaQuery.of(context).size.height <= 780 && MediaQuery.of(context).size.height > 700)
+                                  ? wpart - 100
+                                  : wpart,
                           //width: wpart,
                         ),
                 ),
