@@ -113,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                   child: Center(
                     child: Stack(
                       children: [
+                        //Text('${MediaQuery.of(context).size.width} /// ${MediaQuery.of(context).size.height}'),
                         Align(
                           alignment: Alignment.topCenter,
                           child: Image.asset(
@@ -175,10 +176,9 @@ class _HomePageState extends State<HomePage> {
                       : Image.asset(
                           'assets/images/AV/$idAV.png',
                           fit: BoxFit.contain,
-                          height:
-                              (MediaQuery.of(context).size.height <= 780 && MediaQuery.of(context).size.height > 700)
-                                  ? wpart - 100
-                                  : wpart,
+                          height: (MediaQuery.of(context).size.width <= 1500 && MediaQuery.of(context).size.width > 450)
+                              ? wpart - 100
+                              : wpart,
                           //width: wpart,
                         ),
                 ),
