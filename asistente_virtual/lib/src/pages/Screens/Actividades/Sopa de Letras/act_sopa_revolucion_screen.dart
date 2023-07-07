@@ -32,7 +32,6 @@ class _ActSopaRevolucionState extends State<ActSopaRevolucionPage> {
     'CONSTITUCION',
     'LATIFUNDIOS',
     'MADERO',
-    'NACIONALIZACION',
     'PORFIRIATO',
     'REFORMAS',
     'SINDICALISMO',
@@ -43,23 +42,19 @@ class _ActSopaRevolucionState extends State<ActSopaRevolucionPage> {
   List<String> selectedWords = [];
 
   List<List<String>> letterGrid = [
-    ['Z', 'U', 'U', 'E', 'E', 'T', 'O', 'V', 'I', 'L', 'L', 'A', 'A', 'E', 'N'],
-    ['Y', 'Y', 'D', 'S', 'P', 'R', 'X', 'L', 'A', 'A', 'C', 'I', 'C', 'O', 'U'],
-    ['R', 'Q', 'B', 'Y', 'E', 'M', 'L', 'T', 'Y', 'A', 'R', 'O', 'I', 'Q', 'D'],
-    ['I', 'D', 'S', 'D', 'E', 'U', 'A', 'L', 'Y', 'A', 'N', 'C', 'P', 'O', 'S'],
-    ['F', 'M', 'A', 'J', 'A', 'P', 'B', 'D', 'R', 'S', 'A', 'M', 'B', 'U', 'I'],
-    ['D', 'M', 'M', 'H', 'A', 'Y', 'M', 'G', 'T', 'Z', 'Y', 'W', 'W', 'N', 'N'],
-    ['V', 'Q', 'R', 'Z', 'R', 'U', 'A', 'I', 'I', 'I', 'J', 'S', 'L', 'T', 'D'],
-    ['W', 'Ñ', 'O', 'D', 'W', 'X', 'T', 'L', 'K', 'O', 'D', 'U', 'L', 'J', 'I'],
-    ['D', 'Y', 'F', 'C', 'R', 'U', 'A', 'Q', 'Q', 'B', 'P', 'B', 'B', 'U', 'C'],
-    ['Ñ', 'T', 'E', 'I', 'C', 'N', 'D', 'S', 'R', 'E', 'M', 'W', 'G', 'T', 'A'],
-    ['R', 'S', 'R', 'I', 'O', 'T', 'S', 'S', 'J', 'O', 'Z', 'J', 'O', 'K', 'L'],
-    ['O', 'D', 'O', 'I', 'P', 'O', 'R', 'F', 'I', 'R', 'I', 'A', 'T', 'O', 'I'],
-    ['Ñ', 'N', 'C', 'B', 'Y', 'Z', 'N', 'G', 'A', 'J', 'G', 'V', 'U', 'B', 'S'],
-    ['T', 'A', 'L', 'Z', 'Q', 'J', 'M', 'W', 'A', 'S', 'M', 'R', 'T', 'N', 'M'],
-    ['N', 'V', 'T', 'A', 'W', 'C', 'R', 'T', 'J', 'F', 'E', 'A', 'G', 'X', 'O'],
-    ['J', 'S', 'O', 'I', 'D', 'N', 'U', 'F', 'I', 'T', 'A', 'L', 'U', 'V', 'E'],
-    ['C', 'H', 'Y', 'A', 'J', 'V', 'O', 'T', 'L', 'Z', 'B', 'Z', 'F', 'U', 'Y'],
+    ['Z', 'O', 'T', 'A', 'I', 'R', 'I', 'F', 'R', 'O', 'P', 'Y'],
+    ['L', 'V', 'S', 'M', 'K', 'X', 'N', 'R', 'Q', 'O', 'A', 'K'],
+    ['W', 'G', 'R', 'E', 'F', 'O', 'R', 'M', 'A', 'S', 'L', 'M'],
+    ['P', 'C', 'V', 'E', 'J', 'C', 'O', 'E', 'Y', 'S', 'W', 'H'],
+    ['B', 'M', 'F', 'D', 'F', 'N', 'T', 'V', 'I', 'L', 'L', 'A'],
+    ['C', 'O', 'N', 'S', 'T', 'I', 'T', 'U', 'C', 'I', 'O', 'N'],
+    ['O', 'M', 'S', 'I', 'L', 'A', 'C', 'I', 'D', 'N', 'I', 'S'],
+    ['L', 'A', 'T', 'I', 'F', 'U', 'N', 'D', 'I', 'O', 'S', 'M'],
+    ['Z', 'X', 'C', 'D', 'A', 'T', 'A', 'P', 'A', 'Z', 'D', 'B'],
+    ['Q', 'G', 'H', 'K', 'M', 'A', 'D', 'E', 'R', 'O', 'R', 'E'],
+    ['A', 'I', 'R', 'A', 'R', 'G', 'A', 'Y', 'X', 'H', 'Z', 'G'],
+    ['V', 'B', 'G', 'X', 'F', 'V', 'O', 'K', 'W', 'Y', 'O', 'V'],
+    ['W', 'Z', 'U', 'D', 'V', 'W', 'G', 'W', 'V', 'E', 'J', 'S'],
   ];
 
   String currentWord = '';
@@ -299,10 +294,11 @@ class _ActSopaRevolucionState extends State<ActSopaRevolucionPage> {
                                       if (!selectedWords.contains(currentWord)) {
                                         currentWord = currentString(words, currentWord);
                                         selectedWords.add(currentWord);
+                                        words.removeWhere((element) => element == currentWord);
                                       }
                                     }
                                     incrementarIntentos();
-                                    if (haveSameContent(selectedWords, words)) {
+                                    if (words.isEmpty) {
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
@@ -347,32 +343,31 @@ class _ActSopaRevolucionState extends State<ActSopaRevolucionPage> {
                                 ),
                               ),
                             ),
-                            SingleChildScrollView(
-                              child: SizedBox(
-                                width: screenWidth,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
-                                        Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          words.join('\n'),
-                                          style: PersonalTheme.of(context).bodySmall,
-                                        ),
-                                        Text(
-                                          selectedWords.join('\n'),
-                                          style: PersonalTheme.of(context).bodySmall,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            Scrollbar(
+                              thumbVisibility: true,
+                              scrollbarOrientation: ScrollbarOrientation.right,
+                              child: SingleChildScrollView(
+                                child: SizedBox(
+                                  width: screenWidth,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text('Palabras por encontrar', style: PersonalTheme.of(context).bodySmall),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            words.join('\n'),
+                                            style: PersonalTheme.of(context).bodySmall,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -454,10 +449,11 @@ class _ActSopaRevolucionState extends State<ActSopaRevolucionPage> {
                                       if (!selectedWords.contains(currentWord)) {
                                         currentWord = currentString(words, currentWord);
                                         selectedWords.add(currentWord);
+                                        words.removeWhere((element) => element == currentWord);
                                       }
                                     }
                                     incrementarIntentos();
-                                    if (haveSameContent(selectedWords, words)) {
+                                    if (words.isEmpty) {
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
@@ -506,32 +502,33 @@ class _ActSopaRevolucionState extends State<ActSopaRevolucionPage> {
                               height: 5,
                             ),
                             Expanded(
-                              child: SingleChildScrollView(
-                                child: SizedBox(
-                                  width: screenWidth,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
-                                          Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            words.join('\n'),
-                                            style: PersonalTheme.of(context).bodySmall,
-                                          ),
-                                          Text(
-                                            selectedWords.join('\n'),
-                                            style: PersonalTheme.of(context).bodySmall,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                              child: Scrollbar(
+                                thumbVisibility: true,
+                                scrollbarOrientation: ScrollbarOrientation.right,
+                                child: SingleChildScrollView(
+                                  child: SizedBox(
+                                    width: screenWidth,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text('Palabras por encontrar', style: PersonalTheme.of(context).bodySmall),
+                                            
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              words.join('\n'),
+                                              style: PersonalTheme.of(context).bodySmall,
+                                            ),
+                                           
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

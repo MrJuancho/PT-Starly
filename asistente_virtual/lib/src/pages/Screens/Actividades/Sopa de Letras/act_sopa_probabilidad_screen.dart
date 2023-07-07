@@ -28,7 +28,6 @@ class _ActSopaProbabilidadState extends State<ActSopaProbabilidadPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
   List<String> words = [
-    'CLASIFICACION',
     'EVENTO',
     'MEDIA',
     'MEDIANA',
@@ -42,24 +41,20 @@ class _ActSopaProbabilidadState extends State<ActSopaProbabilidadPage> {
   List<String> selectedWords = [];
 
   List<List<String>> letterGrid = [
-    ['I', 'R', 'W', 'U', 'D', 'U', 'V', 'J', 'W', 'S', 'P', 'L', 'K', 'U', 'I'],
-    ['N', 'G', 'Q', 'W', 'E', 'Z', 'R', 'J', 'U', 'F', 'E', 'L', 'M', 'U', 'Ñ'],
-    ['S', 'S', 'P', 'F', 'D', 'X', 'B', 'C', 'C', 'H', 'G', 'X', 'T', 'K', 'L'],
-    ['V', 'U', 'F', 'V', 'D', 'T', 'Ñ', 'J', 'U', 'R', 'W', 'D', 'R', 'A', 'L'],
-    ['A', 'N', 'B', 'M', 'D', 'T', 'F', 'E', 'Ñ', 'P', 'H', 'C', 'F', 'P', 'P'],
-    ['V', 'A', 'Q', 'V', 'J', 'N', 'D', 'A', 'C', 'Q', 'Z', 'Z', 'F', 'P', 'R'],
-    ['K', 'C', 'L', 'Z', 'H', 'O', 'V', 'C', 'R', 'P', 'A', 'M', 'Ñ', 'C', 'O'],
-    ['E', 'V', 'S', 'I', 'W', 'P', 'B', 'M', 'E', 'T', 'Q', 'H', 'I', 'D', 'B'],
-    ['Z', 'N', 'O', 'I', 'C', 'A', 'C', 'I', 'F', 'I', 'S', 'A', 'L', 'C', 'A'],
-    ['M', 'O', 'F', 'N', 'Y', 'E', 'H', 'D', 'V', 'C', 'W', 'E', 'O', 'V', 'B'],
-    ['M', 'I', 'L', 'E', 'X', 'P', 'U', 'X', 'T', 'F', 'D', 'T', 'U', 'N', 'I'],
-    ['I', 'A', 'M', 'W', 'R', 'M', 'E', 'D', 'I', 'A', 'N', 'A', 'I', 'M', 'L'],
-    ['J', 'R', 'R', 'P', 'Y', 'Ñ', 'V', 'T', 'L', 'E', 'P', 'U', 'O', 'J', 'I'],
-    ['D', 'O', 'Z', 'T', 'X', 'R', 'C', 'E', 'V', 'F', 'G', 'D', 'N', 'I', 'D'],
-    ['A', 'G', 'U', 'Ñ', 'A', 'I', 'D', 'E', 'M', 'Y', 'A', 'O', 'I', 'A', 'A'],
-    ['W', 'Z', 'V', 'P', 'E', 'R', 'M', 'U', 'T', 'A', 'C', 'I', 'O', 'N', 'D'],
-    ['M', 'A', 'G', 'Y', 'P', 'S', 'D', 'O', 'H', 'Ñ', 'K', 'I', 'H', 'F', 'J'],
-  ];
+    ['D','T','H','I','I','L','G','M','Q','N','Y'],
+    ['T','R','P','O','H','Y','Ñ','M','A','J','D'],
+    ['E','N','Y','M','T','Z','M','O','C','T','A'],
+    ['Y','O','W','L','T','N','T','C','M','Ñ','D'],
+    ['Y','I','O','X','H','N','I','U','Q','T','I'],
+    ['S','C','Y','V','E','M','E','A','Ñ','J','L'],
+    ['Y','A','A','V','C','S','B','F','M','Q','I'],
+    ['F','T','E','Q','T','I','G','E','Ñ','A','B'],
+    ['E','U','P','R','P','C','D','D','F','E','A'],
+    ['C','M','A','U','F','I','F','M','M','E','B'],
+    ['U','R','R','Z','A','T','J','O','A','F','O'],
+    ['H','E','Ñ','O','C','A','D','T','M','Q','R'],
+    ['U','P','Q','A','N','A','I','D','E','M','P'],
+ ];
 
   String currentWord = '';
   bool isDragging = false;
@@ -220,323 +215,326 @@ class _ActSopaProbabilidadState extends State<ActSopaProbabilidadPage> {
                       end: const AlignmentDirectional(0, 1.0),
                     ),
                   ),
-                  child: screenWidth>=450? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        height: cellSize * letterGrid.length,
-                        width: screenWidth * 0.95,
-                        color: PersonalTheme.of(context).primaryText,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onPanStart: (details) {
-                            setState(() {
-                              currentWord = '';
-                              isDragging = true;
-                              startPoint = details.localPosition;
-                            });
-                          },
-                          onPanUpdate: (details) {
-                            if (!isDragging) return;
+                  child: screenWidth >= 450
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: cellSize * letterGrid.length,
+                              width: screenWidth * 0.95,
+                              color: PersonalTheme.of(context).primaryText,
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onPanStart: (details) {
+                                  setState(() {
+                                    currentWord = '';
+                                    isDragging = true;
+                                    startPoint = details.localPosition;
+                                  });
+                                },
+                                onPanUpdate: (details) {
+                                  if (!isDragging) return;
 
-                            setState(() {
-                              final row = (startPoint.dy / cellSize).floor();
-                              final column = (startPoint.dx / cellSize).floor();
-                              final currentRow = (details.localPosition.dy / cellSize).floor();
-                              final currentColumn = (details.localPosition.dx / cellSize).floor();
+                                  setState(() {
+                                    final row = (startPoint.dy / cellSize).floor();
+                                    final column = (startPoint.dx / cellSize).floor();
+                                    final currentRow = (details.localPosition.dy / cellSize).floor();
+                                    final currentColumn = (details.localPosition.dx / cellSize).floor();
 
-                              currentWord = '';
+                                    currentWord = '';
 
-                              if (row >= 0 &&
-                                  row < letterGrid.length &&
-                                  column >= 0 &&
-                                  column < letterGrid[row].length &&
-                                  currentRow >= 0 &&
-                                  currentRow < letterGrid.length &&
-                                  currentColumn >= 0 &&
-                                  currentColumn < letterGrid[currentRow].length) {
-                                if (row == currentRow) {
-                                  final start = column < currentColumn ? column : currentColumn;
-                                  final end = column > currentColumn ? column : currentColumn;
+                                    if (row >= 0 &&
+                                        row < letterGrid.length &&
+                                        column >= 0 &&
+                                        column < letterGrid[row].length &&
+                                        currentRow >= 0 &&
+                                        currentRow < letterGrid.length &&
+                                        currentColumn >= 0 &&
+                                        currentColumn < letterGrid[currentRow].length) {
+                                      if (row == currentRow) {
+                                        final start = column < currentColumn ? column : currentColumn;
+                                        final end = column > currentColumn ? column : currentColumn;
 
-                                  for (int i = start; i <= end; i++) {
-                                    currentWord += letterGrid[row][i];
-                                  }
-                                } else if (column == currentColumn) {
-                                  final start = row < currentRow ? row : currentRow;
-                                  final end = row > currentRow ? row : currentRow;
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[row][i];
+                                        }
+                                      } else if (column == currentColumn) {
+                                        final start = row < currentRow ? row : currentRow;
+                                        final end = row > currentRow ? row : currentRow;
 
-                                  for (int i = start; i <= end; i++) {
-                                    currentWord += letterGrid[i][column];
-                                  }
-                                } else if ((currentColumn - column).abs() == (currentRow - row).abs()) {
-                                  final stepRow = currentRow > row ? 1 : -1;
-                                  final stepColumn = currentColumn > column ? 1 : -1;
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[i][column];
+                                        }
+                                      } else if ((currentColumn - column).abs() == (currentRow - row).abs()) {
+                                        final stepRow = currentRow > row ? 1 : -1;
+                                        final stepColumn = currentColumn > column ? 1 : -1;
 
-                                  int i = row;
-                                  int j = column;
+                                        int i = row;
+                                        int j = column;
 
-                                  while (i != currentRow || j != currentColumn) {
-                                    final selectedLetter = letterGrid[i][j];
-                                    currentWord += selectedLetter;
+                                        while (i != currentRow || j != currentColumn) {
+                                          final selectedLetter = letterGrid[i][j];
+                                          currentWord += selectedLetter;
 
-                                    i += stepRow;
-                                    j += stepColumn;
-                                  }
+                                          i += stepRow;
+                                          j += stepColumn;
+                                        }
 
-                                  final selectedLetter = letterGrid[currentRow][currentColumn];
-                                  currentWord += selectedLetter;
-                                }
-                              }
-                            });
-                          },
-                          onPanEnd: (details) {
-                            setState(() {
-                              if (checkString(words, currentWord)) {
-                                if (!selectedWords.contains(currentWord)) {
-                                  currentWord = currentString(words, currentWord);
-                                  selectedWords.add(currentWord);
-                                }
-                              }
-                              incrementarIntentos();
-                              if (haveSameContent(selectedWords, words)) {
-                                _estadisticsController.stopTimer();
-                                resultados();
-                                _estadisticsController.registroResultados(
-                                    53, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                              } else {
-                                currentWord = '';
-                                isDragging = false;
-                              }
-                            });
-                          },
-                          child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: letterGrid.first.length,
-                              childAspectRatio: 1.0, // Asegura que las celdas tengan un aspecto cuadrado
-                            ),
-                            itemCount: letterGrid.length * letterGrid.first.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final row = index ~/ letterGrid.first.length;
-                              final column = index % letterGrid.first.length;
-
-                              if (row < letterGrid.length && column < letterGrid[row].length) {
-                                final letter = letterGrid[row][column];
-
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(),
+                                        final selectedLetter = letterGrid[currentRow][currentColumn];
+                                        currentWord += selectedLetter;
+                                      }
+                                    }
+                                  });
+                                },
+                                onPanEnd: (details) {
+                                  setState(() {
+                                    if (checkString(words, currentWord)) {
+                                      if (!selectedWords.contains(currentWord)) {
+                                        currentWord = currentString(words, currentWord);
+                                        selectedWords.add(currentWord);
+                                        words.removeWhere((element) => element == currentWord);
+                                      }
+                                    }
+                                    incrementarIntentos();
+                                    if (words.isEmpty) {
+                                      _estadisticsController.stopTimer();
+                                      resultados();
+                                      _estadisticsController.registroResultados(
+                                          53, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    } else {
+                                      currentWord = '';
+                                      isDragging = false;
+                                    }
+                                  });
+                                },
+                                child: GridView.builder(
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: letterGrid.first.length,
+                                    childAspectRatio: 1.0, // Asegura que las celdas tengan un aspecto cuadrado
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      letter,
-                                      style: PersonalTheme.of(context)
-                                          .bodyMedium
-                                          .override(fontFamily: 'Poppins', color: PersonalTheme.of(context).primary),
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return Container(); // Celda vacía
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      SingleChildScrollView(
-                        child: SizedBox(
-                          width: screenWidth,
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
-                                  Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    words.join('\n'),
-                                    style: PersonalTheme.of(context).bodySmall,
-                                  ),
-                                  Text(
-                                    selectedWords.join('\n'),
-                                    style: PersonalTheme.of(context).bodySmall,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ): Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        height: cellSize * letterGrid.length,
-                        width: screenWidth * 0.95,
-                        color: PersonalTheme.of(context).primaryText,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onPanStart: (details) {
-                            setState(() {
-                              currentWord = '';
-                              isDragging = true;
-                              startPoint = details.localPosition;
-                            });
-                          },
-                          onPanUpdate: (details) {
-                            if (!isDragging) return;
+                                  itemCount: letterGrid.length * letterGrid.first.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final row = index ~/ letterGrid.first.length;
+                                    final column = index % letterGrid.first.length;
 
-                            setState(() {
-                              final row = (startPoint.dy / cellSize).floor();
-                              final column = (startPoint.dx / cellSize).floor();
-                              final currentRow = (details.localPosition.dy / cellSize).floor();
-                              final currentColumn = (details.localPosition.dx / cellSize).floor();
+                                    if (row < letterGrid.length && column < letterGrid[row].length) {
+                                      final letter = letterGrid[row][column];
 
-                              currentWord = '';
-
-                              if (row >= 0 &&
-                                  row < letterGrid.length &&
-                                  column >= 0 &&
-                                  column < letterGrid[row].length &&
-                                  currentRow >= 0 &&
-                                  currentRow < letterGrid.length &&
-                                  currentColumn >= 0 &&
-                                  currentColumn < letterGrid[currentRow].length) {
-                                if (row == currentRow) {
-                                  final start = column < currentColumn ? column : currentColumn;
-                                  final end = column > currentColumn ? column : currentColumn;
-
-                                  for (int i = start; i <= end; i++) {
-                                    currentWord += letterGrid[row][i];
-                                  }
-                                } else if (column == currentColumn) {
-                                  final start = row < currentRow ? row : currentRow;
-                                  final end = row > currentRow ? row : currentRow;
-
-                                  for (int i = start; i <= end; i++) {
-                                    currentWord += letterGrid[i][column];
-                                  }
-                                } else if ((currentColumn - column).abs() == (currentRow - row).abs()) {
-                                  final stepRow = currentRow > row ? 1 : -1;
-                                  final stepColumn = currentColumn > column ? 1 : -1;
-
-                                  int i = row;
-                                  int j = column;
-
-                                  while (i != currentRow || j != currentColumn) {
-                                    final selectedLetter = letterGrid[i][j];
-                                    currentWord += selectedLetter;
-
-                                    i += stepRow;
-                                    j += stepColumn;
-                                  }
-
-                                  final selectedLetter = letterGrid[currentRow][currentColumn];
-                                  currentWord += selectedLetter;
-                                }
-                              }
-                            });
-                          },
-                          onPanEnd: (details) {
-                            setState(() {
-                              if (checkString(words, currentWord)) {
-                                if (!selectedWords.contains(currentWord)) {
-                                  currentWord = currentString(words, currentWord);
-                                  selectedWords.add(currentWord);
-                                }
-                              }
-                              incrementarIntentos();
-                              if (haveSameContent(selectedWords, words)) {
-                                _estadisticsController.stopTimer();
-                                resultados();
-                                _estadisticsController.registroResultados(
-                                    53, intentos, ayudas, _estadisticsController.formatMilliseconds());
-                              } else {
-                                currentWord = '';
-                                isDragging = false;
-                              }
-                            });
-                          },
-                          child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: letterGrid.first.length,
-                              childAspectRatio: 1.0, // Asegura que las celdas tengan un aspecto cuadrado
-                            ),
-                            itemCount: letterGrid.length * letterGrid.first.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final row = index ~/ letterGrid.first.length;
-                              final column = index % letterGrid.first.length;
-
-                              if (row < letterGrid.length && column < letterGrid[row].length) {
-                                final letter = letterGrid[row][column];
-
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      letter,
-                                      style: PersonalTheme.of(context)
-                                          .bodyMedium
-                                          .override(fontFamily: 'Poppins', color: PersonalTheme.of(context).primary),
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                return Container(); // Celda vacía
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: SizedBox(
-                            width: screenWidth,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
-                                    Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
-                                  ],
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            letter,
+                                            style: PersonalTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Poppins', color: PersonalTheme.of(context).primary),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Container(); // Celda vacía
+                                    }
+                                  },
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      words.join('\n'),
-                                      style: PersonalTheme.of(context).bodySmall,
-                                    ),
-                                    Text(
-                                      selectedWords.join('\n'),
-                                      style: PersonalTheme.of(context).bodySmall,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                            Scrollbar(
+                              thumbVisibility: true,
+                              scrollbarOrientation: ScrollbarOrientation.right,
+                              child: SingleChildScrollView(
+                                child: SizedBox(
+                                  width: screenWidth,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text('Palabras por encontrar', style: PersonalTheme.of(context).bodySmall),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            words.join('\n'),
+                                            style: PersonalTheme.of(context).bodySmall,
+                                          ),
+                                          
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              height: cellSize * letterGrid.length,
+                              width: screenWidth * 0.95,
+                              color: PersonalTheme.of(context).primaryText,
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.translucent,
+                                onPanStart: (details) {
+                                  setState(() {
+                                    currentWord = '';
+                                    isDragging = true;
+                                    startPoint = details.localPosition;
+                                  });
+                                },
+                                onPanUpdate: (details) {
+                                  if (!isDragging) return;
+
+                                  setState(() {
+                                    final row = (startPoint.dy / cellSize).floor();
+                                    final column = (startPoint.dx / cellSize).floor();
+                                    final currentRow = (details.localPosition.dy / cellSize).floor();
+                                    final currentColumn = (details.localPosition.dx / cellSize).floor();
+
+                                    currentWord = '';
+
+                                    if (row >= 0 &&
+                                        row < letterGrid.length &&
+                                        column >= 0 &&
+                                        column < letterGrid[row].length &&
+                                        currentRow >= 0 &&
+                                        currentRow < letterGrid.length &&
+                                        currentColumn >= 0 &&
+                                        currentColumn < letterGrid[currentRow].length) {
+                                      if (row == currentRow) {
+                                        final start = column < currentColumn ? column : currentColumn;
+                                        final end = column > currentColumn ? column : currentColumn;
+
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[row][i];
+                                        }
+                                      } else if (column == currentColumn) {
+                                        final start = row < currentRow ? row : currentRow;
+                                        final end = row > currentRow ? row : currentRow;
+
+                                        for (int i = start; i <= end; i++) {
+                                          currentWord += letterGrid[i][column];
+                                        }
+                                      } else if ((currentColumn - column).abs() == (currentRow - row).abs()) {
+                                        final stepRow = currentRow > row ? 1 : -1;
+                                        final stepColumn = currentColumn > column ? 1 : -1;
+
+                                        int i = row;
+                                        int j = column;
+
+                                        while (i != currentRow || j != currentColumn) {
+                                          final selectedLetter = letterGrid[i][j];
+                                          currentWord += selectedLetter;
+
+                                          i += stepRow;
+                                          j += stepColumn;
+                                        }
+
+                                        final selectedLetter = letterGrid[currentRow][currentColumn];
+                                        currentWord += selectedLetter;
+                                      }
+                                    }
+                                  });
+                                },
+                                onPanEnd: (details) {
+                                  setState(() {
+                                    if (checkString(words, currentWord)) {
+                                      if (!selectedWords.contains(currentWord)) {
+                                        currentWord = currentString(words, currentWord);
+                                        selectedWords.add(currentWord);
+                                        words.removeWhere((element) => element == currentWord);
+                                      }
+                                    }
+                                    incrementarIntentos();
+                                    if (words.isEmpty) {
+                                      _estadisticsController.stopTimer();
+                                      resultados();
+                                      _estadisticsController.registroResultados(
+                                          53, intentos, ayudas, _estadisticsController.formatMilliseconds());
+                                    } else {
+                                      currentWord = '';
+                                      isDragging = false;
+                                    }
+                                  });
+                                },
+                                child: GridView.builder(
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: letterGrid.first.length,
+                                    childAspectRatio: 1.0, // Asegura que las celdas tengan un aspecto cuadrado
+                                  ),
+                                  itemCount: letterGrid.length * letterGrid.first.length,
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final row = index ~/ letterGrid.first.length;
+                                    final column = index % letterGrid.first.length;
+
+                                    if (row < letterGrid.length && column < letterGrid[row].length) {
+                                      final letter = letterGrid[row][column];
+
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            letter,
+                                            style: PersonalTheme.of(context).bodyMedium.override(
+                                                fontFamily: 'Poppins', color: PersonalTheme.of(context).primary),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return Container(); // Celda vacía
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Expanded(
+                              child: Scrollbar(
+                                thumbVisibility: true,
+                                scrollbarOrientation: ScrollbarOrientation.right,
+                                child: SingleChildScrollView(
+                                  child: SizedBox(
+                                    width: screenWidth,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text('Palabras por encontrar', style: PersonalTheme.of(context).bodySmall),
+                                            
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              words.join('\n'),
+                                              style: PersonalTheme.of(context).bodySmall,
+                                            ),
+                                            
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
                 ),
               ),
               EstadisticasWidget.build(context, intentos, ayudas, _estadisticsController),

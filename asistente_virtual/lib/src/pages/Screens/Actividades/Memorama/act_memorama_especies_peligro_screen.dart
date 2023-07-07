@@ -233,100 +233,104 @@ class _ActMemoramaEspeciosPeligroState extends State<ActMemoramaEspeciosPeligroP
                       child: SizedBox(
                         width: screenWidth * 1.0,
                         height: screenHeight * 0.7,
-                        child: GridView.builder(
-                          padding: const EdgeInsets.only(top: 10),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 0.0,
-                            mainAxisSpacing: 10.0,
-                            childAspectRatio: 0.75,
-                          ),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: cardImages.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                              child: FlipCard(
-                                fill: Fill.fillBack,
-                                direction: FlipDirection.HORIZONTAL,
-                                speed: 400,
-                                key: cardKeys[index],
-                                onFlipDone: (isFront) {
-                                  if (isFront) {
-                                    flipCard(index);
-                                  }
-                                },
-                                front: Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: PersonalTheme.of(context).tertiary,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      child: Image.asset(
-                                        'assets/images/home/cardBack.png',
-                                        width: 100.0,
-                                        height: 100.0,
-                                        fit: BoxFit.cover,
+                        child: Scrollbar(
+                          thumbVisibility: true,
+                          scrollbarOrientation: ScrollbarOrientation.right,
+                          child: GridView.builder(
+                            padding: const EdgeInsets.only(top: 10),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 0.0,
+                              mainAxisSpacing: 10.0,
+                              childAspectRatio: 0.75,
+                            ),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: cardImages.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                child: FlipCard(
+                                  fill: Fill.fillBack,
+                                  direction: FlipDirection.HORIZONTAL,
+                                  speed: 400,
+                                  key: cardKeys[index],
+                                  onFlipDone: (isFront) {
+                                    if (isFront) {
+                                      flipCard(index);
+                                    }
+                                  },
+                                  front: Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: PersonalTheme.of(context).tertiary,
+                                      borderRadius: BorderRadius.circular(12.0),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        child: Image.asset(
+                                          'assets/images/home/cardBack.png',
+                                          width: 100.0,
+                                          height: 100.0,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                back: Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: PersonalTheme.of(context).tertiary,
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onLongPress: () async {
-                                        await Navigator.push(
-                                          context,
-                                          PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: ExpandedImageView(
-                                              image: Image.asset(
-                                                cardImages[index],
-                                                fit: BoxFit.contain,
+                                  back: Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: PersonalTheme.of(context).tertiary,
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onLongPress: () async {
+                                          await Navigator.push(
+                                            context,
+                                            PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child: ExpandedImageView(
+                                                image: Image.asset(
+                                                  cardImages[index],
+                                                  fit: BoxFit.contain,
+                                                ),
+                                                allowRotation: false,
+                                                useHeroAnimation: false,
                                               ),
-                                              allowRotation: false,
-                                              useHeroAnimation: false,
                                             ),
-                                          ),
-                                        );
-                                      },
-                                      child: Hero(
-                                        tag: '$index',
-                                        transitionOnUserGestures: true,
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          child: Image.asset(
-                                            cardImages[index],
-                                            width: 100.0,
-                                            height: 100.0,
-                                            fit: BoxFit.cover,
+                                          );
+                                        },
+                                        child: Hero(
+                                          tag: '$index',
+                                          transitionOnUserGestures: true,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            child: Image.asset(
+                                              cardImages[index],
+                                              width: 100.0,
+                                              height: 100.0,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),

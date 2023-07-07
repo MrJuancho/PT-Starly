@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                       _homeController.interaccionesAV();
                     });
                     changeState();
-                    await Future.delayed(const Duration(seconds: 6));
+                    await Future.delayed(const Duration(seconds: 10));
                     changeState();
                   },
                   child: idAV == 0

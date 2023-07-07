@@ -36,7 +36,6 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
     'PENDULO',
     'RAPIDEZ',
     'RECTILINEO',
-    'TRAYECTORIA',
     'VELOCIDAD',
     // Agrega aquí más palabras
   ];
@@ -44,23 +43,19 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
   List<String> selectedWords = [];
 
   List<List<String>> letterGrid = [
-    ['N', 'O', 'I', 'C', 'C', 'E', 'R', 'I', 'D', 'R', 'N', 'P', 'E', 'O', 'J'],
-    ['G', 'T', 'N', 'T', 'N', 'X', 'O', 'L', 'R', 'F', 'Q', 'E', 'W', 'E', 'T'],
-    ['I', 'E', 'R', 'F', 'K', 'I', 'N', 'H', 'C', 'I', 'V', 'B', 'H', 'N', 'T'],
-    ['T', 'N', 'D', 'A', 'U', 'N', 'Q', 'T', 'E', 'N', 'E', 'R', 'G', 'I', 'A'],
-    ['F', 'A', 'E', 'U', 'Y', 'U', 'T', 'R', 'D', 'Z', 'N', 'N', 'S', 'L', 'J'],
-    ['O', 'I', 'H', 'R', 'B', 'E', 'E', 'V', 'R', 'N', 'V', 'J', 'B', 'I', 'H'],
-    ['L', 'C', 'C', 'Y', 'C', 'A', 'C', 'A', 'W', 'W', 'L', 'O', 'K', 'T', 'I'],
-    ['S', 'N', 'J', 'A', 'B', 'I', 'P', 'T', 'H', 'F', 'R', 'A', 'N', 'C', 'P'],
-    ['A', 'A', 'U', 'L', 'N', 'I', 'A', 'X', 'O', 'J', 'Z', 'X', 'V', 'E', 'V'],
-    ['L', 'T', 'T', 'P', 'D', 'S', 'T', 'M', 'B', 'R', 'Y', 'C', 'E', 'R', 'V'],
-    ['X', 'S', 'R', 'E', 'H', 'K', 'O', 'J', 'E', 'F', 'I', 'H', 'L', 'D', 'T'],
-    ['Z', 'I', 'Z', 'X', 'E', 'U', 'P', 'U', 'E', 'U', 'D', 'A', 'O', 'S', 'Z'],
-    ['T', 'D', 'R', 'T', 'D', 'G', 'F', 'R', 'N', 'R', 'N', 'U', 'C', 'L', 'S'],
-    ['Ñ', 'V', 'J', 'T', 'L', 'Z', 'C', 'L', 'U', 'L', 'N', 'V', 'I', 'S', 'U'],
-    ['U', 'P', 'E', 'M', 'H', 'Q', 'T', 'E', 'U', 'T', 'L', 'N', 'D', 'H', 'G'],
-    ['K', 'S', 'P', 'V', 'Ñ', 'O', 'L', 'U', 'D', 'N', 'E', 'P', 'A', 'J', 'Y'],
-    ['K', 'Q', 'A', 'C', 'F', 'C', 'X', 'Z', 'C', 'Z', 'W', 'T', 'D', 'H', 'V'],
+    ['B', 'S', 'H', 'O', 'N', 'L', 'L', 'W', 'G', 'P', 'T'],
+    ['A', 'L', 'O', 'O', 'B', 'Y', 'F', 'R', 'D', 'J', 'N'],
+    ['G', 'A', 'P', 'A', 'G', 'V', 'P', 'X', 'A', 'O', 'P'],
+    ['D', 'I', 'V', 'I', 'A', 'V', 'D', 'B', 'I', 'E', 'U'],
+    ['A', 'G', 'J', 'C', 'Ñ', 'U', 'S', 'C', 'N', 'N', 'A'],
+    ['D', 'R', 'P', 'R', 'B', 'C', 'C', 'D', 'Y', 'I', 'I'],
+    ['I', 'E', 'O', 'E', 'Y', 'E', 'U', 'F', 'H', 'L', 'C'],
+    ['C', 'N', 'G', 'N', 'R', 'L', 'I', 'U', 'U', 'I', 'N'],
+    ['O', 'E', 'H', 'I', 'O', 'B', 'M', 'E', 'U', 'T', 'A'],
+    ['L', 'B', 'D', 'L', 'F', 'H', 'L', 'R', 'K', 'C', 'T'],
+    ['E', 'O', 'S', 'K', 'B', 'X', 'Ñ', 'Z', 'F', 'E', 'S'],
+    ['V', 'S', 'W', 'H', 'M', 'O', 'E', 'A', 'W', 'R', 'I'],
+    ['T', 'R', 'A', 'P', 'I', 'D', 'E', 'Z', 'T', 'B', 'D'],
   ];
 
   String currentWord = '';
@@ -164,7 +159,7 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
             ? ResultadosWidget.show(context, intentos, ayudas, _estadisticsController.formatMilliseconds(),
                 _estadisticsController, screenWidth, screenHeight)
             : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Encontrar palabras relacionadas al moviemiento, rapidez y velocidad.', screenWidth, screenHeight);
+                'Encontrar palabras relacionadas al movimiento, rapidez y velocidad.', screenWidth, screenHeight);
   }
 
   Scaffold _actividad(BuildContext context, double screenWidth, double screenHeight) {
@@ -295,10 +290,11 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
                                       if (!selectedWords.contains(currentWord)) {
                                         currentWord = currentString(words, currentWord);
                                         selectedWords.add(currentWord);
+                                        words.removeWhere((element) => element == currentWord);
                                       }
                                     }
                                     incrementarIntentos();
-                                    if (haveSameContent(selectedWords, words)) {
+                                    if (words.isEmpty) {
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
@@ -343,32 +339,31 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
                                 ),
                               ),
                             ),
-                            SingleChildScrollView(
-                              child: SizedBox(
-                                width: screenWidth,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
-                                        Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          words.join('\n'),
-                                          style: PersonalTheme.of(context).bodySmall,
-                                        ),
-                                        Text(
-                                          selectedWords.join('\n'),
-                                          style: PersonalTheme.of(context).bodySmall,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            Scrollbar(
+                              thumbVisibility: true,
+                              scrollbarOrientation: ScrollbarOrientation.right,
+                              child: SingleChildScrollView(
+                                child: SizedBox(
+                                  width: screenWidth,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text('Palabras por encontrar', style: PersonalTheme.of(context).bodySmall),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            words.join('\n'),
+                                            style: PersonalTheme.of(context).bodySmall,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -450,10 +445,11 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
                                       if (!selectedWords.contains(currentWord)) {
                                         currentWord = currentString(words, currentWord);
                                         selectedWords.add(currentWord);
+                                        words.removeWhere((element) => element == currentWord);
                                       }
                                     }
                                     incrementarIntentos();
-                                    if (haveSameContent(selectedWords, words)) {
+                                    if (words.isEmpty) {
                                       _estadisticsController.stopTimer();
                                       resultados();
                                       _estadisticsController.registroResultados(
@@ -502,32 +498,31 @@ class _ActSopaMovimientoState extends State<ActSopaMovimientoPage> {
                               height: 5,
                             ),
                             Expanded(
-                              child: SingleChildScrollView(
-                                child: SizedBox(
-                                  width: screenWidth,
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text('Palabras a encontrar', style: PersonalTheme.of(context).bodySmall),
-                                          Text('Palabras encontradas', style: PersonalTheme.of(context).bodySmall),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          Text(
-                                            words.join('\n'),
-                                            style: PersonalTheme.of(context).bodySmall,
-                                          ),
-                                          Text(
-                                            selectedWords.join('\n'),
-                                            style: PersonalTheme.of(context).bodySmall,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                              child: Scrollbar(
+                                thumbVisibility: true,
+                                scrollbarOrientation: ScrollbarOrientation.right,
+                                child: SingleChildScrollView(
+                                  child: SizedBox(
+                                    width: screenWidth,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text('Palabras por encontrar', style: PersonalTheme.of(context).bodySmall),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              words.join('\n'),
+                                              style: PersonalTheme.of(context).bodySmall,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

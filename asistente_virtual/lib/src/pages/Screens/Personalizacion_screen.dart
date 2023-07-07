@@ -145,48 +145,52 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: Center(
-              child: SizedBox(
-                width: screenWidth,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: hcentecima),
-                      child: Center(
-                        child: idAV == 0
-                            ? const CircularProgressIndicator()
-                            : Image.asset('assets/images/AV/$idAV.png', height: screenHeight / 4, fit: BoxFit.fill),
+          Scrollbar(
+            thumbVisibility: true,
+            scrollbarOrientation: ScrollbarOrientation.right,
+            child: SingleChildScrollView(
+              child: Center(
+                child: SizedBox(
+                  width: screenWidth,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(top: hcentecima),
+                        child: Center(
+                          child: idAV == 0
+                              ? const CircularProgressIndicator()
+                              : Image.asset('assets/images/AV/$idAV.png', height: screenHeight / 4, fit: BoxFit.fill),
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: hcentecima),
-                      child: ToggleButtons(
-                        isSelected: _selections,
-                        onPressed: (index) {
-                          setState(() {
-                            for (int i = 0; i < _selections.length; i++) {
-                              _selections[i] = i == index;
-                            }
-                            recepcion();
-                          });
-                        },
-                        color: PersonalTheme.of(context).alternate,
-                        fillColor: PersonalTheme.of(context).alternate,
-                        selectedBorderColor: PersonalTheme.of(context).alternate,
-                        children: [
-                          Icon(
-                            Icons.attach_money_rounded,
-                            color: PersonalTheme.of(context).primaryText,
-                          ),
-                          Icon(
-                            Icons.star_rounded,
-                            color: PersonalTheme.of(context).primaryText,
-                          ),
-                        ],
+                      Container(
+                        margin: EdgeInsets.only(top: hcentecima),
+                        child: ToggleButtons(
+                          isSelected: _selections,
+                          onPressed: (index) {
+                            setState(() {
+                              for (int i = 0; i < _selections.length; i++) {
+                                _selections[i] = i == index;
+                              }
+                              recepcion();
+                            });
+                          },
+                          color: PersonalTheme.of(context).alternate,
+                          fillColor: PersonalTheme.of(context).alternate,
+                          selectedBorderColor: PersonalTheme.of(context).alternate,
+                          children: [
+                            Icon(
+                              Icons.attach_money_rounded,
+                              color: PersonalTheme.of(context).primaryText,
+                            ),
+                            Icon(
+                              Icons.star_rounded,
+                              color: PersonalTheme.of(context).primaryText,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -196,74 +200,78 @@ class _PersonalizacionPageState extends State<PersonalizacionPage> {
             left: 0,
             right: 0,
             bottom: hcentecima,
-            child: SingleChildScrollView(
-              child: Center(
-                child: SizedBox(
-                  width: screenWidth,
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: List.generate(selectedImages.length, (index) {
-                        return GestureDetector(
-                          onTap: () async {
-                            if (avComprados.contains(selectedImages[index][0])) {
-                              _personalizacionController.putnewAV(selectedImages[index][0]);
-                              setState(() {
-                                idAV = selectedImages[index][0];
-                              });
-                            } else {
-                              if (_selections[0]) {
-                                final monedas = await _sharedPref.readtodato('Alumno', 'balanceMonedas');
-                                if (monedas >= selectedImages[index][1]) {
-                                  // ignore: use_build_context_synchronously
-                                  showModal(context, index, screenWidth);
-                                } else {
-                                  // ignore: use_build_context_synchronously
-                                  UtilsSnackbar.show(context, 'Monedas insuficientes',3);
-                                }
+            child: Scrollbar(
+              thumbVisibility: true,
+              scrollbarOrientation: ScrollbarOrientation.right,
+              child: SingleChildScrollView(
+                child: Center(
+                  child: SizedBox(
+                    width: screenWidth,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(),
+                      child: GridView.count(
+                        crossAxisCount: 3,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: List.generate(selectedImages.length, (index) {
+                          return GestureDetector(
+                            onTap: () async {
+                              if (avComprados.contains(selectedImages[index][0])) {
+                                _personalizacionController.putnewAV(selectedImages[index][0]);
+                                setState(() {
+                                  idAV = selectedImages[index][0];
+                                });
                               } else {
-                                final estrellas = await _sharedPref.readtodato('Alumno', 'balanceEstrellas');
-                                if (estrellas >= selectedImages[index][1]) {
-                                  // ignore: use_build_context_synchronously
-                                  showModalStar(context, index, screenWidth);
+                                if (_selections[0]) {
+                                  final monedas = await _sharedPref.readtodato('Alumno', 'balanceMonedas');
+                                  if (monedas >= selectedImages[index][1]) {
+                                    // ignore: use_build_context_synchronously
+                                    showModal(context, index, screenWidth);
+                                  } else {
+                                    // ignore: use_build_context_synchronously
+                                    UtilsSnackbar.show(context, 'Monedas insuficientes', 3);
+                                  }
                                 } else {
-                                  // ignore: use_build_context_synchronously
-                                  UtilsSnackbar.show(context, 'Estrellas insuficientes',3);
+                                  final estrellas = await _sharedPref.readtodato('Alumno', 'balanceEstrellas');
+                                  if (estrellas >= selectedImages[index][1]) {
+                                    // ignore: use_build_context_synchronously
+                                    showModalStar(context, index, screenWidth);
+                                  } else {
+                                    // ignore: use_build_context_synchronously
+                                    UtilsSnackbar.show(context, 'Estrellas insuficientes', 3);
+                                  }
                                 }
                               }
-                            }
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Image.asset(
-                                    'assets/images/AV/${selectedImages[index][0]}.png',
-                                    height: screenWidth >= 450 ? 120 : 100,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                    child: avComprados.contains(selectedImages[index][0])
-                                        ? Text(
-                                            'Adquirido',
-                                            style: PersonalTheme.of(context).titleSmall,
-                                          )
-                                        : Text(
-                                            'Costo: ${selectedImages[index][1]}',
-                                            style: PersonalTheme.of(context).titleSmall,
-                                          ),
-                                  ),
-                                ],
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/AV/${selectedImages[index][0]}.png',
+                                      height: screenWidth >= 450 ? 120 : 100,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                      child: avComprados.contains(selectedImages[index][0])
+                                          ? Text(
+                                              'Adquirido',
+                                              style: PersonalTheme.of(context).titleSmall,
+                                            )
+                                          : Text(
+                                              'Costo: ${selectedImages[index][1]}',
+                                              style: PersonalTheme.of(context).titleSmall,
+                                            ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                      ),
                     ),
                   ),
                 ),
