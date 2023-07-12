@@ -27,7 +27,7 @@ class InstruccionesWidget {
                   const SizedBox(height: 30),
                   Center(
                       child: Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     child: Text(instrucciones,
                         textAlign: TextAlign.justify, style: PersonalTheme.of(context).headlineMedium),
                   )),

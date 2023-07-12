@@ -627,7 +627,7 @@ class _ActSeriesExtraState extends State<ActSeriesExtraPage> {
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
-                                                    correctas += 1;
+                                                    
                                                   },
                                                   child: Container(
                                                     decoration: const BoxDecoration(),
@@ -657,6 +657,7 @@ class _ActSeriesExtraState extends State<ActSeriesExtraPage> {
                                                 InkWell(
                                                   onTap: () {
                                                     goToNextPage();
+                                                    correctas += 1;
                                                   },
                                                   child: Container(
                                                     decoration: const BoxDecoration(),

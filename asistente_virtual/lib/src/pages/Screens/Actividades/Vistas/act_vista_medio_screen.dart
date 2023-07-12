@@ -122,7 +122,7 @@ return _startPressed
             ? ResultadosWidget.show(
                 context, intentos, ayudas, _estadisticsController.formatMilliseconds(), _estadisticsController, screenWidth, screenHeight)
             : InstruccionesWidget.show(context, _estadisticsController, presionado,
-                'Se muestra una serie de figuras en 3D seleccionar la vista que se pide correctamente. Dificultad Intermedia', screenWidth, screenHeight);
+                'Se muestra una serie de figuras en 3D en la parte superior de la pantalla, seleccionar la vista que corresponde a la vista aérea de la figura mostrada. En caso de no existir en las opciones, buscar una vista lateral.\nDificultad Intermedia', screenWidth, screenHeight);
   }
 
   Widget _actividad(BuildContext context, double screenWidth, double screenHeight) {

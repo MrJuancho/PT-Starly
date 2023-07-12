@@ -125,7 +125,7 @@ class _ActVistasAvanzadoState extends State<ActVistasAvanzadoPage> {
                 context,
                 _estadisticsController,
                 presionado,
-                'Se muestra una serie de figuras en 3D seleccionar la vista que se pide correctamente. Dificultad dificil',
+                'Se muestra una serie de figuras en 3D en la parte superior de la pantalla, seleccionar la vista que corresponde a la vista aérea de la figura mostrada. En caso de no existir en las opciones, buscar una vista lateral.\nDificultad dificil',
                 screenWidth,
                 screenHeight);
   }

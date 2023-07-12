@@ -125,7 +125,7 @@ class _ActVistasPrincipianteState extends State<ActVistasPrincipiantePage> {
                 context,
                 _estadisticsController,
                 presionado,
-                'Se muestra una serie de figuras en 3D seleccionar la vista que se pide correctamente. Dificultad Principante',
+                'Se muestra una serie de figuras en 3D en la parte superior de la pantalla, seleccionar la vista que corresponde a la vista aérea de la figura mostrada. En caso de no existir en las opciones, buscar una vista lateral.\nDificultad Principante',
                 screenWidth,
                 screenHeight);
   }
