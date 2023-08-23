@@ -119,6 +119,7 @@ class _HomePageState extends State<HomePage> {
                           child: Image.asset(
                             'assets/images/home/Nube.png',
                             fit: BoxFit.fill,
+                            width: wpart*1.5,
                           ),
                         ),
                         Opacity(
